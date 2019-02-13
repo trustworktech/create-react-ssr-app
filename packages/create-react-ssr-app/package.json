@@ -1,20 +1,22 @@
 {
   "name": "create-react-ssr-app",
   "version": "0.0.2",
+  "description": "Create React apps with server side rendering and no build configuration.",
   "keywords": [
     "node",
     "react",
     "ssr"
   ],
-  "description": "Create React apps with server side rendering and no build configuration.",
-  "repository": "trustworktech/create-react-ssr-app",
-  "license": "MIT",
-  "engines": {
-    "node": ">=6"
-  },
+  "homepage": "https://github.com/trustwork.com/create-react-ssr-app",
   "bugs": {
-    "url": "https://github.com/trustworktech/create-react-ssr-app/issues"
+    "url": "https://github.com/trustworktech/create-react-ssr-app/issues",
+    "email": "max@trustwork.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trustworktech/create-react-ssr-app.git"
+  },
+  "license": "MIT",
   "files": [
     "index.js",
     "createReactSsrApp.js",
@@ -34,5 +36,8 @@
     "tar-pack": "3.4.1",
     "tmp": "0.0.33",
     "validate-npm-package-name": "3.0.0"
+  },
+  "engines": {
+    "node": ">=6"
   }
 }
