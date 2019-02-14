@@ -38,6 +38,6 @@
     "validate-npm-package-name": "3.0.0"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   }
 }
