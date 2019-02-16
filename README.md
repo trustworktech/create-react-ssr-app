@@ -1,4 +1,4 @@
-# Create React SSR App
+# (WIP) Create React SSR App
 
 Create React apps with server side rendering and no build configuration. Inspired by the famouse [create-react-app](https://facebook.github.io/create-react-app/), Create React SSR App does the same thing for React apps that require server side rendering.
 
