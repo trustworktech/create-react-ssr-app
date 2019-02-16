@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
  *

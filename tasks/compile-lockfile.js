@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
  *
@@ -17,14 +16,24 @@ const path = require('path');
 const temp = path.join(os.tmpdir(), `crsa-compile-lockfile`);
 
 try {
+  // Ensures that we start from a clean state
   fse.removeSync(temp);
   fse.mkdirSync(temp);
+
+  // Create an empty package.json that we'll populate
   fse.writeFileSync(path.join(temp, 'package.json'), '{}');
+
+  // Extract the dependencies from react-ssr-scripts (which is a workspace)
   const dependencies = require('react-ssr-scripts/package.json').dependencies;
   const descriptors = Object.keys(dependencies).map(
     dep => `${dep}@${dependencies[dep]}`
   );
+
+  // Run "yarn add" with all the dependencies of react-ssr-scripts
   cprocess.execFileSync('yarn', ['add', ...descriptors], { cwd: temp });
+
+  // Store the generated lockfile in create-react-ssr-app
+  // We can't store it inside react-ssr-scripts, because we need it even before react-ssr-scripts is installed
   fse.copySync(
     path.join(temp, 'yarn.lock'),
     path.join(

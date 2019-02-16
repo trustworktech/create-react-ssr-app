@@ -77,6 +77,7 @@ const program = new commander.Command(packageJson.name)
   )
   .option('--use-npm')
   .option('--use-pnp')
+  .option('--typescript')
   .allowUnknownOption()
   .on('--help', () => {
     console.log(`    Only ${chalk.green('<project-directory>')} is required.`);
@@ -115,7 +116,7 @@ const program = new commander.Command(packageJson.name)
     );
     console.log(
       `      ${chalk.cyan(
-        'https://github.com/facebook/create-react-ssr-app/issues/new'
+        'https://github.com/trustworktech/create-react-ssr-app/issues/new'
       )}`
     );
     console.log();
@@ -131,9 +132,6 @@ if (program.info) {
         Binaries: ['Node', 'npm', 'Yarn'],
         Browsers: ['Chrome', 'Edge', 'Internet Explorer', 'Firefox', 'Safari'],
         npmPackages: [
-          'body-parser',
-          'compression',
-          'cors',
           'express',
           'express-manifest-helpers',
           'react',
@@ -176,15 +174,33 @@ function printValidationResults(results) {
   }
 }
 
+const hiddenProgram = new commander.Command()
+  .option(
+    '--internal-testing-template <path-to-template>',
+    '(internal usage only, DO NOT RELY ON THIS) ' +
+      'use a non-standard application template'
+  )
+  .parse(process.argv);
+
 createApp(
   projectName,
   program.verbose,
   program.scriptsVersion,
   program.useNpm,
-  program.usePnp
+  program.usePnp,
+  program.typescript,
+  hiddenProgram.internalTestingTemplate
 );
 
-function createApp(name, verbose, version, useNpm, usePnp) {
+function createApp(
+  name,
+  verbose,
+  version,
+  useNpm,
+  usePnp,
+  useTypescript,
+  template
+) {
   const root = path.resolve(name);
   const appName = path.basename(root);
 
@@ -194,7 +210,7 @@ function createApp(name, verbose, version, useNpm, usePnp) {
     process.exit(1);
   }
 
-  console.log(`Creating a new React SSR App in ${chalk.green(root)}.`);
+  console.log(`Creating a new React SSR app in ${chalk.green(root)}.`);
   console.log();
 
   const packageJson = {
@@ -214,11 +230,11 @@ function createApp(name, verbose, version, useNpm, usePnp) {
     process.exit(1);
   }
 
-  if (!semver.satisfies(process.version, '>=6.0.0')) {
+  if (!semver.satisfies(process.version, '>=8.0.0')) {
     console.log(
       chalk.red(
         `You are using Node ${process.version}.\n\n` +
-          `Please update to Node 6 or higher to use Create React SSR App.\n`
+          `Please update to Node 8 or higher to use Create React SSR App.\n`
       )
     );
     process.exit(1);
@@ -231,7 +247,7 @@ function createApp(name, verbose, version, useNpm, usePnp) {
         console.log(
           chalk.red(
             `You are using npm ${npmInfo.npmVersion}.\n\n` +
-              `Please update to npm 3 or higher to use Create React SSR App.\n`
+              `Please update to npm 5 or higher to use Create React SSR App.\n`
           )
         );
       }
@@ -259,7 +275,17 @@ function createApp(name, verbose, version, useNpm, usePnp) {
     );
   }
 
-  run(root, appName, version, verbose, originalDirectory, useYarn, usePnp);
+  run(
+    root,
+    appName,
+    version,
+    verbose,
+    originalDirectory,
+    template,
+    useYarn,
+    usePnp,
+    useTypescript
+  );
 }
 
 function shouldUseYarn() {
@@ -285,6 +311,12 @@ function install(root, useYarn, usePnp, dependencies, verbose, isOnline) {
         args.push('--enable-pnp');
       }
       [].push.apply(args, dependencies);
+
+      // Explicitly set cwd() to work around issues like
+      // https://github.com/facebook/create-react-app/issues/3326.
+      // Unfortunately we can only do this for Yarn because npm support for
+      // equivalent --prefix flag doesn't help with this issue.
+      // This is why for npm, we run checkThatNpmCanReadCwd() early instead.
       args.push('--cwd');
       args.push(root);
 
@@ -333,20 +365,30 @@ function run(
   version,
   verbose,
   originalDirectory,
+  template,
   useYarn,
-  usePnp
+  usePnp,
+  useTypescript
 ) {
   const packageToInstall = getInstallPackage(version, originalDirectory);
   const allDependencies = [
-    'body-parser',
-    'compression',
-    'cors',
     'express',
     'express-manifest-helpers',
     'react',
     'react-dom',
     packageToInstall,
   ];
+  if (useTypescript) {
+    console.log(chalk.red(`Typescript is not yet supported. Sorry.\n`));
+    process.exit(1);
+    // allDependencies.push(
+    //   '@types/node',
+    //   '@types/react',
+    //   '@types/react-dom',
+    //   '@types/jest',
+    //   'typescript'
+    // );
+  }
 
   console.log('Installing packages. This might take a couple of minutes.');
   getPackageName(packageToInstall)
@@ -360,13 +402,9 @@ function run(
       const isOnline = info.isOnline;
       const packageName = info.packageName;
       console.log(
-        `Installing ${chalk.cyan('body-parser')}, ${chalk.cyan(
-          'compression'
-        )}, ${chalk.cyan('cors')}, ${chalk.cyan('express')}, ${chalk.cyan(
-          'express-manifest-helpers'
-        )}, ${chalk.cyan('react')}, ${chalk.cyan(
-          'react-dom'
-        )}, and ${chalk.cyan(packageName)}...`
+        `Installing ${chalk.cyan('express')}, ${chalk.cyan(
+          'react'
+        )}, ${chalk.cyan('react-dom')}, and ${chalk.cyan(packageName)}...`
       );
       console.log();
 
@@ -392,7 +430,7 @@ function run(
           cwd: process.cwd(),
           args: nodeArgs,
         },
-        [root, appName, verbose, originalDirectory],
+        [root, appName, verbose, originalDirectory, template],
         `
         var init = require('${packageName}/scripts/init.js');
         init.apply(null, JSON.parse(process.argv[1]));
@@ -461,6 +499,8 @@ function getInstallPackage(version, originalDirectory) {
 
 function getTemporaryDirectory() {
   return new Promise((resolve, reject) => {
+    // Unsafe cleanup lets us recursively delete the directory if it contains
+    // contents; by default it only allows removal if it's empty
     tmp.dir({ unsafeCleanup: true }, (err, tmpdir, callback) => {
       if (err) {
         reject(err);
@@ -514,6 +554,8 @@ function getPackageName(installPackage) {
         return packageName;
       })
       .catch(err => {
+        // The package name could be with or without semver version, e.g. react-ssr-scripts-0.2.0-alpha.1.tgz
+        // However, this function returns package name only without semver version.
         console.log(
           `Could not extract the package name from the archive: ${err.message}`
         );
@@ -528,8 +570,12 @@ function getPackageName(installPackage) {
         return Promise.resolve(assumedProjectName);
       });
   } else if (installPackage.indexOf('git+') === 0) {
+    // Pull package name out of git urls e.g:
+    // git+https://github.com/mycompany/react-ssr-scripts.git
+    // git+ssh://github.com/mycompany/react-ssr-scripts.git#v1.2.3
     return Promise.resolve(installPackage.match(/([^/]+)\.git(#.*)?$/)[1]);
   } else if (installPackage.match(/.+@/)) {
+    // Do not match @scope/ when stripping off @version or @tag
     return Promise.resolve(
       installPackage.charAt(0) + installPackage.substr(1).split('@')[0]
     );
@@ -551,7 +597,7 @@ function checkNpmVersion() {
     npmVersion = execSync('npm --version')
       .toString()
       .trim();
-    hasMinNpm = semver.gte(npmVersion, '3.0.0');
+    hasMinNpm = semver.gte(npmVersion, '5.0.0');
   } catch (err) {
     // ignore
   }
@@ -626,10 +672,8 @@ function checkAppName(appName) {
     process.exit(1);
   }
 
+  // TODO: there should be a single place that holds the dependencies
   const dependencies = [
-    'body-parser',
-    'compression',
-    'cors',
     'express',
     'express-manifest-helpers',
     'react',
@@ -688,9 +732,6 @@ function setCaretRangeForRuntimeDeps(packageName) {
     process.exit(1);
   }
 
-  makeCaretRange(packageJson.dependencies, 'body-parser');
-  makeCaretRange(packageJson.dependencies, 'compression');
-  makeCaretRange(packageJson.dependencies, 'cors');
   makeCaretRange(packageJson.dependencies, 'express');
   makeCaretRange(packageJson.dependencies, 'express-manifest-helpers');
   makeCaretRange(packageJson.dependencies, 'react');
@@ -699,6 +740,11 @@ function setCaretRangeForRuntimeDeps(packageName) {
   fs.writeFileSync(packagePath, JSON.stringify(packageJson, null, 2) + os.EOL);
 }
 
+// If project only contains files generated by GH, it’s safe.
+// Also, if project contains remnant error logs from a previous
+// installation, lets remove them now.
+// We also special case IJ-based products .idea because it integrates with CRA:
+// https://github.com/facebook/create-react-app/pull/368#issuecomment-243446094
 function isSafeToCreateProjectIn(root, name) {
   const validFiles = [
     '.DS_Store',
@@ -723,7 +769,9 @@ function isSafeToCreateProjectIn(root, name) {
   const conflicts = fs
     .readdirSync(root)
     .filter(file => !validFiles.includes(file))
+    // IntelliJ IDEA creates module files before CRA is launched
     .filter(file => !/\.iml$/.test(file))
+    // Don't treat log files from previous installation as conflicts
     .filter(
       file => !errorLogFilePatterns.some(pattern => file.indexOf(pattern) === 0)
     );
@@ -744,9 +792,11 @@ function isSafeToCreateProjectIn(root, name) {
     return false;
   }
 
+  // Remove any remnant files from a previous installation
   const currentFiles = fs.readdirSync(path.join(root));
   currentFiles.forEach(file => {
     errorLogFilePatterns.forEach(errorLogFilePattern => {
+      // This will catch `(npm-debug|yarn-error|yarn-debug).log*` files
       if (file.indexOf(errorLogFilePattern) === 0) {
         fs.removeSync(path.join(root, file));
       }
@@ -770,21 +820,34 @@ function getProxy() {
     }
   }
 }
+
 function checkThatNpmCanReadCwd() {
   const cwd = process.cwd();
   let childOutput = null;
   try {
+    // Note: intentionally using spawn over exec since
+    // the problem doesn't reproduce otherwise.
+    // `npm config list` is the only reliable way I could find
+    // to reproduce the wrong path. Just printing process.cwd()
+    // in a Node process was not enough.
     childOutput = spawn.sync('npm', ['config', 'list']).output.join('');
   } catch (err) {
+    // Something went wrong spawning node.
+    // Not great, but it means we can't do this check.
+    // We might fail later on, but let's continue.
     return true;
   }
   if (typeof childOutput !== 'string') {
     return true;
   }
   const lines = childOutput.split('\n');
+  // `npm config list` output includes the following line:
+  // "; cwd = C:\path\to\current\dir" (unquoted)
+  // I couldn't find an easier way to get it.
   const prefix = '; cwd = ';
   const line = lines.find(line => line.indexOf(prefix) === 0);
   if (typeof line !== 'string') {
+    // Fail gracefully. They could remove it.
     return true;
   }
   const npmCWD = line.substring(prefix.length);
@@ -821,6 +884,8 @@ function checkThatNpmCanReadCwd() {
 
 function checkIfOnline(useYarn) {
   if (!useYarn) {
+    // Don't ping the Yarn registry.
+    // We'll just assume the best case.
     return Promise.resolve(true);
   }
 
@@ -828,6 +893,8 @@ function checkIfOnline(useYarn) {
     dns.lookup('registry.yarnpkg.com', err => {
       let proxy;
       if (err != null && (proxy = getProxy())) {
+        // If a proxy is defined, we likely can't resolve external hostnames.
+        // Try to resolve the proxy name as an indication of a connection.
         dns.lookup(url.parse(proxy).hostname, proxyErr => {
           resolve(proxyErr == null);
         });

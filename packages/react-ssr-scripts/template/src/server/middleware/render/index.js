@@ -3,11 +3,11 @@ import ReactDOMServer from 'react-dom/server';
 
 import './index.css';
 import HTML from './HTML';
-import App from '../../../shared/App';
+import App from '../../../App';
 
 const renderMiddleware = () => (req, res) => {
   const html = ReactDOMServer.renderToString(
-    <Html
+    <HTML
       scriptLinks={[
         res.locals.assetPath('bundle.js'),
         res.locals.assetPath('vendor.js'),
@@ -18,7 +18,7 @@ const renderMiddleware = () => (req, res) => {
       ]}
     >
       <App />
-    </Html>
+    </HTML>
   );
 
   res.send('<!DOCTYPE html>' + html);

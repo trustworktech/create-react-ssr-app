@@ -1,6 +1,3 @@
-import bodyParser from 'body-parser';
-import compression from 'compression';
-import cors from 'cors';
 import express from 'express';
 import manifestHelpers from 'express-manifest-helpers';
 import path from 'path';
@@ -9,10 +6,10 @@ import { filePaths } from 'react-ssr-scripts';
 import renderMiddleware from './middleware/render';
 
 const app = express();
-
-app.use(compression());
+const manifestPath = path.join(filePaths.clientBuild, '/static');
 
 app.use('/static', express.static('public'));
+
 if (process.env.NODE_ENV === 'development' || process.env.CI) {
   app.use(
     '/static',
@@ -20,10 +17,6 @@ if (process.env.NODE_ENV === 'development' || process.env.CI) {
   );
 }
 
-app.use(cors());
-app.use(bodyParser.json());
-
-const manifestPath = path.join(filePaths.clientBuild, '/static');
 app.use(
   manifestHelpers({
     manifestPath: `${manifestPath}/manifest.json`,

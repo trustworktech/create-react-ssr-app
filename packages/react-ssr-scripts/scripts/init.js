@@ -1,12 +1,10 @@
 // @remove-file-on-eject
-
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-
 'use strict';
 
 // Makes the script crash on unhandled rejections instead of silently
@@ -76,7 +74,13 @@ function tryGitInit(appPath) {
   }
 }
 
-module.exports = function(appPath, appName, verbose, originalDirectory) {
+module.exports = function(
+  appPath,
+  appName,
+  verbose,
+  originalDirectory,
+  template
+) {
   const ownPath = path.dirname(
     require.resolve(path.join(__dirname, '..', 'package.json'))
   );
@@ -87,10 +91,9 @@ module.exports = function(appPath, appName, verbose, originalDirectory) {
   appPackage.dependencies = appPackage.dependencies || {};
 
   const useTypeScript = appPackage.dependencies['typescript'] != null;
-
   if (useTypeScript) {
-    console.error('Typescript is no yet supported. Sorry.');
-    return;
+    console.log(chalk.red(`Typescript is not yet supported. Sorry.\n`));
+    process.exit(1);
   }
 
   // Setup the script rules
@@ -123,7 +126,9 @@ module.exports = function(appPath, appName, verbose, originalDirectory) {
   }
 
   // Copy the files for the user
-  const templatePath = path.join(ownPath, 'template');
+  const templatePath = template
+    ? path.resolve(originalDirectory, template)
+    : path.join(ownPath, 'template');
   if (fs.existsSync(templatePath)) {
     fs.copySync(templatePath, appPath);
   } else {
@@ -181,7 +186,8 @@ module.exports = function(appPath, appName, verbose, originalDirectory) {
 
   // Install react and react-dom for backward compatibility with old CRA cli
   // which doesn't install react and react-dom along with react-ssr-scripts
-  if (!isReactInstalled(appPackage)) {
+  // or template is presetend (via --internal-testing-template)
+  if (!isReactInstalled(appPackage) || template) {
     console.log(`Installing react and react-dom using ${command}...`);
     console.log();
 

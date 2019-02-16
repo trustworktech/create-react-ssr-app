@@ -6,7 +6,6 @@
   "scripts": {
     "compile:lockfile": "node tasks/compile-lockfile.js",
     "create-react-ssr-app": "node tasks/crsa.js",
-    "format": "prettier --trailing-comma es5 --single-quote --write 'packages/*/*.js' 'packages/*/!(node_modules)/**/*.js'",
     "publish": "tasks/publish.sh",
     "reset": "sh tasks/reset-dev-env.sh"
   },
@@ -22,7 +21,7 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^5.13.0",
+    "eslint": "5.12.0",
     "fs-extra": "^7.0.1",
     "husky": "^1.3.1",
     "lerna": "^3.11.0",

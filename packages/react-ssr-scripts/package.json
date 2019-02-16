@@ -7,7 +7,7 @@
     "react",
     "ssr"
   ],
-  "homepage": "https://github.com/trustwork.com/create-react-ssr-app",
+  "homepage": "https://github.com/trustworktech/create-react-ssr-app",
   "bugs": {
     "url": "https://github.com/trustworktech/create-react-ssr-app/issues",
     "email": "max@trustwork.com"
@@ -85,10 +85,7 @@
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
   },
-  "optionalDependencies": {
-    "fsevents": "1.2.4"
-  },
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   }
 }

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
  *
@@ -15,7 +14,10 @@ const cp = require('child_process');
 
 const cleanup = () => {
   console.log('Cleaning up.');
+  // Reset changes made to package.json files.
   cp.execSync(`git checkout -- packages/*/package.json`);
+  // Uncomment when snapshot testing is enabled by default:
+  // rm ./template/src/__snapshots__/App.test.js.snap
 };
 
 const handleExit = () => {
