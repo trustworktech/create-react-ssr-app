@@ -73,7 +73,7 @@ checkBrowsers(paths.appPath, isInteractive)
   .then(() => {
     // First, read the current file sizes in client build directory.
     // This lets us display how much they changed later.
-    return measureFileSizesBeforeBuild(paths.clientBuild);
+    return measureFileSizesBeforeBuild(paths.appBuildPublic);
   })
   .then(previousFileSizes => {
     // Remove all content but keep the directory so that
