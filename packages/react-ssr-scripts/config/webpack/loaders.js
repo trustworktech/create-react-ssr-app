@@ -14,7 +14,7 @@ const getCSSModuleLocalIdent = require('react-ssr-dev-utils/getCSSModuleLocalIde
 const getCacheIdentifier = require('react-ssr-dev-utils/getCacheIdentifier');
 // @remove-on-eject-end
 
-const paths = require('./paths');
+const paths = require('../paths');
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
