@@ -16,7 +16,7 @@ const ModuleNotFoundPlugin = require('react-ssr-dev-utils/ModuleNotFoundPlugin')
 const WatchMissingNodeModulesPlugin = require('react-ssr-dev-utils/WatchMissingNodeModulesPlugin');
 
 const env = require('../env')();
-const paths = require('./paths');
+const paths = require('../paths');
 
 module.exports = function(webpackEnv) {
   const isEnvDevelopment = webpackEnv === 'development';
