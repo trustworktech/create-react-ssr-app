@@ -9,9 +9,9 @@
 'use strict';
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
+const getCSSModuleLocalIdent = require('react-ssr-dev-utils/getCSSModuleLocalIdent');
 // @remove-on-eject-begin
-const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
+const getCacheIdentifier = require('react-ssr-dev-utils/getCacheIdentifier');
 // @remove-on-eject-end
 
 const paths = require('./paths');

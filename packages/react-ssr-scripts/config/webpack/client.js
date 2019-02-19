@@ -14,7 +14,7 @@ const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const safePostCssParser = require('postcss-safe-parser');
-const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+const ModuleScopePlugin = require('react-ssr-dev-utils/ModuleScopePlugin');
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
 
 const paths = require('../paths');

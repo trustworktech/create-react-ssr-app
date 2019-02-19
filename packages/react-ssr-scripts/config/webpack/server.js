@@ -12,7 +12,7 @@ const path = require('path');
 const webpack = require('webpack');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
-const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+const ModuleScopePlugin = require('react-ssr-dev-utils/ModuleScopePlugin');
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
 
 const paths = require('../paths');
