@@ -1,25 +1,17 @@
+import path from 'path';
 import express from 'express';
 import manifestHelpers from 'express-manifest-helpers';
-import path from 'path';
-import { filePaths } from 'react-ssr-scripts';
 
 import renderMiddleware from './middleware/render';
 
+const publicPath = path.join(__dirname, '/public');
 const app = express();
-const manifestPath = path.join(filePaths.clientBuild, '/static');
 
-app.use('/static', express.static('public'));
-
-if (process.env.NODE_ENV === 'development' || process.env.CI) {
-  app.use(
-    '/static',
-    express.static(path.join(filePaths.clientBuild, '/static'))
-  );
-}
+app.use(express.static(publicPath));
 
 app.use(
   manifestHelpers({
-    manifestPath: `${manifestPath}/manifest.json`,
+    manifestPath: `${publicPath}/asset-manifest.json`,
     cache: process.env.NODE_ENV === 'production',
   })
 );
