@@ -16,6 +16,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const safePostCssParser = require('postcss-safe-parser');
 const ModuleScopePlugin = require('react-ssr-dev-utils/ModuleScopePlugin');
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 
 const paths = require('../paths');
 
@@ -234,6 +235,13 @@ module.exports = function(webpackEnv) {
       isEnvDevelopment && new WriteFileWebpackPlugin(),
       isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),
       ...sharedPlugins,
+      // Generate a manifest file which contains a mapping of all asset filenames
+      // to their corresponding output file so that tools can pick it up without
+      // having to parse `index.html`.
+      new ManifestPlugin({
+        fileName: 'asset-manifest.json',
+        publicPath: publicPath,
+      }),
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.
