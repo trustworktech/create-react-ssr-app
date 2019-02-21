@@ -95,6 +95,9 @@ module.exports = function(webpackEnv) {
       isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),
       ...sharedPlugins,
     ].filter(Boolean),
+    node: {
+      __dirname: false,
+    },
     performance: false,
   };
 };
