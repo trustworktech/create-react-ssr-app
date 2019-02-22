@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 
 const htmlMiddleware = () => (req, res, next) => {
   const publicPath = path.join(__dirname, '/public');
