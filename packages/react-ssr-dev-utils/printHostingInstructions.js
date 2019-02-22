@@ -49,12 +49,12 @@ function printBaseMessage(buildFolder, hostingLocation) {
   );
 
   if (!hostingLocation) {
-    console.log('For example, add this to build it for GitHub Pages:');
+    console.log('For example:');
     console.log();
 
     console.log(
       `  ${chalk.green('"homepage"')} ${chalk.cyan(':')} ${chalk.green(
-        '"http://myname.github.io/myapp"'
+        '"http://myappname.com/myapp"'
       )}${chalk.cyan(',')}`
     );
   }
@@ -63,7 +63,7 @@ function printBaseMessage(buildFolder, hostingLocation) {
 }
 
 function printServerInstructions(buildFolder) {
-  console.log('You may run it with node:');
+  console.log('You may run the app with node:');
   console.log();
   console.log(` NODE_ENV=production ${chalk.cyan('node')} ${buildFolder}`);
 }
