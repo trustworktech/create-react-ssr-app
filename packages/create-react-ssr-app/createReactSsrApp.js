@@ -131,13 +131,7 @@ if (program.info) {
         System: ['OS', 'CPU'],
         Binaries: ['Node', 'npm', 'Yarn'],
         Browsers: ['Chrome', 'Edge', 'Internet Explorer', 'Firefox', 'Safari'],
-        npmPackages: [
-          'express',
-          'express-manifest-helpers',
-          'react',
-          'react-dom',
-          'react-ssr-scripts',
-        ],
+        npmPackages: ['express', 'react', 'react-dom', 'react-ssr-scripts'],
         npmGlobalPackages: ['create-react-ssr-app'],
       },
       {
@@ -371,13 +365,7 @@ function run(
   useTypescript
 ) {
   const packageToInstall = getInstallPackage(version, originalDirectory);
-  const allDependencies = [
-    'express',
-    'express-manifest-helpers',
-    'react',
-    'react-dom',
-    packageToInstall,
-  ];
+  const allDependencies = ['express', 'react', 'react-dom', packageToInstall];
   if (useTypescript) {
     console.log(chalk.red(`Typescript is not yet supported. Sorry.\n`));
     process.exit(1);
@@ -675,7 +663,6 @@ function checkAppName(appName) {
   // TODO: there should be a single place that holds the dependencies
   const dependencies = [
     'express',
-    'express-manifest-helpers',
     'react',
     'react-dom',
     'react-ssr-scripts',
@@ -733,7 +720,6 @@ function setCaretRangeForRuntimeDeps(packageName) {
   }
 
   makeCaretRange(packageJson.dependencies, 'express');
-  makeCaretRange(packageJson.dependencies, 'express-manifest-helpers');
   makeCaretRange(packageJson.dependencies, 'react');
   makeCaretRange(packageJson.dependencies, 'react-dom');
 

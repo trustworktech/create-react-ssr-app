@@ -1,21 +1,14 @@
 import path from 'path';
 import express from 'express';
-import manifestHelpers from 'express-manifest-helpers';
 
+import htmlMiddleware from './middleware/html';
 import renderMiddleware from './middleware/render';
 
 const publicPath = path.join(__dirname, '/public');
 const app = express();
 
 app.use(express.static(publicPath));
-
-app.use(
-  manifestHelpers({
-    manifestPath: `${publicPath}/asset-manifest.json`,
-    cache: process.env.NODE_ENV === 'production',
-  })
-);
-
+app.use(htmlMiddleware());
 app.use(renderMiddleware());
 
 app.use((err, req, res, next) => {
@@ -42,7 +35,6 @@ app.use((err, req, res, next) => {
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(
-    `[${new Date().toISOString()}]`,
-    `App is running: http://localhost:${process.env.PORT || 3000}`
+    `React SSR App is running: http://localhost:${process.env.PORT || 3000}`
   );
 });
