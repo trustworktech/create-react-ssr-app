@@ -36,7 +36,7 @@ const getPublicUrl = appPackageJson =>
 // We use `PUBLIC_URL` environment variable or "homepage" field to infer
 // "public path" at which the app is served.
 // Webpack needs to know it to put the right <script> hrefs into HTML even in
-// single-page apps that may serve index.html for nested URLs like /todos/42.
+// single-page apps that may serve app.html for nested URLs like /todos/42.
 // We can't use a relative path in HTML because we don't want to load something
 // like /todos/42/static/js/bundle.7289d.js. We have to know the root.
 function getServedPath(appPackageJson) {
@@ -80,7 +80,7 @@ module.exports = {
   appBuild: resolveApp('build'),
   appBuildPublic: resolveApp('build/public'),
   appPublic: resolveApp('public'),
-  appHtml: resolveApp('public/index.html'),
+  appHtml: resolveApp('public/app.html'),
   appClientIndexJs: resolveModule(resolveApp, 'src/index'),
   appServerIndexJs: resolveModule(resolveApp, 'src/server/index'),
   appPackageJson: resolveApp('package.json'),
@@ -103,7 +103,7 @@ module.exports = {
   appBuild: resolveApp('build'),
   appBuildPublic: resolveApp('build/public'),
   appPublic: resolveApp('public'),
-  appHtml: resolveApp('public/index.html'),
+  appHtml: resolveApp('public/app.html'),
   appClientIndexJs: resolveModule(resolveApp, 'src/index'),
   appServerIndexJs: resolveModule(resolveApp, 'src/server/index'),
   appPackageJson: resolveApp('package.json'),
@@ -136,7 +136,7 @@ if (
     appBuild: resolveOwn('../../build'),
     appBuildPublic: resolveOwn('../../build/public'),
     appPublic: resolveOwn('template/public'),
-    appHtml: resolveApp('template/public/index.html'),
+    appHtml: resolveApp('template/public/app.html'),
     appClientIndexJs: resolveModule(resolveOwn, 'template/src/index'),
     appServerIndexJs: resolveModule(resolveApp, 'template/src/server/index'),
     appPackageJson: resolveOwn('package.json'),

@@ -44,7 +44,7 @@ class InlineChunkHtmlPlugin {
       });
 
       // Still emit the runtime chunk for users who do not use our generated
-      // index.html file.
+      // app.html file.
       // hooks.afterEmit.tap('InlineChunkHtmlPlugin', () => {
       //   Object.keys(compilation.assets).forEach(assetName => {
       //     if (this.tests.some(test => assetName.match(test))) {
