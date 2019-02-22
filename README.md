@@ -1,6 +1,6 @@
 # (WIP) Create React SSR App
 
-Create React apps with server side rendering and no build configuration. Inspired by the famouse [create-react-app](https://facebook.github.io/create-react-app/), Create React SSR App does the same thing for React apps that require server side rendering.
+Create React apps with server side rendering and no build configuration. Inspired by the famous [create-react-app](https://facebook.github.io/create-react-app/), Create React SSR App does the same thing for React apps that require server side rendering.
 
 - [Creating an App](#creating-an-app) – How to create a new app.
 - [User Guide](https://trustworktech.github.io/create-react-ssr-app/) – How to develop apps bootstrapped with Create React SSR App.
@@ -64,20 +64,21 @@ my-app
 ├── package.json
 ├── .gitignore
 ├── public
+│   ├── app.html
 │   ├── favicon.ico
 │   └── manifest.json
 └── src
-    ├── client
-    │   └── index.js
     ├── server
+    |   ├── middleware
+    |   |   ├── html.js
+    |   |   └── render.js
     │   └── index.js
-    └── shared
-        ├── App.css
-        ├── App.js
-        ├── App.test.js
-        ├── index.css
-        ├── index.js
-        └── logo.svg
+    ├── App.css
+    ├── App.js
+    ├── App.test.js
+    ├── index.css
+    ├── index.js
+    └── logo.svg
 ```
 
 No configuration or complicated folder structures, just the files you need to build your app.<br>
@@ -102,7 +103,7 @@ You will see the build errors and lint warnings in the console.
 Runs the test watcher in an interactive mode.<br>
 By default, runs tests related to files changed since the last commit.
 
-[Read more about testing.](https://facebook.github.io/create-react-app/docs/running-tests)
+[Read more about testing.](https://trustworktech.github.io/create-react-ssr-app/docs/running-tests)
 
 ### `npm run build` or `yarn build`
 
