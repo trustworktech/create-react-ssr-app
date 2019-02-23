@@ -25,9 +25,7 @@
     "checkRequiredFiles.js",
     "clearConsole.js",
     "crossSpawn.js",
-    "errorOverlayMiddleware.js",
     "eslintFormatter.js",
-    "evalSourceMapMiddleware.js",
     "FileSizeReporter.js",
     "formatNodeErrors.js",
     "formatWebpackMessages.js",
@@ -51,7 +49,6 @@
     "printHostingInstructions.js",
     "typescriptFormatter.js",
     "WatchMissingNodeModulesPlugin.js",
-    "webpackHotDevClient.js",
     "webpackUtils.js"
   ],
   "dependencies": {

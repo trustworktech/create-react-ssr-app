@@ -9,10 +9,8 @@
 'use strict';
 
 const path = require('path');
-const webpack = require('webpack');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
-const StartServerPlugin = require('start-server-webpack-plugin');
 const ModuleScopePlugin = require('react-ssr-dev-utils/ModuleScopePlugin');
 
 const paths = require('../paths');
@@ -26,14 +24,6 @@ module.exports = function(webpackEnv) {
   const publicPath = isEnvProduction
     ? paths.servedPath
     : isEnvDevelopment && '/';
-
-  const nodeArgs = ['-r', 'source-map-support/register'];
-  // Passthrough --inspect and --inspect-brk flags (with optional [host:port] value) to node
-  if (process.env.INSPECT_BRK) {
-    nodeArgs.push(process.env.INSPECT_BRK);
-  } else if (process.env.INSPECT) {
-    nodeArgs.push(process.env.INSPECT);
-  }
 
   return {
     name: 'server',
@@ -111,15 +101,7 @@ module.exports = function(webpackEnv) {
         },
       ],
     },
-    plugins: [
-      ...sharedPlugins,
-      isEnvDevelopment &&
-        new StartServerPlugin({
-          name: 'index.js',
-          nodeArgs,
-        }),
-      isEnvDevelopment && new webpack.WatchIgnorePlugin([paths.appBuildPublic]),
-    ].filter(Boolean),
+    plugins: sharedPlugins.filter(Boolean),
     node: {
       __console: false,
       __dirname: false,

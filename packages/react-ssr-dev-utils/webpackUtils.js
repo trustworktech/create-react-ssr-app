@@ -16,6 +16,7 @@ const inquirer = require('inquirer');
 const clearConsole = require('./clearConsole');
 const formatWebpackMessages = require('./formatWebpackMessages');
 const getProcessForPort = require('./getProcessForPort');
+const openBrowser = require('./openBrowser');
 
 const isInteractive = process.stdout.isTTY;
 let handleCompile;
@@ -160,7 +161,7 @@ function printInstructions(appName, urls, useYarn) {
   console.log();
 }
 
-function createClientCompiler(webpack, config, appName, urls, useYarn) {
+function createClientCompiler(webpack, config) {
   // "Compiler" is a low-level interface to Webpack.
   // It lets us listen to some events and provide our own custom messages.
   let compiler;
@@ -185,8 +186,6 @@ function createClientCompiler(webpack, config, appName, urls, useYarn) {
     console.log('Compiling client...');
   });
 
-  let isFirstCompile = true;
-
   // "done" event fires when Webpack has finished recompiling the bundle.
   // Whether or not you have warnings or errors, you will get this event.
   compiler.hooks.done.tap('done', stats => {
@@ -206,10 +205,6 @@ function createClientCompiler(webpack, config, appName, urls, useYarn) {
     if (isSuccessful) {
       console.log(chalk.green('Client compiled successfully!'));
     }
-    if (isSuccessful && (isInteractive || isFirstCompile)) {
-      printInstructions(appName, urls, useYarn);
-    }
-    isFirstCompile = false;
 
     // If errors exist, only show errors.
     if (messages.errors.length) {
@@ -244,7 +239,7 @@ function createClientCompiler(webpack, config, appName, urls, useYarn) {
   return compiler;
 }
 
-function createServerCompiler(webpack, config) {
+function createServerCompiler(webpack, config, appName, urls, useYarn) {
   let compiler;
   try {
     compiler = webpack(config, handleCompile);
@@ -260,6 +255,8 @@ function createServerCompiler(webpack, config) {
     console.log('Compiling server...');
   });
 
+  let isFirstCompile = true;
+
   compiler.hooks.done.tap('done', stats => {
     const messages = formatWebpackMessages(
       stats.toJson({ all: false, warnings: true, errors: true })
@@ -268,6 +265,12 @@ function createServerCompiler(webpack, config) {
     if (isSuccessful) {
       console.log(chalk.green('Server compiled successfully!'));
     }
+
+    if (isSuccessful && (isInteractive || isFirstCompile)) {
+      printInstructions(appName, urls, useYarn);
+      openBrowser(urls.localUrlForBrowser);
+    }
+    isFirstCompile = false;
 
     if (messages.errors.length) {
       if (messages.errors.length > 1) {
