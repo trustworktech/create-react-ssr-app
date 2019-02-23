@@ -56,16 +56,17 @@ if (module.hot && typeof module.hot.dispose === 'function') {
   });
 }
 
+const connectionUrl = url.format({
+  protocol: window.location.protocol,
+  hostname: process.env.HOST,
+  port: process.env.DEV_PORT,
+  // Hardcoded in WebpackDevServer
+  pathname: '/sockjs-node',
+});
+console.log(connectionUrl);
+
 // Connect to WebpackDevServer via a socket.
-var connection = new SockJS(
-  url.format({
-    protocol: window.location.protocol,
-    hostname: window.location.hostname,
-    port: process.env.DEV_PORT,
-    // Hardcoded in WebpackDevServer
-    pathname: '/sockjs-node',
-  })
-);
+var connection = new SockJS(connectionUrl);
 
 // Unlike WebpackDevServer client, we won't try to reconnect
 // to avoid spamming the console. Disconnect usually happens
