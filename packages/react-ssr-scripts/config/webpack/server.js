@@ -27,6 +27,14 @@ module.exports = function(webpackEnv) {
     ? paths.servedPath
     : isEnvDevelopment && '/';
 
+  const nodeArgs = ['-r', 'source-map-support/register'];
+  // Passthrough --inspect and --inspect-brk flags (with optional [host:port] value) to node
+  if (process.env.INSPECT_BRK) {
+    nodeArgs.push(process.env.INSPECT_BRK);
+  } else if (process.env.INSPECT) {
+    nodeArgs.push(process.env.INSPECT);
+  }
+
   return {
     name: 'server',
     target: 'node',
@@ -103,10 +111,9 @@ module.exports = function(webpackEnv) {
       ...sharedPlugins,
       isEnvDevelopment &&
         new StartServerPlugin({
-          name: 'server.js',
-          nodeArgs: ['-r', 'source-map-support/register'],
+          name: 'index.js',
+          nodeArgs,
         }),
-      // Ignore assets.json to avoid infinite recompile bug
       isEnvDevelopment && new webpack.WatchIgnorePlugin([paths.appBuildPublic]),
     ].filter(Boolean),
     node: {
