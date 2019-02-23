@@ -34,7 +34,7 @@ if (process.env.SKIP_PREFLIGHT_CHECK !== 'true') {
   verifyPackageTree();
 }
 // @remove-on-eject-end
-const fs = require('fs');
+const fs = require('fs-extra');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const chalk = require('react-ssr-dev-utils/chalk');
