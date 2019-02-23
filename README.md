@@ -41,7 +41,7 @@ npx create-react-ssr-app my-app
 ### npm
 
 ```sh
-npm init react-app my-app
+npm init react-ssr-app my-app
 ```
 
 _`npm init <initializer>` is available in npm 6+_
@@ -49,7 +49,7 @@ _`npm init <initializer>` is available in npm 6+_
 ### Yarn
 
 ```sh
-yarn create react-app my-app
+yarn create react-ssr-app my-app
 ```
 
 _`yarn create` is available in Yarn 0.25+_
