@@ -27,6 +27,7 @@ function verifyPackageTree() {
     'jest',
     'webpack',
     'webpack-dev-middleware',
+    'webpack-hot-middleware',
   ];
   // Inlined from semver-regex, MIT license.
   // Don't want to make this a dependency after ejecting.
