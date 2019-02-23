@@ -17,17 +17,18 @@
 // that looks similar to our console output. The error overlay is inspired by:
 // https://github.com/glenjamin/webpack-hot-middleware
 
+var url = require('url');
 var SockJS = require('sockjs-client');
 var stripAnsi = require('strip-ansi');
 var launchEditorEndpoint = require('./launchEditorEndpoint');
 var formatWebpackMessages = require('./formatWebpackMessages');
 var ErrorOverlay = require('react-error-overlay');
 
-let wdsPath = '';
+let devPort = '';
 if (__resourceQuery) {
   var querystring = require('querystring');
   var params = querystring.parse(__resourceQuery.slice(1));
-  wdsPath = params.path;
+  devPort = params.devPort;
 }
 
 ErrorOverlay.setEditorHandler(function editorHandler(errorLocation) {
@@ -65,7 +66,15 @@ if (module.hot && typeof module.hot.dispose === 'function') {
 }
 
 // Connect to WebpackDevServer via a socket.
-var connection = new SockJS(wdsPath);
+var connection = new SockJS(
+  url.format({
+    protocol: window.location.protocol,
+    hostname: window.location.hostname,
+    port: devPort,
+    // Hardcoded in WebpackDevServer
+    pathname: '/sockjs-node',
+  })
+);
 
 // Unlike WebpackDevServer client, we won't try to reconnect
 // to avoid spamming the console. Disconnect usually happens

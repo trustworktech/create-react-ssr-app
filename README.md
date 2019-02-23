@@ -70,7 +70,7 @@ my-app
 └── src
     ├── client
     |   ├── index.css
-    |   └── index.js
+    │   └── index.js
     ├── server
     |   ├── middleware
     |   |   ├── html.js
@@ -79,6 +79,7 @@ my-app
     ├── App.css
     ├── App.js
     ├── App.test.js
+    ├── index.js
     └── logo.svg
 ```
 
