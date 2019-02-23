@@ -96,6 +96,11 @@ if (process.env.HOST) {
 const { checkBrowsers } = require('react-ssr-dev-utils/browsersHelper');
 checkBrowsers(paths.appPath, isInteractive)
   .then(() => {
+    // Remove all content but keep the directory so that
+    // if you're in it, you don't end up in Trash
+    fs.emptyDirSync(paths.appBuild);
+    // Merge with the public folder
+    copyPublicFolder();
     // Choose port for app server
     return choosePort(HOST, appPort, 'app server');
   })
@@ -186,3 +191,10 @@ checkBrowsers(paths.appPath, isInteractive)
     }
     process.exit(1);
   });
+
+function copyPublicFolder() {
+  fs.copySync(paths.appPublic, paths.appBuildPublic, {
+    dereference: true,
+    filter: file => file !== paths.appHtml,
+  });
+}
