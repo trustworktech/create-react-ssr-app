@@ -6,6 +6,8 @@
  */
 'use strict';
 
+/* global __resourceQuery */
+
 // This alternative WebpackDevServer combines the functionality of:
 // https://github.com/webpack/webpack-dev-server/blob/webpack-1/client/index.js
 // https://github.com/webpack/webpack/blob/webpack-1/hot/dev-server.js
@@ -17,10 +19,16 @@
 
 var SockJS = require('sockjs-client');
 var stripAnsi = require('strip-ansi');
-var url = require('url');
 var launchEditorEndpoint = require('./launchEditorEndpoint');
 var formatWebpackMessages = require('./formatWebpackMessages');
 var ErrorOverlay = require('react-error-overlay');
+
+let wdsPath = '';
+if (__resourceQuery) {
+  var querystring = require('querystring');
+  var params = querystring.parse(__resourceQuery.slice(1));
+  wdsPath = params.path;
+}
 
 ErrorOverlay.setEditorHandler(function editorHandler(errorLocation) {
   // Keep this sync with errorOverlayMiddleware.js
@@ -56,17 +64,8 @@ if (module.hot && typeof module.hot.dispose === 'function') {
   });
 }
 
-const connectionUrl = url.format({
-  protocol: window.location.protocol,
-  hostname: process.env.HOST,
-  port: process.env.DEV_PORT,
-  // Hardcoded in WebpackDevServer
-  pathname: '/sockjs-node',
-});
-console.log(connectionUrl);
-
 // Connect to WebpackDevServer via a socket.
-var connection = new SockJS(connectionUrl);
+var connection = new SockJS(wdsPath);
 
 // Unlike WebpackDevServer client, we won't try to reconnect
 // to avoid spamming the console. Disconnect usually happens

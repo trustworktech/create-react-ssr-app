@@ -122,7 +122,9 @@ checkBrowsers(paths.appPath, isInteractive)
     const [clientConfig, serverConfig] = configFactory('development');
 
     clientConfig.entry = [
-      require.resolve('react-ssr-dev-utils/webpackHotDevClient'),
+      require.resolve(
+        `react-ssr-dev-utils/webpackHotDevClient?path=http://${HOST}:${devPort}/sockjs-node`
+      ),
       ...clientConfig.entry,
     ];
     clientConfig.output.publicPath = [
