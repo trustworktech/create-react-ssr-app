@@ -1,6 +1,6 @@
 {
   "name": "create-react-ssr-app",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Create React apps with server side rendering and no build configuration.",
   "keywords": [
     "node",
