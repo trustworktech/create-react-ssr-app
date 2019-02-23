@@ -269,6 +269,20 @@ function createServerCompiler(webpack, config, appName, urls, useYarn) {
       printInstructions(appName, urls, useYarn);
     }
     isFirstCompile = false;
+
+    if (messages.errors.length) {
+      if (messages.errors.length > 1) {
+        messages.errors.length = 1;
+      }
+      console.log(chalk.red('Failed to compile server.\n'));
+      console.log(messages.errors.join('\n\n'));
+      return;
+    }
+
+    if (messages.warnings.length) {
+      console.log(chalk.yellow('Server compiled with warnings.\n'));
+      console.log(messages.warnings.join('\n\n'));
+    }
   });
   return compiler;
 }

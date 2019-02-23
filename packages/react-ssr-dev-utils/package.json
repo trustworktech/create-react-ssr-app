@@ -27,7 +27,6 @@
     "crossSpawn.js",
     "eslintFormatter.js",
     "FileSizeReporter.js",
-    "formatNodeErrors.js",
     "formatWebpackMessages.js",
     "getCacheIdentifier.js",
     "getCSSModuleLocalIdent.js",
