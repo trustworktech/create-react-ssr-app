@@ -41,8 +41,8 @@ module.exports = function(webpackEnv) {
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     entry: [
       isEnvDevelopment && 'webpack/hot/poll?300',
-      isEnvDevelopment &&
-        require.resolve('react-ssr-dev-utils/formatNodeErrors'),
+      // isEnvDevelopment &&
+      //   require.resolve('react-ssr-dev-utils/formatNodeErrors'),
       paths.appServerIndexJs,
     ].filter(Boolean),
     externals: [

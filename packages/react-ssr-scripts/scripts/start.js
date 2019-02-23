@@ -55,9 +55,6 @@ const createDevServerConfig = require('../config/webpack/wds');
 const useYarn = fs.existsSync(paths.yarnLockFile);
 const isInteractive = process.stdout.isTTY;
 
-// Disabled logs for HMR
-require('webpack/hot/log').setLogLevel('error');
-
 // Warn and crash if required files are missing
 if (
   !checkRequiredFiles([
