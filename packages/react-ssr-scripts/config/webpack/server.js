@@ -116,11 +116,12 @@ module.exports = function(webpackEnv) {
     },
     plugins: [
       ...sharedPlugins,
-      new StartServerPlugin({
-        name: 'index.js',
-        nodeArgs,
-      }),
-      new webpack.WatchIgnorePlugin([paths.appBuildPublic]),
+      isEnvDevelopment &&
+        new StartServerPlugin({
+          name: 'index.js',
+          nodeArgs,
+        }),
+      isEnvDevelopment && new webpack.WatchIgnorePlugin([paths.appBuildPublic]),
     ].filter(Boolean),
     node: {
       __console: false,

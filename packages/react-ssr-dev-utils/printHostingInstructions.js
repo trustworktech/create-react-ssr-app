@@ -65,7 +65,7 @@ function printBaseMessage(buildFolder, hostingLocation) {
 function printServerInstructions(buildFolder) {
   console.log('You may run the app with node:');
   console.log();
-  console.log(` NODE_ENV=production ${chalk.cyan('node')} ${buildFolder}`);
+  console.log(` ${chalk.cyan('node')} ${buildFolder}`);
 }
 
 module.exports = printHostingInstructions;
