@@ -12,7 +12,7 @@ const ignoredFiles = require('react-ssr-dev-utils/ignoredFiles');
 const errorOverlayMiddleware = require('react-ssr-dev-utils/errorOverlayMiddleware');
 const evalSourceMapMiddleware = require('react-ssr-dev-utils/evalSourceMapMiddleware');
 
-const paths = require('./paths');
+const paths = require('../paths');
 
 const host = process.env.HOST || '0.0.0.0';
 
