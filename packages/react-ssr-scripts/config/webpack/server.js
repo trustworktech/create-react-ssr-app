@@ -23,6 +23,9 @@ module.exports = function(webpackEnv) {
   const isEnvProduction = webpackEnv === 'production';
   const { server: serverLoaders } = require('./loaders')(webpackEnv);
   const sharedPlugins = require('./plugins')(webpackEnv);
+  const publicPath = isEnvProduction
+    ? paths.servedPath
+    : isEnvDevelopment && '/';
 
   return {
     name: 'server',
@@ -42,7 +45,7 @@ module.exports = function(webpackEnv) {
     ],
     output: {
       path: paths.appBuild,
-      publicPath: paths.appBuildPublic,
+      publicPath: publicPath,
       filename: 'index.js',
       libraryTarget: 'commonjs2',
     },
