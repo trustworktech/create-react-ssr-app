@@ -175,11 +175,6 @@ checkBrowsers(paths.appPath, isInteractive)
           console.log(chalk.cyan('Restarting the development server...\n'));
         });
 
-        script.on('quit', () => {
-          devServer.close();
-          process.exit();
-        });
-
         script.on('error', () => {
           console.log(chalk.red('An error occured. Exiting.\n'));
           devServer.close();
@@ -199,6 +194,8 @@ checkBrowsers(paths.appPath, isInteractive)
         publicPath: clientConfig.output.publicPath,
         watchOptions: {
           // poll: true,
+          quiet: true,
+          stats: 'none',
           ignored: /node_modules/,
         },
       })
