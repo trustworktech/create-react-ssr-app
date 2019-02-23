@@ -120,7 +120,7 @@ checkBrowsers(paths.appPath, isInteractive)
     // Generate configuration
     const [clientConfig, serverConfig] = configFactory('development');
     clientConfig.entry = [
-      `webpack-hot-middleware/client?path=http://localhost:${devPort}/__webpack_hmr`,
+      `webpack-hot-middleware/client?path=http://localhost:${devPort}/__webpack_hmr&quiet=true`,
       ...clientConfig.entry,
     ];
     clientConfig.output.publicPath = [
@@ -175,9 +175,12 @@ checkBrowsers(paths.appPath, isInteractive)
           console.log(chalk.cyan('Restarting the development server...\n'));
         });
 
+        script.on('quit', () => {
+          process.exit();
+        });
+
         script.on('error', () => {
           console.log(chalk.red('An error occured. Exiting.\n'));
-          devServer.close();
           process.exit(1);
         });
       }
@@ -217,7 +220,6 @@ checkBrowsers(paths.appPath, isInteractive)
 
     ['SIGINT', 'SIGTERM'].forEach(function(sig) {
       process.on(sig, function() {
-        devServer.close();
         process.exit();
       });
     });
