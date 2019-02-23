@@ -50,8 +50,8 @@
     "printHostingInstructions.js",
     "typescriptFormatter.js",
     "WatchMissingNodeModulesPlugin.js",
-    "WebpackDevServerUtils.js",
-    "webpackHotDevClient.js"
+    "webpackHotDevClient.js",
+    "webpackUtils.js"
   ],
   "dependencies": {
     "@babel/code-frame": "7.0.0",

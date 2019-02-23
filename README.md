@@ -16,7 +16,7 @@ cd my-app
 yarn start
 ```
 
-Then open [http://localhost:3000/](http://localhost:3000/) to see your app.<br>
+Then open [http://localhost:8000/](http://localhost:8000/) to see your app.<br>
 When you’re ready to deploy to production, create a minified bundle with `yarn build`.
 
 ### Get Started Immediately
@@ -68,6 +68,9 @@ my-app
 │   ├── favicon.ico
 │   └── manifest.json
 └── src
+    ├── client
+    |   ├── index.css
+    |   └── index.js
     ├── server
     |   ├── middleware
     |   |   ├── html.js
@@ -76,8 +79,6 @@ my-app
     ├── App.css
     ├── App.js
     ├── App.test.js
-    ├── index.css
-    ├── index.js
     └── logo.svg
 ```
 
@@ -93,7 +94,7 @@ Inside the newly created project, you can run some built-in commands:
 ### `npm start` or `yarn start`
 
 Runs the app in development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:8000](http://localhost:8000) to view it in the browser.
 
 The page will automatically reload if you make changes to the code.<br>
 You will see the build errors and lint warnings in the console.

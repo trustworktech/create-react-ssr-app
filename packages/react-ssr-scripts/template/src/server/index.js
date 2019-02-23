@@ -33,8 +33,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT || 8000, () => {
   console.log(
-    `React SSR App is running: http://localhost:${process.env.PORT || 3000}`
+    `React SSR App is running: http://localhost:${process.env.PORT || 8000}`
   );
 });

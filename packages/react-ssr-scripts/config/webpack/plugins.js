@@ -13,7 +13,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const ModuleNotFoundPlugin = require('react-ssr-dev-utils/ModuleNotFoundPlugin');
 const WatchMissingNodeModulesPlugin = require('react-ssr-dev-utils/WatchMissingNodeModulesPlugin');
-const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
 
 const paths = require('../paths');
 const getClientEnvironment = require('../env');
@@ -49,7 +48,6 @@ module.exports = function(webpackEnv) {
     // Otherwise React will be compiled in the very slow development mode.
     new webpack.DefinePlugin(env.stringified),
     // This is necessary to emit hot updates
-    isEnvDevelopment && new WriteFileWebpackPlugin(),
     isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),
     // Watcher doesn't work well if you mistype casing in a path so we use
     // a plugin that prints an error when you attempt to do this.
