@@ -29,9 +29,7 @@ module.exports = function(webpackEnv) {
     target: 'node',
     watch: isEnvDevelopment,
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
-    entry: {
-      server: [paths.appServerIndexJs],
-    },
+    entry: [paths.appServerIndexJs],
     externals: [
       nodeExternals({
         whitelist: [
