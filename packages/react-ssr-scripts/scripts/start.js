@@ -121,7 +121,7 @@ checkBrowsers(paths.appPath, isInteractive)
     // Generate configuration
     const [clientConfig, serverConfig] = configFactory('development');
     clientConfig.entry = [
-      `webpack-hot-middleware/client?path=http://localhost:${devPort}/__webpack_hmr&quiet=true&noInfo=true`,
+      `webpack-hot-middleware/client?path=http://localhost:${devPort}/__webpack_hmr`,
       ...clientConfig.entry,
     ];
     clientConfig.output.publicPath = [
@@ -184,7 +184,10 @@ checkBrowsers(paths.appPath, isInteractive)
           console.log(chalk.red('An error occured. Exiting.\n'));
           process.exit(1);
         });
-        openBrowser(appUrls.localUrlForBrowser);
+
+        setTimeout(() => {
+          openBrowser(appUrls.localUrlForBrowser);
+        }, 2000);
       }
     });
 
