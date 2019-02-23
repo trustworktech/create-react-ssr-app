@@ -90,6 +90,9 @@
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
   },
+  "optionalDependencies": {
+    "fsevents": "1.2.4"
+  },
   "engines": {
     "node": ">=8"
   }
