@@ -35,6 +35,7 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const chalk = require('react-ssr-dev-utils/chalk');
+const openBrowser = require('react-ssr-dev-utils/openBrowser');
 const clearConsole = require('react-ssr-dev-utils/clearConsole');
 const checkRequiredFiles = require('react-ssr-dev-utils/checkRequiredFiles');
 const {
@@ -183,6 +184,7 @@ checkBrowsers(paths.appPath, isInteractive)
           console.log(chalk.red('An error occured. Exiting.\n'));
           process.exit(1);
         });
+        openBrowser(appUrls.localUrlForBrowser);
       }
     });
 
@@ -203,7 +205,11 @@ checkBrowsers(paths.appPath, isInteractive)
       })
     );
 
-    // devServer.use(webpackHotMiddleware(clientCompiler));
+    devServer.use(
+      webpackHotMiddleware(clientCompiler, {
+        log: false,
+      })
+    );
 
     devServer.use(express.static(paths.appBuildPublic));
 

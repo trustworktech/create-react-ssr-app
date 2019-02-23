@@ -16,7 +16,6 @@ const inquirer = require('inquirer');
 const clearConsole = require('./clearConsole');
 const formatWebpackMessages = require('./formatWebpackMessages');
 const getProcessForPort = require('./getProcessForPort');
-// const openBrowser = require('./openBrowser');
 
 const isInteractive = process.stdout.isTTY;
 let handleCompile;
@@ -268,7 +267,6 @@ function createServerCompiler(webpack, config, appName, urls, useYarn) {
 
     if (isSuccessful && (isInteractive || isFirstCompile)) {
       printInstructions(appName, urls, useYarn);
-      // openBrowser(urls.localUrlForBrowser);
     }
     isFirstCompile = false;
 
