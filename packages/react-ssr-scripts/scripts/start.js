@@ -120,7 +120,7 @@ checkBrowsers(paths.appPath, isInteractive)
     // Generate configuration
     const [clientConfig, serverConfig] = configFactory('development');
     clientConfig.entry = [
-      `webpack-hot-middleware/client?path=http://localhost:${devPort}/__webpack_hmr&quiet=true`,
+      `webpack-hot-middleware/client?path=http://localhost:${devPort}/__webpack_hmr&quiet=true&noInfo=true`,
       ...clientConfig.entry,
     ];
     clientConfig.output.publicPath = [
@@ -194,11 +194,10 @@ checkBrowsers(paths.appPath, isInteractive)
 
     devServer.use(
       webpackDevMiddleware(clientCompiler, {
+        logLevel: 'silent',
         publicPath: clientConfig.output.publicPath,
         watchOptions: {
           // poll: true,
-          quiet: true,
-          stats: 'none',
           ignored: /node_modules/,
         },
       })
