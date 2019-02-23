@@ -120,10 +120,6 @@ checkBrowsers(paths.appPath, isInteractive)
 
     // Generate configuration
     const [clientConfig, serverConfig] = configFactory('development');
-    clientConfig.entry = [
-      `webpack-hot-middleware/client?path=http://localhost:${devPort}/__webpack_hmr`,
-      ...clientConfig.entry,
-    ];
     clientConfig.output.publicPath = [
       `http://${HOST}:${devPort}`,
       clientConfig.output.publicPath,

@@ -63,7 +63,11 @@ module.exports = function(webpackEnv) {
         ? 'source-map'
         : false
       : isEnvDevelopment && 'eval-source-map',
-    entry: [paths.appClientIndexJs],
+    entry: [
+      isEnvDevelopment &&
+        require.resolve('react-ssr-dev-utils/webpackHotDevClient'),
+      paths.appClientIndexJs,
+    ],
     output: {
       // The build folder.
       path: paths.appBuildPublic,
