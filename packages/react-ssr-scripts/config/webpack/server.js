@@ -40,7 +40,11 @@ module.exports = function(webpackEnv) {
     target: 'node',
     watch: isEnvDevelopment,
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
-    entry: [paths.appServerIndexJs],
+    entry: [
+      isEnvDevelopment &&
+        require.resolve('react-ssr-dev-utils/formatNodeErrors'),
+      paths.appServerIndexJs,
+    ].filter(Boolean),
     externals: [
       nodeExternals({
         whitelist: [
