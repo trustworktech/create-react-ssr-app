@@ -1,7 +1,6 @@
 import http from 'http';
 
-import app from './server';
-
+let app = require('./server').default;
 const server = http.createServer(app);
 
 server.listen(process.env.PORT || 8000, error => {
