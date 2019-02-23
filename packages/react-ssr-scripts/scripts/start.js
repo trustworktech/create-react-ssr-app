@@ -107,7 +107,7 @@ checkBrowsers(paths.appPath, isInteractive)
       return;
     }
     appPort = port;
-    process.env.PORT = port;
+    process.env.PORT = appPort;
     appUrls = prepareUrls(HOST, appPort);
     // Choose port for dev server
     return choosePort(HOST, devPort, 'dev server');
@@ -117,11 +117,12 @@ checkBrowsers(paths.appPath, isInteractive)
       return;
     }
     devPort = port;
-
+    process.env.DEV_PORT = devPort;
     // Generate configuration
     const [clientConfig, serverConfig] = configFactory('development');
+
     clientConfig.entry = [
-      `webpack-hot-middleware/client?path=http://localhost:${devPort}/__webpack_hmr`,
+      require.resolve('react-ssr-dev-utils/webpackHotDevClient'),
       ...clientConfig.entry,
     ];
     clientConfig.output.publicPath = [
@@ -208,7 +209,11 @@ checkBrowsers(paths.appPath, isInteractive)
       })
     );
 
-    devServer.use(webpackHotMiddleware(clientCompiler));
+    devServer.use(
+      webpackHotMiddleware(clientCompiler, {
+        log: false,
+      })
+    );
 
     devServer.use(express.static(paths.appBuildPublic));
 
