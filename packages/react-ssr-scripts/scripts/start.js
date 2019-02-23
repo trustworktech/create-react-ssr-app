@@ -203,7 +203,7 @@ checkBrowsers(paths.appPath, isInteractive)
       })
     );
 
-    devServer.use(webpackHotMiddleware(clientCompiler));
+    // devServer.use(webpackHotMiddleware(clientCompiler));
 
     devServer.use(express.static(paths.appBuildPublic));
 
