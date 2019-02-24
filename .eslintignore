@@ -2,3 +2,5 @@ node_modules/
 build
 my-app*
 packages/react-ssr-scripts/template
+website/
+docs/

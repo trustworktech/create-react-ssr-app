@@ -1,0 +1,36 @@
+{
+  "docs": {
+    "Welcome": ["documentation-intro"],
+    "Getting Started": [
+      "getting-started",
+      "folder-structure",
+      "available-scripts",
+      "supported-browsers-features",
+      "updating-to-new-releases"
+    ],
+    "Development": [
+      "setting-up-your-editor",
+      "developing-components-in-isolation",
+      "analyzing-the-bundle-size"
+    ],
+    "Styles and Assets": [
+      "adding-a-stylesheet",
+      "adding-a-css-modules-stylesheet",
+      "adding-a-sass-stylesheet",
+      "post-processing-css",
+      "adding-images-fonts-and-files",
+      "using-the-public-folder",
+      "code-splitting"
+    ],
+    "Testing": ["running-tests", "debugging-tests"],
+    "Back-End Integration": [
+      "fetching-data-with-ajax-requests",
+      "title-and-meta-tags"
+    ],
+    "Deployment": ["deployment"],
+    "Advanced Usage": [
+      "advanced-configuration"
+    ],
+    "Support": ["troubleshooting"]
+  }
+}
