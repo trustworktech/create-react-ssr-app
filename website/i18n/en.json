@@ -9,9 +9,6 @@
         "title": "Adding a CSS Modules Stylesheet",
         "sidebar_label": "Adding CSS Modules"
       },
-      "adding-a-router": {
-        "title": "Adding a Router"
-      },
       "adding-a-sass-stylesheet": {
         "title": "Adding a Sass Stylesheet",
         "sidebar_label": "Adding Sass Stylesheets"
@@ -32,6 +29,12 @@
       },
       "adding-images-fonts-and-files": {
         "title": "Adding Images, Fonts, and Files"
+      },
+      "adding-react-router": {
+        "title": "Adding React Router"
+      },
+      "adding-redux": {
+        "title": "Adding Redux"
       },
       "adding-styled-components": {
         "title": "Adding Styled Components"

@@ -1,9 +1,9 @@
 ---
-id: adding-a-router
-title: Adding a Router
+id: adding-react-router
+title: Adding React Router
 ---
 
-Create React SSR App doesn't prescribe a specific routing solution, but [React Router](https://reacttraining.com/react-router/web/) is the most popular one.
+[React Router](https://reacttraining.com/react-router/web) is a declarative routing library for React. It is the recommended routing solution for Create React SSR Apps.
 
 ## Installation
 

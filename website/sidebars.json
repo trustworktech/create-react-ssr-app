@@ -30,7 +30,7 @@
       "using-global-variables",
       "title-and-meta-tags",
       "adding-flow",
-      "adding-a-router",
+      "adding-react-router",
       "adding-redux",
       "fetching-data-with-ajax-requests",
       "adding-custom-environment-variables",

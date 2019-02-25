@@ -73,6 +73,8 @@ const resolveModule = (resolveFn, filePath) => {
   return resolveFn(`${filePath}.js`);
 };
 
+// Find yarn lock file
+
 // config after eject: we're in ./config/
 module.exports = {
   dotenv: resolveApp('.env'),
@@ -88,6 +90,9 @@ module.exports = {
   yarnLockFile: resolveApp('yarn.lock'),
   testsSetup: resolveModule(resolveApp, 'src/setupTests'),
   appNodeModules: resolveApp('node_modules'),
+  rootNodeModules: fs.existsSync(resolveApp('../../node_modules'))
+    ? resolveApp('../../node_modules')
+    : '',
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
 };
@@ -110,6 +115,9 @@ module.exports = {
   yarnLockFile: resolveApp('yarn.lock'),
   testsSetup: resolveModule(resolveApp, 'src/setupTests'),
   appNodeModules: resolveApp('node_modules'),
+  rootNodeModules: fs.existsSync(resolveApp('../../node_modules'))
+    ? resolveApp('../../node_modules')
+    : '',
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
   // These properties only exist before ejecting:
@@ -134,14 +142,17 @@ if (
     appBuild: resolveOwn('../../build'),
     appBuildPublic: resolveOwn('../../build/public'),
     appPublic: resolveOwn('template/public'),
-    appHtml: resolveApp('template/public/app.html'),
+    appHtml: resolveOwn('template/public/app.html'),
     appClientIndexJs: resolveModule(resolveOwn, 'template/src/client/index'),
-    appServerIndexJs: resolveModule(resolveApp, 'template/src/index'),
+    appServerIndexJs: resolveModule(resolveOwn, 'template/src/index'),
     appPackageJson: resolveOwn('package.json'),
     appSrc: resolveOwn('template/src'),
     yarnLockFile: resolveOwn('template/yarn.lock'),
     testsSetup: resolveModule(resolveOwn, 'template/src/setupTests'),
     appNodeModules: resolveOwn('node_modules'),
+    rootNodeModules: fs.existsSync(resolveOwn('../../node_modules'))
+      ? resolveOwn('../../node_modules')
+      : '',
     publicUrl: getPublicUrl(resolveOwn('package.json')),
     servedPath: getServedPath(resolveOwn('package.json')),
     // These properties only exist before ejecting:

@@ -53,7 +53,19 @@ module.exports = function(webpackEnv) {
           /\.(css|scss|sass|sss|less)$/,
         ].filter(Boolean),
       }),
-    ],
+      // If using yarn workspaces include root node_modules
+      paths.rootNodeModules &&
+        nodeExternals({
+          whitelist: [
+            isEnvDevelopment && 'webpack/hot/poll?300',
+            /\.(eot|woff|woff2|ttf|otf)$/,
+            /\.(svg|png|jpg|jpeg|gif|ico)$/,
+            /\.(mp4|mp3|ogg|swf|webp)$/,
+            /\.(css|scss|sass|sss|less)$/,
+          ].filter(Boolean),
+          modulesDir: paths.rootNodeModules,
+        }),
+    ].filter(Boolean),
     output: {
       path: paths.appBuild,
       publicPath: publicPath,

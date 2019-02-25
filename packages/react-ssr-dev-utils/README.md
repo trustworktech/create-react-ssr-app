@@ -281,7 +281,7 @@ in /Users/developer/create-react-ssr-app
 ```js
 var getProcessForPort = require('react-ssr-dev-utils/getProcessForPort');
 
-getProcessForPort(3000);
+getProcessForPort(8000);
 ```
 
 #### `launchEditor(fileName: string, lineNumber: number): void`

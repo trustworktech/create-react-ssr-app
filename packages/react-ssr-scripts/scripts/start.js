@@ -71,7 +71,7 @@ const HOST = process.env.HOST || '0.0.0.0';
 const appName = require(paths.appPackageJson).name;
 let appPort = parseInt(process.env.PORT, 10) || 8000;
 let appUrls;
-let devPort = 8080;
+let devPort = parseInt(process.env.DEV_PORT, 10) || 8080;
 let devUrls;
 
 if (process.env.HOST) {
