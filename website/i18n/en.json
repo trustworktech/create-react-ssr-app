@@ -9,6 +9,9 @@
         "title": "Adding a CSS Modules Stylesheet",
         "sidebar_label": "Adding CSS Modules"
       },
+      "adding-a-router": {
+        "title": "Adding a Router"
+      },
       "adding-a-sass-stylesheet": {
         "title": "Adding a Sass Stylesheet",
         "sidebar_label": "Adding Sass Stylesheets"
@@ -17,12 +20,21 @@
         "title": "Adding a Stylesheet",
         "sidebar_label": "Adding Stylesheets"
       },
+      "adding-bootstrap": {
+        "title": "Adding Bootstrap"
+      },
       "adding-custom-environment-variables": {
         "title": "Adding Custom Environment Variables",
         "sidebar_label": "Environment Variables"
       },
+      "adding-flow": {
+        "title": "Adding Flow"
+      },
       "adding-images-fonts-and-files": {
         "title": "Adding Images, Fonts, and Files"
+      },
+      "adding-styled-components": {
+        "title": "Adding Styled Components"
       },
       "advanced-configuration": {
         "title": "Advanced Configuration"
@@ -63,6 +75,9 @@
       "getting-started": {
         "title": "Getting Started"
       },
+      "importing-a-component": {
+        "title": "Importing a Component"
+      },
       "installing-a-dependency": {
         "title": "Installing a Dependency"
       },
@@ -94,6 +109,9 @@
       "updating-to-new-releases": {
         "title": "Updating to New Releases"
       },
+      "using-global-variables": {
+        "title": "Using Global Variables"
+      },
       "using-the-public-folder": {
         "title": "Using the Public Folder"
       }
@@ -110,7 +128,6 @@
       "Styles and Assets": "Styles and Assets",
       "Building your App": "Building your App",
       "Testing": "Testing",
-      "Back-End Integration": "Back-End Integration",
       "Deployment": "Deployment",
       "Advanced Usage": "Advanced Usage",
       "Support": "Support"

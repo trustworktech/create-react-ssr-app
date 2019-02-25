@@ -14,6 +14,8 @@
       "analyzing-the-bundle-size"
     ],
     "Styles and Assets": [
+      "adding-styled-components",
+      "adding-bootstrap",
       "adding-a-stylesheet",
       "adding-a-css-modules-stylesheet",
       "adding-a-sass-stylesheet",
@@ -24,14 +26,17 @@
     ],
     "Building your App": [
       "installing-a-dependency",
+      "importing-a-component",
+      "using-global-variables",
+      "title-and-meta-tags",
+      "adding-flow",
+      "adding-a-router",
+      "adding-redux",
+      "fetching-data-with-ajax-requests",
       "adding-custom-environment-variables",
       "production-build"
     ],
     "Testing": ["running-tests", "debugging-tests"],
-    "Back-End Integration": [
-      "fetching-data-with-ajax-requests",
-      "title-and-meta-tags"
-    ],
     "Deployment": ["deployment"],
     "Advanced Usage": [
       "advanced-configuration"

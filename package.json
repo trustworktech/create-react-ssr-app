@@ -4,10 +4,14 @@
     "packages/*"
   ],
   "scripts": {
+    "build": "cd packages/react-ssr-scripts && node bin/react-ssr-scripts.js build",
     "compile:lockfile": "node tasks/compile-lockfile.js",
     "create-react-ssr-app": "node tasks/crsa.js",
+    "format": "prettier --trailing-comma es5 --single-quote --write 'packages/*/*.js' 'packages/*/!(node_modules)/**/*.js'",
     "publish": "tasks/publish.sh",
-    "reset": "sh tasks/reset-dev-env.sh"
+    "reset": "sh tasks/reset-dev-env.sh",
+    "start": "cd packages/react-ssr-scripts && node bin/react-ssr-scripts.js start",
+    "test": "cd packages/react-ssr-scripts && node bin/react-ssr-scripts.js test"
   },
   "husky": {
     "hooks": {
