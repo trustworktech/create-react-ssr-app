@@ -22,6 +22,11 @@
       "using-the-public-folder",
       "code-splitting"
     ],
+    "Building your App": [
+      "installing-a-dependency",
+      "adding-custom-environment-variables",
+      "production-build"
+    ],
     "Testing": ["running-tests", "debugging-tests"],
     "Back-End Integration": [
       "fetching-data-with-ajax-requests",

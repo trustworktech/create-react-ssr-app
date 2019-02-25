@@ -63,6 +63,9 @@
       "getting-started": {
         "title": "Getting Started"
       },
+      "installing-a-dependency": {
+        "title": "Installing a Dependency"
+      },
       "post-processing-css": {
         "title": "Post-Processing CSS"
       },
@@ -105,6 +108,7 @@
       "Getting Started": "Getting Started",
       "Development": "Development",
       "Styles and Assets": "Styles and Assets",
+      "Building your App": "Building your App",
       "Testing": "Testing",
       "Back-End Integration": "Back-End Integration",
       "Deployment": "Deployment",
