@@ -22,6 +22,7 @@ These packages can be found in the [`packages/`](https://github.com/trustworktec
 ```
 packages/
   create-react-ssr-app/
+  react-ssr-dev-utils/
   react-ssr-scripts/
 ```
 
@@ -29,7 +30,12 @@ packages/
 
 #### [create-react-ssr-app](https://github.com/trustworktech/create-react-ssr-app/tree/master/packages/create-react-ssr-app)
 
-The global CLI command code can be found in this directory, and shouldn't often be changed. It should run on Node 0.10+.
+The global CLI command code can be found in this directory, and shouldn't often be changed. It should run on Node 8+\*+.
+
+#### [react-ssr-dev-utils](https://github.com/trustworktech/create-react-ssr-app/tree/master/packages/react-ssr-dev-utils)
+
+This package contains utilities used for `react-ssr-scripts` and sister packages.<br>
+Its main purpose is to conceal code which the user shouldn't be burdened with upon ejecting.
 
 #### [react-ssr-scripts](https://github.com/trustworktech/create-react-ssr-app/tree/master/packages/react-ssr-scripts)
 
@@ -65,7 +71,7 @@ and then run `yarn start` or `yarn build`.
 - You'll need an [access token for the GitHub API](https://help.github.com/articles/creating-an-access-token-for-command-line-use/). Save it to this environment variable: `export GITHUB_AUTH="..."`
 - Run `yarn changelog`. The command will find all the labeled pull requests merged since the last release and group them by the label and affected packages, and create a change log entry with all the changes and links to PRs and their authors. Copy and paste it to `CHANGELOG.md`.
 - Add a four-space indented paragraph after each non-trivial list item, explaining what changed and why. For each breaking change also write who it affects and instructions for migrating existing code.
-- Maybe add some newlines here and there. Preview the result on GitHub to get a feel for it. Changelog generator output is a bit too terse for my taste, so try to make it visually pleasing and well grouped.
+- Maybe add some newlines here and there. Preview the result on GitHub to get a feel for it.
 
 7. Make sure to include “Migrating from ...” instructions for the previous release. Often you can copy and paste them.
 8. Run `npm run publish`. (It has to be `npm run publish` exactly, not just `npm publish` or `yarn publish`.)

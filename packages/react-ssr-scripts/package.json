@@ -7,7 +7,7 @@
     "react",
     "ssr"
   ],
-  "homepage": "https://github.com/trustworktech/create-react-ssr-app",
+  "homepage": "https://trustworktech.github.io/create-react-ssr-app/",
   "bugs": {
     "url": "https://github.com/trustworktech/create-react-ssr-app/issues",
     "email": "dev@trustwork.com"
