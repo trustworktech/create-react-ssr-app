@@ -14,7 +14,7 @@ const renderMiddleware = () => (req, res) => {
   Object.keys(htmlReplacements).forEach(key => {
     const value = htmlReplacements[key];
     html = html.replace(
-      new RegExp('%' + escapeStringRegexp(key) + '%', 'g'),
+      new RegExp('__' + escapeStringRegexp(key) + '__', 'g'),
       value
     );
   });
