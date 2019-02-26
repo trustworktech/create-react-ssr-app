@@ -10,39 +10,21 @@ You can find the source HTML file in the `public` folder of the generated projec
 
 Note that normally you wouldn’t edit files in the `public` folder very often. For example, [adding a stylesheet](adding-a-stylesheet.md) is done without touching the HTML.
 
-If you need to dynamically update the page title based on the content, you can use the browser [`document.title`](https://developer.mozilla.org/en-US/docs/Web/API/Document/title) API. For more complex scenarios when you want to change the title from React components, you can use [React Helmet](https://github.com/nfl/react-helmet), a third party library.
+If you need to dynamically update the page title based on the content, you can use the browser [`document.title`](https://developer.mozilla.org/en-US/docs/Web/API/Document/title) API. For more complex scenarios when you want to change the title from React components, you can use [React Helmet](https://github.com/nfl/react-helmet), a third party library. For more information on adding React Helmet to your project follow advice in [this section](adding-react-helmet.md).
 
-If you use a custom server for your app in production and want to modify the title before it gets sent to the browser, you can follow advice in [this section](#generating-dynamic-meta-tags-on-the-server).
+## Sending Data from the Server to the Client
 
-## Generating Dynamic `<meta>` Tags on the Server
-
-Since Create React App doesn’t support server rendering, you might be wondering how to make `<meta>` tags dynamic and reflect the current URL. To solve this, we recommend to add placeholders into the HTML, like this:
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta property="og:title" content="__OG_TITLE__" />
-    <meta property="og:description" content="__OG_DESCRIPTION__" />
-  </head>
-</html>
-```
-
-Then, on the server, regardless of the backend you use, you can read `index.html` into memory and replace `__OG_TITLE__`, `__OG_DESCRIPTION__`, and any other placeholders with values depending on the current URL. Just make sure to sanitize and escape the interpolated values so that they are safe to embed into HTML!
-
-If you use a Node server, you can even share the route matching logic between the client and the server. However duplicating it also works fine in simple cases.
-
-## Injecting Data from the Server into the Page
-
-Similarly to the previous section, you can leave some placeholders in the HTML that inject global variables, for example:
+Similarly to how to pass the initial html content from the server to the client, you can leave some placeholders in the HTML that inject content, for example:
 
 ```js
 <!doctype html>
 <html lang="en">
   <head>
     <script>
-      window.SERVER_DATA = __SERVER_DATA__;
+      window.SERVER_DATA = %SERVER_DATA%;
     </script>
 ```
 
-Then, on the server, you can replace `__SERVER_DATA__` with a JSON of real data right before sending the response. The client code can then read `window.SERVER_DATA` to use it. **Make sure to [sanitize the JSON before sending it to the client](https://medium.com/node-security/the-most-common-xss-vulnerability-in-react-js-applications-2bdffbcc1fa0) as it makes your app vulnerable to XSS attacks.**
+Then, on the server, you can replace `%SERVER_DATA%` with a JSON of real data right before sending the response. The client code can then read `window.SERVER_DATA` to use it. **Make sure to [sanitize the JSON before sending it to the client](https://medium.com/node-security/the-most-common-xss-vulnerability-in-react-js-applications-2bdffbcc1fa0) as it makes your app vulnerable to XSS attacks.**
+
+This is useful if using Redux to pass the store created on the server back to the client as the initial state. For more information on adding Redux and passing the store back to the client follow advice in [this section](adding-redux.md).

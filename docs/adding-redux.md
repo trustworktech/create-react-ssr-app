@@ -28,9 +28,9 @@ Then in `public/app.html` you need to add a script to load the store from the se
     ...
     <body>
       <noscript>You need to enable JavaScript to run this app.</noscript>
-+    <script>
-+      window.PRELOADED_STATE = %PRELOADED_STATE%
-+    </script>
++     <script>
++       window.PRELOADED_STATE = %PRELOADED_STATE%
++     </script>
       <div id="root">%HTML_CONTENT%</div>
     </body>
   </html>
@@ -130,9 +130,7 @@ Finally update `src/server/middleware/render.js` to send the store back to the c
 +   );
     const htmlReplacements = {
       HTML_CONTENT: htmlContent,
-+     PRELOADED_STATE: serialize(store.getState(), {
-+       isJSON: true,
-+     })},
++     PRELOADED_STATE: serialize(store.getState(), { isJSON: true }),
     };
 
     ...

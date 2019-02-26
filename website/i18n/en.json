@@ -30,6 +30,9 @@
       "adding-images-fonts-and-files": {
         "title": "Adding Images, Fonts, and Files"
       },
+      "adding-react-helmet": {
+        "title": "Adding React Helmet"
+      },
       "adding-react-router": {
         "title": "Adding React Router"
       },
