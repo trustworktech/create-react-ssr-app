@@ -156,9 +156,7 @@ const storeMiddleware = () =&gt; (req, res, next) =&gt; {
 <span class="hljs-addition">+   );</span>
     const htmlReplacements = {
       HTML_CONTENT: htmlContent,
-<span class="hljs-addition">+     PRELOADED_STATE: serialize(store.getState(), {</span>
-<span class="hljs-addition">+       isJSON: true,</span>
-<span class="hljs-addition">+     })},</span>
+<span class="hljs-addition">+     PRELOADED_STATE: serialize(store.getState(), { isJSON: true }),</span>
     };
 
     ...
