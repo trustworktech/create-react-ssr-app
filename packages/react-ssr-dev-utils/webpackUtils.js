@@ -160,7 +160,7 @@ function printInstructions(appName, urls, useYarn) {
   console.log();
 }
 
-function createCompiler(webpack, config, name) {
+function createCompiler(webpack, config, name, shouldClearConsole) {
   // "Compiler" is a low-level interface to Webpack.
   // It lets us listen to some events and provide our own custom messages.
   let compiler;
@@ -188,7 +188,7 @@ function createCompiler(webpack, config, name) {
   // "done" event fires when Webpack has finished recompiling the bundle.
   // Whether or not you have warnings or errors, you will get this event.
   compiler.hooks.done.tap('done', stats => {
-    if (isInteractive) {
+    if (isInteractive && shouldClearConsole) {
       clearConsole();
     }
 

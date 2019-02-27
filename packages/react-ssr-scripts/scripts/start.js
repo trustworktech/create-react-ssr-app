@@ -143,8 +143,18 @@ checkBrowsers(paths.appPath, isInteractive)
       .replace(/([^:+])\/+/g, '$1/');
 
     // Create a webpack compiler for the client and server that is configured with custom messages.
-    const clientCompiler = createCompiler(webpack, clientConfig, 'Client');
-    const serverCompiler = createCompiler(webpack, serverConfig, 'Server');
+    const clientCompiler = createCompiler(
+      webpack,
+      clientConfig,
+      'Client',
+      true
+    );
+    const serverCompiler = createCompiler(
+      webpack,
+      serverConfig,
+      'Server',
+      false
+    );
 
     // Start our server webpack instance in watch mode after assets compile
     let clientStarted;
