@@ -44,8 +44,8 @@ const checkRequiredFiles = require('react-ssr-dev-utils/checkRequiredFiles');
 const {
   choosePort,
   prepareUrls,
-  createClientCompiler,
-  createServerCompiler,
+  printInstructions,
+  createCompiler,
 } = require('react-ssr-dev-utils/webpackUtils');
 
 const paths = require('../config/paths');
@@ -98,7 +98,7 @@ checkBrowsers(paths.appPath, isInteractive)
   .then(() => {
     // Remove all content but keep the directory so that
     // if you're in it, you don't end up in Trash
-    fs.emptyDirSync(paths.appBuild);
+    fs.emptyDirSync(paths.appDist);
     // Merge with the public folder
     copyPublicFolder();
     // Choose port for app server
@@ -143,35 +143,44 @@ checkBrowsers(paths.appPath, isInteractive)
       .replace(/([^:+])\/+/g, '$1/');
 
     // Create a webpack compiler for the client and server that is configured with custom messages.
-    const clientCompiler = createClientCompiler(webpack, clientConfig);
-    const serverCompiler = createServerCompiler(
+    const clientCompiler = createCompiler(
+      webpack,
+      clientConfig,
+      'Client',
+      true
+    );
+    const serverCompiler = createCompiler(
       webpack,
       serverConfig,
-      appName,
-      appUrls,
-      useYarn
+      'Server',
+      false
     );
 
     // Start our server webpack instance in watch mode after assets compile
+    let clientStarted;
     clientCompiler.plugin('done', () => {
-      serverCompiler.watch(
-        {
-          quiet: true,
-          stats: 'none',
-        },
-        /* eslint-disable no-unused-vars */
-        stats => {}
-      );
+      if (!clientStarted) {
+        clientStarted = true;
+        serverCompiler.watch(
+          {
+            quiet: true,
+            stats: 'none',
+          },
+          /* eslint-disable no-unused-vars */
+          stats => {}
+        );
+      }
     });
 
     // Open app in browser when ready
-    let started;
+    let serverStarted;
     serverCompiler.plugin('done', () => {
-      if (!started) {
+      if (!serverStarted) {
+        serverStarted = true;
         setTimeout(() => {
+          printInstructions(appName, appUrls, useYarn);
           openBrowser(appUrls.localUrlForBrowser);
         }, 1000);
-        started = true;
       }
     });
 
@@ -186,7 +195,7 @@ checkBrowsers(paths.appPath, isInteractive)
       if (isInteractive) {
         clearConsole();
       }
-      console.log(chalk.cyan('Starting the development server...\n'));
+      console.log(chalk.cyan('Starting the development environment...\n'));
     });
 
     ['SIGINT', 'SIGTERM'].forEach(function(sig) {
@@ -204,7 +213,7 @@ checkBrowsers(paths.appPath, isInteractive)
   });
 
 function copyPublicFolder() {
-  fs.copySync(paths.appPublic, paths.appBuildPublic, {
+  fs.copySync(paths.appPublic, paths.appDistPublic, {
     dereference: true,
     filter: file => file !== paths.appHtml,
   });

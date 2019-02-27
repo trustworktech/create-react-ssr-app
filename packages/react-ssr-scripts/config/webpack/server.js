@@ -67,7 +67,7 @@ module.exports = function(webpackEnv) {
         }),
     ].filter(Boolean),
     output: {
-      path: paths.appBuild,
+      path: isEnvDevelopment ? paths.appDist : paths.appBuild,
       publicPath: publicPath,
       filename: 'index.js',
       libraryTarget: 'commonjs2',
@@ -133,7 +133,7 @@ module.exports = function(webpackEnv) {
           name: 'index.js',
           nodeArgs,
         }),
-      isEnvDevelopment && new webpack.WatchIgnorePlugin([paths.appBuildPublic]),
+      isEnvDevelopment && new webpack.WatchIgnorePlugin([paths.appDistPublic]),
     ].filter(Boolean),
     node: {
       __console: false,
