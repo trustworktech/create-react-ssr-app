@@ -44,8 +44,8 @@ const checkRequiredFiles = require('react-ssr-dev-utils/checkRequiredFiles');
 const {
   choosePort,
   prepareUrls,
-  createClientCompiler,
-  createServerCompiler,
+  printInstructions,
+  createCompiler,
 } = require('react-ssr-dev-utils/webpackUtils');
 
 const paths = require('../config/paths');
@@ -143,40 +143,34 @@ checkBrowsers(paths.appPath, isInteractive)
       .replace(/([^:+])\/+/g, '$1/');
 
     // Create a webpack compiler for the client and server that is configured with custom messages.
-    const clientCompiler = createClientCompiler(webpack, clientConfig);
-    const serverCompiler = createServerCompiler(
-      webpack,
-      serverConfig,
-      appName,
-      appUrls,
-      useYarn
-    );
+    const clientCompiler = createCompiler(webpack, clientConfig, 'Client');
+    const serverCompiler = createCompiler(webpack, serverConfig, 'Server');
 
     // Start our server webpack instance in watch mode after assets compile
-    let watching;
+    let clientStarted;
     clientCompiler.plugin('done', () => {
-      if (watching) {
-        return;
+      if (!clientStarted) {
+        clientStarted = true;
+        serverCompiler.watch(
+          {
+            quiet: true,
+            stats: 'none',
+          },
+          /* eslint-disable no-unused-vars */
+          stats => {}
+        );
       }
-      serverCompiler.watch(
-        {
-          quiet: true,
-          stats: 'none',
-        },
-        /* eslint-disable no-unused-vars */
-        stats => {}
-      );
-      watching = true;
     });
 
     // Open app in browser when ready
-    let started;
+    let serverStarted;
     serverCompiler.plugin('done', () => {
-      if (!started) {
+      if (!serverStarted) {
+        serverStarted = true;
         setTimeout(() => {
+          printInstructions(appName, appUrls, useYarn);
           openBrowser(appUrls.localUrlForBrowser);
         }, 1000);
-        started = true;
       }
     });
 
@@ -191,7 +185,7 @@ checkBrowsers(paths.appPath, isInteractive)
       if (isInteractive) {
         clearConsole();
       }
-      console.log(chalk.cyan('Starting the development server...\n'));
+      console.log(chalk.cyan('Starting the development environment...\n'));
     });
 
     ['SIGINT', 'SIGTERM'].forEach(function(sig) {

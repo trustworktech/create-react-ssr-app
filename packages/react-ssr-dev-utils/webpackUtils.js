@@ -160,14 +160,14 @@ function printInstructions(appName, urls, useYarn) {
   console.log();
 }
 
-function createClientCompiler(webpack, config) {
+function createCompiler(webpack, config, name) {
   // "Compiler" is a low-level interface to Webpack.
   // It lets us listen to some events and provide our own custom messages.
   let compiler;
   try {
     compiler = webpack(config, handleCompile);
   } catch (err) {
-    console.log(chalk.red('Failed to compile client.'));
+    console.log(chalk.red(`Failed to compile ${name.toLowerCase()}.`));
     console.log();
     console.log(err.message || err);
     console.log();
@@ -182,7 +182,7 @@ function createClientCompiler(webpack, config) {
     if (isInteractive) {
       clearConsole();
     }
-    console.log('Compiling client...');
+    console.log(`Compiling ${name.toLowerCase()}...`);
   });
 
   // "done" event fires when Webpack has finished recompiling the bundle.
@@ -202,7 +202,7 @@ function createClientCompiler(webpack, config) {
     );
     const isSuccessful = !messages.errors.length && !messages.warnings.length;
     if (isSuccessful) {
-      console.log(chalk.green('Client compiled successfully!'));
+      console.log(chalk.green(`${name} compiled successfully!`));
     }
 
     // If errors exist, only show errors.
@@ -212,14 +212,14 @@ function createClientCompiler(webpack, config) {
       if (messages.errors.length > 1) {
         messages.errors.length = 1;
       }
-      console.log(chalk.red('Failed to compile client.\n'));
+      console.log(chalk.red(`Failed to compile ${name.toLowerCase()}.\n`));
       console.log(messages.errors.join('\n\n'));
       return;
     }
 
     // Show warnings if no errors were found.
     if (messages.warnings.length) {
-      console.log(chalk.yellow('Client compiled with warnings.\n'));
+      console.log(chalk.yellow(`${name} compiled with warnings.\n`));
       console.log(messages.warnings.join('\n\n'));
 
       // Teach some ESLint tricks.
@@ -238,58 +238,9 @@ function createClientCompiler(webpack, config) {
   return compiler;
 }
 
-function createServerCompiler(webpack, config, appName, urls, useYarn) {
-  let compiler;
-  try {
-    compiler = webpack(config, handleCompile);
-  } catch (err) {
-    console.log(chalk.red('Failed to compile server.'));
-    console.log();
-    console.log(err.message || err);
-    console.log();
-    process.exit(1);
-  }
-
-  compiler.hooks.invalid.tap('invalid', () => {
-    console.log('Compiling server...');
-  });
-
-  let isFirstCompile = true;
-
-  compiler.hooks.done.tap('done', stats => {
-    const messages = formatWebpackMessages(
-      stats.toJson({ all: false, warnings: true, errors: true })
-    );
-    const isSuccessful = !messages.errors.length && !messages.warnings.length;
-    if (isSuccessful) {
-      console.log(chalk.green('Server compiled successfully!'));
-    }
-
-    if (isSuccessful && (isInteractive || isFirstCompile)) {
-      printInstructions(appName, urls, useYarn);
-    }
-    isFirstCompile = false;
-
-    if (messages.errors.length) {
-      if (messages.errors.length > 1) {
-        messages.errors.length = 1;
-      }
-      console.log(chalk.red('Failed to compile server.\n'));
-      console.log(messages.errors.join('\n\n'));
-      return;
-    }
-
-    if (messages.warnings.length) {
-      console.log(chalk.yellow('Server compiled with warnings.\n'));
-      console.log(messages.warnings.join('\n\n'));
-    }
-  });
-  return compiler;
-}
-
 module.exports = {
   choosePort,
   prepareUrls,
-  createClientCompiler,
-  createServerCompiler,
+  printInstructions,
+  createCompiler,
 };
