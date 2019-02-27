@@ -66,7 +66,7 @@ module.exports = function(webpackEnv) {
     entry: [paths.appClientIndexJs],
     output: {
       // The build folder.
-      path: paths.appBuildPublic,
+      path: isEnvDevelopment ? paths.appDistPublic : paths.appBuildPublic,
       // Add /* filename */ comments to generated require()s in the output.
       pathinfo: isEnvDevelopment,
       // There will be one main bundle, and one file per asynchronous chunk.

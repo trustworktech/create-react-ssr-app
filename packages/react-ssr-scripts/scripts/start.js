@@ -98,7 +98,7 @@ checkBrowsers(paths.appPath, isInteractive)
   .then(() => {
     // Remove all content but keep the directory so that
     // if you're in it, you don't end up in Trash
-    fs.emptyDirSync(paths.appBuild);
+    fs.emptyDirSync(paths.appDist);
     // Merge with the public folder
     copyPublicFolder();
     // Choose port for app server
@@ -213,7 +213,7 @@ checkBrowsers(paths.appPath, isInteractive)
   });
 
 function copyPublicFolder() {
-  fs.copySync(paths.appPublic, paths.appBuildPublic, {
+  fs.copySync(paths.appPublic, paths.appDistPublic, {
     dereference: true,
     filter: file => file !== paths.appHtml,
   });
