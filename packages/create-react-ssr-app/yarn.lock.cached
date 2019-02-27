@@ -7718,10 +7718,10 @@ react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.3.tgz#4ad8b029c2a718fc0cfc746c8d4e1b7221e5387d"
   integrity sha512-Y4rC1ZJmsxxkkPuMLwvKvlL1Zfpbcu+Bf4ZigkHup3v9EfdYhAlWAaVyA19olXq2o2mGn0w+dFKvk3pVVlYcIA==
 
-react-ssr-dev-utils@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/react-ssr-dev-utils/-/react-ssr-dev-utils-0.0.3.tgz#8915374a00ba592161d8c5483f304d08676f66c3"
-  integrity sha512-xg3+DJpm/fnb8JRGii/LPhhm5ntxAKoWmwaCCz3LPSk47lDZ7YcO+BNqSkdhrI3aTJP2ss6qh+o/qVnhAubktA==
+react-ssr-dev-utils@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-ssr-dev-utils/-/react-ssr-dev-utils-1.0.1.tgz#c189373ba0f342fdb825a90bc9fe9228e860ff44"
+  integrity sha512-iaFpXqQcF+n6Ahd/W7rEaeDpXHisTrv4fthWSJE0QyVTJixeN6Mo6uBubnH993R+3LoCnblI8vJzVGwLvYKGHw==
   dependencies:
     address "1.0.3"
     browserslist "4.4.1"
