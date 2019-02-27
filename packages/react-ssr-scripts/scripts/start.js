@@ -153,7 +153,11 @@ checkBrowsers(paths.appPath, isInteractive)
     );
 
     // Start our server webpack instance in watch mode after assets compile
+    let watching;
     clientCompiler.plugin('done', () => {
+      if (watching) {
+        return;
+      }
       serverCompiler.watch(
         {
           quiet: true,
@@ -162,6 +166,7 @@ checkBrowsers(paths.appPath, isInteractive)
         /* eslint-disable no-unused-vars */
         stats => {}
       );
+      watching = true;
     });
 
     // Open app in browser when ready
