@@ -7888,9 +7888,9 @@ regexpu-core@^1.0.0:
     regjsparser "^0.1.4"
 
 regexpu-core@^4.1.3, regexpu-core@^4.2.0:
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/regexpu-core/-/regexpu-core-4.5.1.tgz#4d0d902156995d19c5cd832f840632799122f872"
-  integrity sha512-+z6gQS3hNgmyYecCpEbW1srT+RPKmWxNK70KdVgLgVxkgMla7i0agNiuBTm9X6vko+OQBhwTVMlFUvIrkDq7qQ==
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/regexpu-core/-/regexpu-core-4.5.2.tgz#9fcee72782f4fea6f8f428f7f14c8f242ca3dc82"
+  integrity sha512-CgGxXmuX0Cf57z7KahSHe4kaNY8gBRCFFEretQ5AHsnlLx/5VdCrQOoOz1POxLdZjPbwE5ncTspPJwp2WHPcHA==
   dependencies:
     regenerate "^1.4.0"
     regenerate-unicode-properties "^8.0.0"
