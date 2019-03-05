@@ -92,9 +92,6 @@ module.exports = {
   yarnLockFile: resolveApp('yarn.lock'),
   testsSetup: resolveModule(resolveApp, 'src/setupTests'),
   appNodeModules: resolveApp('node_modules'),
-  rootNodeModules: fs.existsSync(resolveApp('../../node_modules'))
-    ? resolveApp('../../node_modules')
-    : '',
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
 };
@@ -119,9 +116,6 @@ module.exports = {
   yarnLockFile: resolveApp('yarn.lock'),
   testsSetup: resolveModule(resolveApp, 'src/setupTests'),
   appNodeModules: resolveApp('node_modules'),
-  rootNodeModules: fs.existsSync(resolveApp('../../node_modules'))
-    ? resolveApp('../../node_modules')
-    : '',
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
   // These properties only exist before ejecting:
@@ -156,9 +150,6 @@ if (
     yarnLockFile: resolveOwn('template/yarn.lock'),
     testsSetup: resolveModule(resolveOwn, 'template/src/setupTests'),
     appNodeModules: resolveOwn('node_modules'),
-    rootNodeModules: fs.existsSync(resolveOwn('../../node_modules'))
-      ? resolveOwn('../../node_modules')
-      : '',
     publicUrl: getPublicUrl(resolveOwn('package.json')),
     servedPath: getServedPath(resolveOwn('package.json')),
     // These properties only exist before ejecting:
