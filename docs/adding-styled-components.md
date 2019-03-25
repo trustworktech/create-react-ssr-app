@@ -30,7 +30,7 @@ Then in `public/app.html` you need to add a placeholder for the styles:
     <head>
       ...
       <title>React SSR App</title>
-+     %STYLE_TAGS%
++     __STYLE_TAGS__
     </head>
     <body>
       ...

@@ -53,21 +53,9 @@ module.exports = function(webpackEnv) {
           /\.(css|scss|sass|sss|less)$/,
         ].filter(Boolean),
       }),
-      // If using yarn workspaces include root node_modules
-      paths.rootNodeModules &&
-        nodeExternals({
-          whitelist: [
-            isEnvDevelopment && 'webpack/hot/poll?300',
-            /\.(eot|woff|woff2|ttf|otf)$/,
-            /\.(svg|png|jpg|jpeg|gif|ico)$/,
-            /\.(mp4|mp3|ogg|swf|webp)$/,
-            /\.(css|scss|sass|sss|less)$/,
-          ].filter(Boolean),
-          modulesDir: paths.rootNodeModules,
-        }),
-    ].filter(Boolean),
+    ],
     output: {
-      path: paths.appBuild,
+      path: isEnvDevelopment ? paths.appDist : paths.appBuild,
       publicPath: publicPath,
       filename: 'index.js',
       libraryTarget: 'commonjs2',
@@ -133,7 +121,7 @@ module.exports = function(webpackEnv) {
           name: 'index.js',
           nodeArgs,
         }),
-      isEnvDevelopment && new webpack.WatchIgnorePlugin([paths.appBuildPublic]),
+      isEnvDevelopment && new webpack.WatchIgnorePlugin([paths.appDistPublic]),
     ].filter(Boolean),
     node: {
       __console: false,

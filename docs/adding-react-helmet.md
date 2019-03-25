@@ -24,13 +24,13 @@ yarn add react-helmet
 Then in `public/app.html` you need to add placeholders for the helmet attributes:
 
 ```diff
-+ <html lang="en" %HELMET_HTML_ATTRIBUTES%>
++ <html lang="en" __HELMET_HTML_ATTRIBUTES__>
     <head>
       ...
       <title>React SSR App</title>
-+     %HELMET_META_ATTRIBUTES%
++     __HELMET_META_ATTRIBUTES__
     </head>
-+   <body %HELMET_BODY_ATTRIBUTES%>
++   <body __HELMET_BODY_ATTRIBUTES__>
       ...
     </body>
   </html>

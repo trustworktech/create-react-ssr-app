@@ -112,6 +112,10 @@ const siteConfig = {
   repoUrl: 'https://github.com/trustworktech/create-react-ssr-app',
 
   docsSideNavCollapsible: false,
+  algolia: {
+    apiKey: 'a2f42d84af398a5bc73faf5caf364f6a',
+    indexName: 'trustworktech_create-react-ssr-app',
+  },
 };
 
 module.exports = siteConfig;

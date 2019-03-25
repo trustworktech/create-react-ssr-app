@@ -79,6 +79,8 @@ const resolveModule = (resolveFn, filePath) => {
 module.exports = {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
+  appDist: resolveApp('dist'),
+  appDistPublic: resolveApp('dist/public'),
   appBuild: resolveApp('build'),
   appBuildPublic: resolveApp('build/public'),
   appPublic: resolveApp('public'),
@@ -90,9 +92,6 @@ module.exports = {
   yarnLockFile: resolveApp('yarn.lock'),
   testsSetup: resolveModule(resolveApp, 'src/setupTests'),
   appNodeModules: resolveApp('node_modules'),
-  rootNodeModules: fs.existsSync(resolveApp('../../node_modules'))
-    ? resolveApp('../../node_modules')
-    : '',
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
 };
@@ -104,6 +103,8 @@ const resolveOwn = relativePath => path.resolve(__dirname, '..', relativePath);
 module.exports = {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
+  appDist: resolveApp('dist'),
+  appDistPublic: resolveApp('dist/public'),
   appBuild: resolveApp('build'),
   appBuildPublic: resolveApp('build/public'),
   appPublic: resolveApp('public'),
@@ -115,9 +116,6 @@ module.exports = {
   yarnLockFile: resolveApp('yarn.lock'),
   testsSetup: resolveModule(resolveApp, 'src/setupTests'),
   appNodeModules: resolveApp('node_modules'),
-  rootNodeModules: fs.existsSync(resolveApp('../../node_modules'))
-    ? resolveApp('../../node_modules')
-    : '',
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
   // These properties only exist before ejecting:
@@ -139,6 +137,8 @@ if (
   module.exports = {
     dotenv: resolveOwn('template/.env'),
     appPath: resolveApp('.'),
+    appDist: resolveOwn('../../dist'),
+    appDistPublic: resolveOwn('../../dist/public'),
     appBuild: resolveOwn('../../build'),
     appBuildPublic: resolveOwn('../../build/public'),
     appPublic: resolveOwn('template/public'),
@@ -150,9 +150,6 @@ if (
     yarnLockFile: resolveOwn('template/yarn.lock'),
     testsSetup: resolveModule(resolveOwn, 'template/src/setupTests'),
     appNodeModules: resolveOwn('node_modules'),
-    rootNodeModules: fs.existsSync(resolveOwn('../../node_modules'))
-      ? resolveOwn('../../node_modules')
-      : '',
     publicUrl: getPublicUrl(resolveOwn('package.json')),
     servedPath: getServedPath(resolveOwn('package.json')),
     // These properties only exist before ejecting:

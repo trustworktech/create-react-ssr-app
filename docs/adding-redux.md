@@ -29,9 +29,9 @@ Then in `public/app.html` you need to add a script to load the store from the se
     <body>
       <noscript>You need to enable JavaScript to run this app.</noscript>
 +     <script>
-+       window.PRELOADED_STATE = %PRELOADED_STATE%
++       window.PRELOADED_STATE = __PRELOADED_STATE__
 +     </script>
-      <div id="root">%HTML_CONTENT%</div>
+      <div id="root">__HTML_CONTENT__</div>
     </body>
   </html>
 ```
