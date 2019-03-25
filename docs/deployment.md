@@ -24,7 +24,7 @@ forever --help
 ## Other Solutions
 
 You need a node server in order to run a Create React SSR App project in production. Where you choose to host that
-node server is up to you.
+node server is up to you. A simple solution you can use is Heroku. Follow the steps [here](https://devcenter.heroku.com/articles/getting-started-with-nodejs) for information how to get started.
 
 ## Customizing Environment Variables for Arbitrary Build Environments
 
