@@ -22,7 +22,7 @@ module.exports = function(webpackEnv) {
   const isEnvDevelopment = webpackEnv === 'development';
   const isEnvProduction = webpackEnv === 'production';
   const { server: serverLoaders } = require('./loaders')(webpackEnv);
-  const sharedPlugins = require('./plugins')(webpackEnv);
+  const sharedPlugins = require('./plugins')(webpackEnv, 'server');
   const publicPath = isEnvProduction
     ? paths.servedPath
     : isEnvDevelopment && '/';

@@ -34,7 +34,7 @@ module.exports = function(webpackEnv) {
   const isEnvDevelopment = webpackEnv === 'development';
   const isEnvProduction = webpackEnv === 'production';
   const { client: clientLoaders } = require('./loaders')(webpackEnv);
-  const sharedPlugins = require('./plugins')(webpackEnv);
+  const sharedPlugins = require('./plugins')(webpackEnv, 'client');
 
   // Webpack uses `publicPath` to determine where the app is being served from.
   // It requires a trailing slash, or the file assets will get an incorrect path.

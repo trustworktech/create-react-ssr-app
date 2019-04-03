@@ -18,9 +18,10 @@ const WatchMissingNodeModulesPlugin = require('react-ssr-dev-utils/WatchMissingN
 const paths = require('../paths');
 const getClientEnvironment = require('../env');
 
-module.exports = function(webpackEnv) {
+module.exports = function(webpackEnv, appEnv) {
   const isEnvDevelopment = webpackEnv === 'development';
   const isEnvProduction = webpackEnv === 'production';
+  const isEnvClient = appEnv === 'client';
 
   // Webpack uses `publicPath` to determine where the app is being served from.
   // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -47,7 +48,8 @@ module.exports = function(webpackEnv) {
     // It is absolutely essential that NODE_ENV is set to production
     // during a production build.
     // Otherwise React will be compiled in the very slow development mode.
-    new webpack.DefinePlugin(env.stringified),
+    (isEnvClient || isEnvDevelopment) &&
+      new webpack.DefinePlugin(env.stringified),
     // This is necessary to emit hot updates
     isEnvDevelopment && new WriteFileWebpackPlugin(),
     isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),

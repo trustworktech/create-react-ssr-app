@@ -121,7 +121,7 @@ checkBrowsers(paths.appPath, isInteractive)
       const appPackage = require(paths.appPackageJson);
       const publicUrl = paths.publicUrl;
       const publicPath = clientConfig.output.publicPath;
-      const buildFolder = path.relative(process.cwd(), paths.appBuildPublic);
+      const buildFolder = path.relative(process.cwd(), paths.appBuild);
       printHostingInstructions(appPackage, publicUrl, publicPath, buildFolder);
     },
     err => {
