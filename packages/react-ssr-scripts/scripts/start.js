@@ -130,13 +130,13 @@ checkBrowsers(paths.appPath, isInteractive)
       ...clientConfig.entry,
     ];
     clientConfig.output.publicPath = [
-      `http://${HOST}:${devPort}`,
+      `http://localhost:${devPort}`,
       clientConfig.output.publicPath,
     ]
       .join('/')
       .replace(/([^:+])\/+/g, '$1/');
     serverConfig.output.publicPath = [
-      `http://${HOST}:${devPort}`,
+      `http://localhost:${devPort}`,
       serverConfig.output.publicPath,
     ]
       .join('/')
