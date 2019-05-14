@@ -21,7 +21,8 @@
     "bin",
     "config",
     "scripts",
-    "template"
+    "template",
+    "template-typescript"
   ],
   "bin": {
     "react-ssr-scripts": "./bin/react-ssr-scripts.js"
