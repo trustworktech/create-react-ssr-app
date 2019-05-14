@@ -39,6 +39,9 @@
       "adding-redux": {
         "title": "Adding Redux"
       },
+      "adding-relay": {
+        "title": "Adding Relay"
+      },
       "adding-styled-components": {
         "title": "Adding Styled Components"
       },

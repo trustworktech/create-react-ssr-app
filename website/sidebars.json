@@ -30,6 +30,7 @@
       "using-global-variables",
       "title-and-meta-tags",
       "adding-flow",
+      "adding-relay",
       "adding-react-helmet",
       "adding-react-router",
       "adding-redux",
