@@ -8,6 +8,8 @@
 // @remove-on-eject-end
 'use strict';
 
+const fs = require('fs');
+const isWsl = require('is-wsl');
 const path = require('path');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -20,6 +22,7 @@ const InterpolateHtmlPlugin = require('react-ssr-dev-utils/InterpolateHtmlPlugin
 const InlineChunkHtmlPlugin = require('react-ssr-dev-utils/InlineChunkHtmlPlugin');
 
 const paths = require('../paths');
+const modules = require('../modules');
 const getClientEnvironment = require('../env');
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
@@ -27,6 +30,9 @@ const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
 // makes for a smoother build process.
 const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false';
+
+// Check if TypeScript is setup
+const useTypeScript = fs.existsSync(paths.appTsConfig);
 
 // This is the production and development configuration for client.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -74,6 +80,8 @@ module.exports = function(webpackEnv) {
       filename: isEnvProduction
         ? 'static/js/[name].[chunkhash:8].js'
         : isEnvDevelopment && 'static/js/bundle.js',
+      // TODO: remove this when upgrading to webpack 5
+      futureEmitAssets: false,
       // There are also additional JS chunk files if you use code splitting.
       chunkFilename: isEnvProduction
         ? 'static/js/[name].[chunkhash:8].chunk.js'
@@ -131,7 +139,9 @@ module.exports = function(webpackEnv) {
           },
           // Use multi-process parallel running to improve the build speed
           // Default number of concurrent runs: os.cpus().length - 1
-          parallel: true,
+          // Disabled on WSL (Windows Subsystem for Linux) due to an issue with Terser
+          // https://github.com/webpack-contrib/terser-webpack-plugin/issues/21
+          parallel: !isWsl,
           // Enable file caching
           cache: true,
           sourceMap: shouldUseSourceMap,
@@ -169,9 +179,8 @@ module.exports = function(webpackEnv) {
       // We placed these paths second because we want `node_modules` to "win"
       // if there are any conflicts. This matches Node resolution mechanism.
       // https://github.com/facebook/create-react-app/issues/253
-      modules: ['node_modules'].concat(
-        // It is guaranteed to exist because we tweak it in `env.js`
-        process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
+      modules: ['node_modules', paths.appNodeModules].concat(
+        modules.additionalModulePaths || []
       ),
       // These are the reasonable defaults supported by the Node ecosystem.
       // We also include JSX as a common component filename extension to support
@@ -181,7 +190,7 @@ module.exports = function(webpackEnv) {
       // for React Native Web.
       extensions: paths.moduleFileExtensions
         .map(ext => `.${ext}`)
-        .filter(ext => !ext.includes('ts')),
+        .filter(ext => useTypeScript || !ext.includes('ts')),
       alias: {
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
@@ -291,6 +300,16 @@ module.exports = function(webpackEnv) {
       new ManifestPlugin({
         fileName: 'asset-manifest.json',
         publicPath: publicPath,
+        generate: (seed, files) => {
+          const manifestFiles = files.reduce(function(manifest, file) {
+            manifest[file.name] = file.path;
+            return manifest;
+          }, seed);
+
+          return {
+            files: manifestFiles,
+          };
+        },
       }),
       ...sharedPlugins,
     ].filter(Boolean),

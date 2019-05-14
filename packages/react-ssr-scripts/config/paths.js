@@ -73,8 +73,6 @@ const resolveModule = (resolveFn, filePath) => {
   return resolveFn(`${filePath}.js`);
 };
 
-// Find yarn lock file
-
 // config after eject: we're in ./config/
 module.exports = {
   dotenv: resolveApp('.env'),
@@ -89,6 +87,8 @@ module.exports = {
   appServerIndexJs: resolveModule(resolveApp, 'src/index'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
+  appTsConfig: resolveApp('tsconfig.json'),
+  appJsConfig: resolveApp('jsconfig.json'),
   yarnLockFile: resolveApp('yarn.lock'),
   testsSetup: resolveModule(resolveApp, 'src/setupTests'),
   appNodeModules: resolveApp('node_modules'),
@@ -113,6 +113,8 @@ module.exports = {
   appServerIndexJs: resolveModule(resolveApp, 'src/index'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
+  appTsConfig: resolveApp('tsconfig.json'),
+  appJsConfig: resolveApp('jsconfig.json'),
   yarnLockFile: resolveApp('yarn.lock'),
   testsSetup: resolveModule(resolveApp, 'src/setupTests'),
   appNodeModules: resolveApp('node_modules'),
@@ -121,6 +123,8 @@ module.exports = {
   // These properties only exist before ejecting:
   ownPath: resolveOwn('.'),
   ownNodeModules: resolveOwn('node_modules'), // This is empty on npm 3
+  appTypeDeclarations: resolveApp('src/react-app-env.d.ts'),
+  ownTypeDeclarations: resolveOwn('lib/react-app.d.ts'),
 };
 
 const ownPackageJson = require('../package.json');
@@ -147,6 +151,8 @@ if (
     appServerIndexJs: resolveModule(resolveOwn, 'template/src/index'),
     appPackageJson: resolveOwn('package.json'),
     appSrc: resolveOwn('template/src'),
+    appTsConfig: resolveOwn('template/tsconfig.json'),
+    appJsConfig: resolveOwn('template/jsconfig.json'),
     yarnLockFile: resolveOwn('template/yarn.lock'),
     testsSetup: resolveModule(resolveOwn, 'template/src/setupTests'),
     appNodeModules: resolveOwn('node_modules'),
@@ -155,6 +161,8 @@ if (
     // These properties only exist before ejecting:
     ownPath: resolveOwn('.'),
     ownNodeModules: resolveOwn('node_modules'),
+    appTypeDeclarations: resolveOwn('template/src/react-app-env.d.ts'),
+    ownTypeDeclarations: resolveOwn('lib/react-app.d.ts'),
   };
 }
 // @remove-on-eject-end

@@ -2,5 +2,6 @@ node_modules/
 build
 my-app*
 packages/react-ssr-scripts/template
+packages/react-ssr-scripts/template-typescript
 website/
 docs/

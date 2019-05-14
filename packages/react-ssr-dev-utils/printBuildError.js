@@ -4,6 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
+
 'use strict';
 
 const chalk = require('chalk');
@@ -36,7 +37,7 @@ module.exports = function printBuildError(err) {
     } catch (ignored) {
       console.log('Failed to minify the bundle.', err);
     }
-    console.log('Read more here: http://bit.ly/CRA-build-minify');
+    console.log('Read more here: https://bit.ly/CRA-build-minify');
   } else {
     console.log((message || err) + '\n');
   }

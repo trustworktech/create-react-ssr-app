@@ -13,6 +13,7 @@ const getCSSModuleLocalIdent = require('react-ssr-dev-utils/getCSSModuleLocalIde
 // @remove-on-eject-begin
 const getCacheIdentifier = require('react-ssr-dev-utils/getCacheIdentifier');
 // @remove-on-eject-end
+const postcssNormalize = require('postcss-normalize');
 
 const paths = require('../paths');
 
@@ -166,8 +167,12 @@ const clientLoaders = webpackEnv => {
               },
               stage: 3,
             }),
+            // Adds PostCSS Normalize as the reset css with default options,
+            // so that it honors browserslist config in package.json
+            // which in turn let's users customize the target behavior as per their needs.
+            postcssNormalize(),
           ],
-          sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
+          sourceMap: isEnvProduction && shouldUseSourceMap,
         },
       },
     ].filter(Boolean);
@@ -175,7 +180,7 @@ const clientLoaders = webpackEnv => {
       loaders.push({
         loader: require.resolve(preProcessor),
         options: {
-          sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
+          sourceMap: isEnvProduction && shouldUseSourceMap,
         },
       });
     }
@@ -206,7 +211,7 @@ const clientLoaders = webpackEnv => {
       exclude: cssModuleRegex,
       use: getStyleLoaders({
         importLoaders: 1,
-        sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
+        sourceMap: isEnvProduction && shouldUseSourceMap,
       }),
       // Don't consider CSS imports dead code even if the
       // containing package claims to have no side effects.
@@ -220,7 +225,7 @@ const clientLoaders = webpackEnv => {
       test: cssModuleRegex,
       use: getStyleLoaders({
         importLoaders: 1,
-        sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
+        sourceMap: isEnvProduction && shouldUseSourceMap,
         modules: true,
         getLocalIdent: getCSSModuleLocalIdent,
       }),
@@ -234,7 +239,7 @@ const clientLoaders = webpackEnv => {
       use: getStyleLoaders(
         {
           importLoaders: 2,
-          sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
+          sourceMap: isEnvProduction && shouldUseSourceMap,
         },
         'sass-loader'
       ),
@@ -251,7 +256,7 @@ const clientLoaders = webpackEnv => {
       use: getStyleLoaders(
         {
           importLoaders: 2,
-          sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
+          sourceMap: isEnvProduction && shouldUseSourceMap,
           modules: true,
           getLocalIdent: getCSSModuleLocalIdent,
         },
@@ -282,7 +287,7 @@ const serverLoaders = () => {
   const getStyleLoaders = (cssOptions, preProcessor) => {
     const loaders = [
       {
-        loader: require.resolve('css-loader/locals'),
+        loader: require.resolve('css-loader'),
         options: cssOptions,
       },
       {

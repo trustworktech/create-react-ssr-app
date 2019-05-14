@@ -4,6 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
+
 'use strict';
 
 class InlineChunkHtmlPlugin {
@@ -16,7 +17,9 @@ class InlineChunkHtmlPlugin {
     if (tag.tagName !== 'script' || !(tag.attributes && tag.attributes.src)) {
       return tag;
     }
-    const scriptName = tag.attributes.src.replace(publicPath, '');
+    const scriptName = publicPath
+      ? tag.attributes.src.replace(publicPath, '')
+      : tag.attributes.src;
     if (!this.tests.some(test => scriptName.match(test))) {
       return tag;
     }
@@ -28,8 +31,8 @@ class InlineChunkHtmlPlugin {
   }
 
   apply(compiler) {
-    let publicPath = compiler.options.output.publicPath;
-    if (!publicPath.endsWith('/')) {
+    let publicPath = compiler.options.output.publicPath || '';
+    if (publicPath && !publicPath.endsWith('/')) {
       publicPath += '/';
     }
 

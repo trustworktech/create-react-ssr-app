@@ -12,6 +12,7 @@
 // It works in tandem with HtmlWebpackPlugin.
 // Learn more about creating plugins like this:
 // https://github.com/ampedandwired/html-webpack-plugin#events
+
 'use strict';
 
 const escapeStringRegexp = require('escape-string-regexp');

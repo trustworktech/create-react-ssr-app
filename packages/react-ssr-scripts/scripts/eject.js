@@ -39,6 +39,22 @@ function getGitStatus() {
   }
 }
 
+function tryGitAdd(appPath) {
+  try {
+    spawnSync(
+      'git',
+      ['add', path.join(appPath, 'config'), path.join(appPath, 'scripts')],
+      {
+        stdio: 'inherit',
+      }
+    );
+
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 inquirer
   .prompt({
     type: 'confirm',
@@ -296,9 +312,10 @@ inquirer
     console.log(green('Ejected successfully!'));
     console.log();
 
-    console.log(
-      green('Please consider sharing why you ejected in this survey:')
-    );
-    console.log(green('  http://goo.gl/forms/Bi6CZjk1EqsdelXk1'));
+    if (tryGitAdd(appPath)) {
+      console.log(cyan('Staged ejected files for commit.'));
+      console.log();
+    }
+
     console.log();
   });

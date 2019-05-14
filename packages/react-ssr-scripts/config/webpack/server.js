@@ -8,7 +8,7 @@
 // @remove-on-eject-end
 'use strict';
 
-const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
@@ -16,6 +16,10 @@ const StartServerPlugin = require('start-server-webpack-plugin');
 const ModuleScopePlugin = require('react-ssr-dev-utils/ModuleScopePlugin');
 
 const paths = require('../paths');
+const modules = require('../modules');
+
+// Check if TypeScript is setup
+const useTypeScript = fs.existsSync(paths.appTsConfig);
 
 // This is the production and development configuration for server.
 module.exports = function(webpackEnv) {
@@ -61,12 +65,12 @@ module.exports = function(webpackEnv) {
       libraryTarget: 'commonjs2',
     },
     resolve: {
-      modules: ['node_modules'].concat(
-        process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
+      modules: ['node_modules', paths.appNodeModules].concat(
+        modules.additionalModulePaths || []
       ),
       extensions: paths.moduleFileExtensions
         .map(ext => `.${ext}`)
-        .filter(ext => !ext.includes('ts')),
+        .filter(ext => useTypeScript || !ext.includes('ts')),
       alias: {
         // This is required so symlinks work during development.
         'webpack/hot/poll': require.resolve('webpack/hot/poll'),

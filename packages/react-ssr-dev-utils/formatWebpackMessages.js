@@ -4,6 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
+
 'use strict';
 
 const chalk = require('chalk');
@@ -14,8 +15,7 @@ function isLikelyASyntaxError(message) {
 }
 
 // Cleans up webpack error messages.
-// eslint-disable-next-line no-unused-vars
-function formatMessage(message, isError) {
+function formatMessage(message) {
   let lines = message.split('\n');
 
   // Strip Webpack-added headers off errors/warnings

@@ -21,6 +21,7 @@ const execSync = require('child_process').execSync;
 const spawn = require('react-ssr-dev-utils/crossSpawn');
 const { defaultBrowsers } = require('react-ssr-dev-utils/browsersHelper');
 const os = require('os');
+const verifyTypeScriptSetup = require('./utils/verifyTypeScriptSetup');
 
 function isInGitRepository() {
   try {
@@ -91,10 +92,6 @@ module.exports = function(
   appPackage.dependencies = appPackage.dependencies || {};
 
   const useTypeScript = appPackage.dependencies['typescript'] != null;
-  if (useTypeScript) {
-    console.log(chalk.red(`Typescript is not yet supported. Sorry.\n`));
-    process.exit(1);
-  }
 
   // Setup the script rules
   appPackage.scripts = {
@@ -128,7 +125,7 @@ module.exports = function(
   // Copy the files for the user
   const templatePath = template
     ? path.resolve(originalDirectory, template)
-    : path.join(ownPath, 'template');
+    : path.join(ownPath, useTypeScript ? 'template-typescript' : 'template');
   if (fs.existsSync(templatePath)) {
     fs.copySync(templatePath, appPath);
   } else {
@@ -196,6 +193,10 @@ module.exports = function(
       console.error(`\`${command} ${args.join(' ')}\` failed`);
       return;
     }
+  }
+
+  if (useTypeScript) {
+    verifyTypeScriptSetup();
   }
 
   if (tryGitInit(appPath)) {

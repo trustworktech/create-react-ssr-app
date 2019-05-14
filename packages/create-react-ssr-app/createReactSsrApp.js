@@ -34,21 +34,21 @@
 
 'use strict';
 
-const validateProjectName = require('validate-npm-package-name');
 const chalk = require('chalk');
 const commander = require('commander');
-const fs = require('fs-extra');
-const path = require('path');
-const execSync = require('child_process').execSync;
-const spawn = require('cross-spawn');
-const semver = require('semver');
 const dns = require('dns');
+const envinfo = require('envinfo');
+const execSync = require('child_process').execSync;
+const fs = require('fs-extra');
+const hyperquest = require('hyperquest');
+const os = require('os');
+const path = require('path');
+const semver = require('semver');
+const spawn = require('cross-spawn');
 const tmp = require('tmp');
 const unpack = require('tar-pack').unpack;
 const url = require('url');
-const hyperquest = require('hyperquest');
-const envinfo = require('envinfo');
-const os = require('os');
+const validateProjectName = require('validate-npm-package-name');
 
 const packageJson = require('./package.json');
 
@@ -135,7 +135,6 @@ if (program.info) {
         npmGlobalPackages: ['create-react-ssr-app'],
       },
       {
-        clipboard: false,
         duplicates: true,
         showNotFound: true,
       }
@@ -224,11 +223,11 @@ function createApp(
     process.exit(1);
   }
 
-  if (!semver.satisfies(process.version, '>=8.0.0')) {
+  if (!semver.satisfies(process.version, '>=8.10.0')) {
     console.log(
       chalk.red(
         `You are using Node ${process.version}.\n\n` +
-          `Please update to Node 8 or higher to use Create React SSR App.\n`
+          `Please update to Node 8.10 or higher to use Create React SSR App.\n`
       )
     );
     process.exit(1);
@@ -251,13 +250,16 @@ function createApp(
     const yarnInfo = checkYarnVersion();
     if (!yarnInfo.hasMinYarnPnp) {
       if (yarnInfo.yarnVersion) {
-        chalk.yellow(
-          `You are using Yarn ${
-            yarnInfo.yarnVersion
-          } together with the --use-pnp flag, but Plug'n'Play is only supported starting from the 1.12 release.\n\n` +
-            `Please update to Yarn 1.12 or higher for a better, fully supported experience.\n`
+        console.log(
+          chalk.yellow(
+            `You are using Yarn ${
+              yarnInfo.yarnVersion
+            } together with the --use-pnp flag, but Plug'n'Play is only supported starting from the 1.12 release.\n\n` +
+              `Please update to Yarn 1.12 or higher for a better, fully supported experience.\n`
+          )
         );
       }
+      // 1.11 had an issue with webpack-dev-middleware, so better not use PnP with it (never reached stable, but still)
       usePnp = false;
     }
   }
@@ -378,15 +380,15 @@ function run(
   const packageToInstall = getInstallPackage(version, originalDirectory);
   const allDependencies = ['express', 'react', 'react-dom', packageToInstall];
   if (useTypescript) {
-    console.log(chalk.red(`Typescript is not yet supported. Sorry.\n`));
-    process.exit(1);
-    // allDependencies.push(
-    //   '@types/node',
-    //   '@types/react',
-    //   '@types/react-dom',
-    //   '@types/jest',
-    //   'typescript'
-    // );
+    allDependencies.push(
+      // TODO: get user's node version instead of installing latest
+      '@types/node',
+      '@types/react',
+      '@types/react-dom',
+      // TODO: get version of Jest being used instead of installing latest
+      '@types/jest',
+      'typescript'
+    );
   }
 
   console.log('Installing packages. This might take a couple of minutes.');
@@ -452,7 +454,7 @@ function run(
       const currentFiles = fs.readdirSync(path.join(root));
       currentFiles.forEach(file => {
         knownGeneratedFiles.forEach(fileToMatch => {
-          // This remove all of knownGeneratedFiles.
+          // This removes all knownGeneratedFiles.
           if (file === fileToMatch) {
             console.log(`Deleting generated file... ${chalk.cyan(file)}`);
             fs.removeSync(path.join(root, file));
