@@ -3,10 +3,7 @@ import http from 'http';
 let app = require('./server').default;
 const server = http.createServer(app);
 
-server.listen(process.env.PORT || 8000, error => {
-  if (error) {
-    console.log(error);
-  }
+server.listen(process.env.PORT || 8000, () => {
   console.log(
     `React SSR App is running: http://localhost:${process.env.PORT || 8000}`
   );

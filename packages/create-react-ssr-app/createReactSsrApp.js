@@ -131,7 +131,13 @@ if (program.info) {
         System: ['OS', 'CPU'],
         Binaries: ['Node', 'npm', 'Yarn'],
         Browsers: ['Chrome', 'Edge', 'Internet Explorer', 'Firefox', 'Safari'],
-        npmPackages: ['express', 'react', 'react-dom', 'react-ssr-scripts'],
+        npmPackages: [
+          'escape-string-regexp',
+          'express',
+          'react',
+          'react-dom',
+          'react-ssr-scripts',
+        ],
         npmGlobalPackages: ['create-react-ssr-app'],
       },
       {
@@ -378,16 +384,21 @@ function run(
   useTypescript
 ) {
   const packageToInstall = getInstallPackage(version, originalDirectory);
-  const allDependencies = ['express', 'react', 'react-dom', packageToInstall];
+  const allDependencies = [
+    'escape-string-regexp',
+    'express',
+    'react',
+    'react-dom',
+    packageToInstall,
+  ];
   if (useTypescript) {
     allDependencies.push(
-      // TODO: get user's node version instead of installing latest
       '@types/express',
+      '@types/jest',
       '@types/node',
       '@types/react',
       '@types/react-dom',
-      // TODO: get version of Jest being used instead of installing latest
-      '@types/jest',
+      '@types/webpack-env',
       'typescript'
     );
   }
@@ -676,6 +687,7 @@ function checkAppName(appName) {
 
   // TODO: there should be a single place that holds the dependencies
   const dependencies = [
+    'escape-string-regexp',
     'express',
     'react',
     'react-dom',
@@ -733,6 +745,7 @@ function setCaretRangeForRuntimeDeps(packageName) {
     process.exit(1);
   }
 
+  makeCaretRange(packageJson.dependencies, 'escape-string-regexp');
   makeCaretRange(packageJson.dependencies, 'express');
   makeCaretRange(packageJson.dependencies, 'react');
   makeCaretRange(packageJson.dependencies, 'react-dom');

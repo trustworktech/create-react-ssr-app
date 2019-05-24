@@ -1,13 +1,14 @@
 import escapeStringRegexp from 'escape-string-regexp';
+import { Request, Response } from 'express';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
 import App from '../../App';
 
-const renderMiddleware = () => (req, res) => {
-  let html = req.html;
+const renderMiddleware = () => (req: Request, res: Response) => {
+  let html = req.html || '';
   const htmlContent = ReactDOMServer.renderToString(<App />);
-  const htmlReplacements = {
+  const htmlReplacements: StringMap = {
     HTML_CONTENT: htmlContent,
   };
 
