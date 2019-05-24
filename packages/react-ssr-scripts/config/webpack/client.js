@@ -19,6 +19,7 @@ const safePostCssParser = require('postcss-safe-parser');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const ModuleScopePlugin = require('react-ssr-dev-utils/ModuleScopePlugin');
 const InlineChunkHtmlPlugin = require('react-ssr-dev-utils/InlineChunkHtmlPlugin');
+const InterpolateHtmlPlugin = require('react-ssr-dev-utils/InterpolateHtmlPlugin');
 
 const paths = require('../paths');
 const modules = require('../modules');
@@ -273,6 +274,13 @@ module.exports = function(webpackEnv) {
       isEnvProduction &&
         shouldInlineRuntimeChunk &&
         new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime~.+[.]js/]),
+      // Makes some environment variables available in index.html.
+      // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
+      // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+      // In production, it will be an empty string unless you specify "homepage"
+      // in `package.json`, in which case it will be the pathname of that URL.
+      // In development, this will be an empty string.
+      new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
       // Generate a manifest file which contains a mapping of all asset filenames
       // to their corresponding output file so that tools can pick it up without
       // having to parse `app.html`.
