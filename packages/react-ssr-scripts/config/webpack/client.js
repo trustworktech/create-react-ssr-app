@@ -18,7 +18,6 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const safePostCssParser = require('postcss-safe-parser');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const ModuleScopePlugin = require('react-ssr-dev-utils/ModuleScopePlugin');
-const InterpolateHtmlPlugin = require('react-ssr-dev-utils/InterpolateHtmlPlugin');
 const InlineChunkHtmlPlugin = require('react-ssr-dev-utils/InlineChunkHtmlPlugin');
 
 const paths = require('../paths');
@@ -41,22 +40,10 @@ module.exports = function(webpackEnv) {
   const isEnvProduction = webpackEnv === 'production';
   const { client: clientLoaders } = require('./loaders')(webpackEnv);
   const sharedPlugins = require('./plugins')(webpackEnv, 'client');
-
-  // Webpack uses `publicPath` to determine where the app is being served from.
-  // It requires a trailing slash, or the file assets will get an incorrect path.
-  // In development, we always serve from the root. This makes config easier.
+  const env = getClientEnvironment();
   const publicPath = isEnvProduction
-    ? paths.servedPath
+    ? `${env.raw.ASSETS_PATH}/`
     : isEnvDevelopment && '/';
-
-  // `publicUrl` is just like `publicPath`, but we will provide it to our app
-  // as %PUBLIC_URL% in `app.html` and `process.env.PUBLIC_URL` in JavaScript.
-  // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
-  const publicUrl = isEnvProduction
-    ? publicPath.slice(0, -1)
-    : isEnvDevelopment && '';
-  // Get environment variables to inject into our app.
-  const env = getClientEnvironment(publicUrl);
 
   return {
     name: 'client',
@@ -86,8 +73,7 @@ module.exports = function(webpackEnv) {
       chunkFilename: isEnvProduction
         ? 'static/js/[name].[chunkhash:8].chunk.js'
         : isEnvDevelopment && 'static/js/[name].chunk.js',
-      // We inferred the "public path" (such as / or /my-project) from homepage.
-      // We use "/" in development.
+      // We use "/" in development, can be configured in production
       publicPath: publicPath,
       // Point sourcemap entries to original disk location (format as URL on Windows)
       devtoolModuleFilenameTemplate: isEnvProduction
@@ -287,13 +273,6 @@ module.exports = function(webpackEnv) {
       isEnvProduction &&
         shouldInlineRuntimeChunk &&
         new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime~.+[.]js/]),
-      // Makes some environment variables available in app.html.
-      // The public URL is available as %PUBLIC_URL% in app.html, e.g.:
-      // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-      // In production, it will be an empty string unless you specify "homepage"
-      // in `package.json`, in which case it will be the pathname of that URL.
-      // In development, this will be an empty string.
-      new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
       // Generate a manifest file which contains a mapping of all asset filenames
       // to their corresponding output file so that tools can pick it up without
       // having to parse `app.html`.

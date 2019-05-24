@@ -27,6 +27,8 @@ const verifyPackageTree = require('./utils/verifyPackageTree');
 if (process.env.SKIP_PREFLIGHT_CHECK !== 'true') {
   verifyPackageTree();
 }
+const verifyTypeScriptSetup = require('./utils/verifyTypeScriptSetup');
+verifyTypeScriptSetup();
 // @remove-on-eject-end
 
 const path = require('path');
@@ -113,11 +115,9 @@ checkBrowsers(paths.appPath, isInteractive)
       );
       console.log();
 
-      const appPackage = require(paths.appPackageJson);
-      const publicUrl = paths.publicUrl;
-      const publicPath = clientConfig.output.publicPath;
+      const assetsPath = clientConfig.output.publicPath;
       const buildFolder = path.relative(process.cwd(), paths.appBuild);
-      printHostingInstructions(appPackage, publicUrl, publicPath, buildFolder);
+      printHostingInstructions(assetsPath, buildFolder);
     },
     err => {
       console.log(chalk.red('Failed to compile.\n'));
@@ -145,11 +145,13 @@ function build(previousFileSizes) {
     );
     console.log();
   }
+
   console.log('Creating an optimized production build...');
+
   const clientCompiler = webpack(clientConfig);
   const serverCompiler = webpack(serverConfig);
-
   console.log('Compiling client...');
+
   return new Promise((resolve, reject) => {
     clientCompiler.run((clientErr, clientStats) => {
       let clientMessages;

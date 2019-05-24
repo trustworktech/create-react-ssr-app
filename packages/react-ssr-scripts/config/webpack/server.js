@@ -17,6 +17,7 @@ const ModuleScopePlugin = require('react-ssr-dev-utils/ModuleScopePlugin');
 
 const paths = require('../paths');
 const modules = require('../modules');
+const getClientEnvironment = require('../env');
 
 // Check if TypeScript is setup
 const useTypeScript = fs.existsSync(paths.appTsConfig);
@@ -27,8 +28,9 @@ module.exports = function(webpackEnv) {
   const isEnvProduction = webpackEnv === 'production';
   const { server: serverLoaders } = require('./loaders')(webpackEnv);
   const sharedPlugins = require('./plugins')(webpackEnv, 'server');
+  const env = getClientEnvironment();
   const publicPath = isEnvProduction
-    ? paths.servedPath
+    ? `${env.raw.ASSETS_PATH}/`
     : isEnvDevelopment && '/';
   const nodeArgs = ['-r', 'source-map-support/register'];
   // Passthrough --inspect and --inspect-brk flags (with optional [host:port] value) to node

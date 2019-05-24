@@ -68,7 +68,18 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 // injected into the application via DefinePlugin in Webpack configuration.
 const REACT_APP = /^REACT_APP_/i;
 
-function getClientEnvironment(publicUrl) {
+function ensureSlash(inputPath, needsSlash) {
+  const hasSlash = inputPath.endsWith('/');
+  if (hasSlash && !needsSlash) {
+    return inputPath.substr(0, inputPath.length - 1);
+  } else if (!hasSlash && needsSlash) {
+    return `${inputPath}/`;
+  } else {
+    return inputPath;
+  }
+}
+
+function getClientEnvironment() {
   const raw = Object.keys(process.env)
     .filter(key => REACT_APP.test(key))
     .reduce(
@@ -83,10 +94,10 @@ function getClientEnvironment(publicUrl) {
         // Useful for changing the port that the app server runs on.
         PORT: process.env.PORT || '',
         // Useful for resolving the correct path to static assets in `public`.
-        // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
+        // For example, <img src={process.env.ASSETS_PATH + '/img/logo.png'} />.
         // This should only be used as an escape hatch. Normally you would put
         // images into the `src` and `import` them in code to get their paths.
-        PUBLIC_URL: publicUrl,
+        ASSETS_PATH: ensureSlash(process.env.ASSETS_PATH || '/', false),
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin

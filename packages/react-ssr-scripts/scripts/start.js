@@ -33,7 +33,10 @@ const verifyPackageTree = require('./utils/verifyPackageTree');
 if (process.env.SKIP_PREFLIGHT_CHECK !== 'true') {
   verifyPackageTree();
 }
+const verifyTypeScriptSetup = require('./utils/verifyTypeScriptSetup');
+verifyTypeScriptSetup();
 // @remove-on-eject-end
+
 const fs = require('fs-extra');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
@@ -69,6 +72,7 @@ if (
 // Tools like Cloud9 rely on this.
 const HOST = process.env.HOST || '0.0.0.0';
 const appName = require(paths.appPackageJson).name;
+const useTypeScript = fs.existsSync(paths.appTsConfig);
 let appPort = parseInt(process.env.PORT, 10) || 8000;
 let appUrls;
 let devPort = parseInt(process.env.DEV_PORT, 10) || 8080;
@@ -129,31 +133,31 @@ checkBrowsers(paths.appPath, isInteractive)
       `react-ssr-dev-utils/webpackHotDevClient?devPort=${devPort}`,
       ...clientConfig.entry,
     ];
-    clientConfig.output.publicPath = [
-      `http://localhost:${devPort}`,
-      clientConfig.output.publicPath,
-    ]
-      .join('/')
-      .replace(/([^:+])\/+/g, '$1/');
-    serverConfig.output.publicPath = [
-      `http://localhost:${devPort}`,
-      serverConfig.output.publicPath,
-    ]
-      .join('/')
-      .replace(/([^:+])\/+/g, '$1/');
+    clientConfig.output.publicPath = `http://localhost:${devPort}/`;
+    serverConfig.output.publicPath = `http://localhost:${devPort}/`;
+    const devSocket = {
+      warnings: warnings =>
+        devServer.sockWrite(devServer.sockets, 'warnings', warnings),
+      errors: errors =>
+        devServer.sockWrite(devServer.sockets, 'errors', errors),
+    };
 
     // Create a webpack compiler for the client and server that is configured with custom messages.
     const clientCompiler = createCompiler(
       webpack,
       clientConfig,
       'Client',
-      true
+      true,
+      useTypeScript,
+      devSocket
     );
     const serverCompiler = createCompiler(
       webpack,
       serverConfig,
       'Server',
-      false
+      false,
+      useTypeScript,
+      devSocket
     );
 
     // Start our server webpack instance in watch mode after assets compile

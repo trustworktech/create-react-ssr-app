@@ -18,44 +18,6 @@ If you don’t use Create React SSR App, or if you [ejected](https://trustworkte
 
 There is no single entry point. You can only import individual top-level modules.
 
-#### `new InterpolateHtmlPlugin(htmlWebpackPlugin: HtmlWebpackPlugin, replacements: {[key:string]: string})`
-
-This Webpack plugin lets us interpolate custom variables into `app.html`.<br>
-It works in tandem with [HtmlWebpackPlugin](https://github.com/ampedandwired/html-webpack-plugin) 2.x via its [events](https://github.com/ampedandwired/html-webpack-plugin#events).
-
-```js
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var InterpolateHtmlPlugin = require('react-ssr-dev-utils/InterpolateHtmlPlugin');
-
-// Webpack config
-var publicUrl = '/my-custom-url';
-
-module.exports = {
-  output: {
-    // ...
-    publicPath: publicUrl + '/',
-  },
-  // ...
-  plugins: [
-    // Generates an `index.html` file with the <script> injected.
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: path.resolve('public/index.html'),
-    }),
-    // Makes the public URL available as %PUBLIC_URL% in index.html, e.g.:
-    // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
-      PUBLIC_URL: publicUrl,
-      // You can pass any key-value pairs, this was just an example.
-      // WHATEVER: 42 will replace %WHATEVER% with 42 in index.html.
-    }),
-    // ...
-  ],
-  // ...
-};
-```
-
 #### `new InlineChunkHtmlPlugin(htmlWebpackPlugin: HtmlWebpackPlugin, tests: Regex[])`
 
 This Webpack plugin inlines script chunks into `app.html`.<br>

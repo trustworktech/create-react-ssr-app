@@ -29,22 +29,7 @@ module.exports = function(webpackEnv, appEnv) {
   const isEnvDevelopment = webpackEnv === 'development';
   const isEnvProduction = webpackEnv === 'production';
   const isEnvClient = appEnv === 'client';
-
-  // Webpack uses `publicPath` to determine where the app is being served from.
-  // It requires a trailing slash, or the file assets will get an incorrect path.
-  // In development, we always serve from the root. This makes config easier.
-  const publicPath = isEnvProduction
-    ? paths.servedPath
-    : isEnvDevelopment && '/';
-
-  // `publicUrl` is just like `publicPath`, but we will provide it to our app
-  // as `process.env.PUBLIC_URL` in JavaScript.
-  // Omit trailing slash as PUBLIC_URL/xyz looks better than PUBLIC_URLxyz.
-  const publicUrl = isEnvProduction
-    ? publicPath.slice(0, -1)
-    : isEnvDevelopment && '';
-  // Get environment variables to inject into our app.
-  const env = getClientEnvironment(publicUrl);
+  const env = getClientEnvironment();
 
   return [
     // This gives some necessary context to module not found errors, such as
