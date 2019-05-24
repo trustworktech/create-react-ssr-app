@@ -382,6 +382,7 @@ function run(
   if (useTypescript) {
     allDependencies.push(
       // TODO: get user's node version instead of installing latest
+      '@types/express',
       '@types/node',
       '@types/react',
       '@types/react-dom',
