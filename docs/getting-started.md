@@ -14,9 +14,11 @@ cd my-app
 npm start
 ```
 
-\_([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) comes with npm 5.2+ and higher.
+> If you've previously installed `create-react-ssr-app` globally via `npm install -g create-react-ssr-app`, we recommend you uninstall the package using `npm uninstall -g create-react-ssr-app` to ensure that `npx` always uses the latest version.
 
-Then open [http://localhost:8000/](http://localhost:8000/) to see your app.
+_([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) comes with npm 5.2+ and higher)_
+
+Then open [http://localhost:3000/](http://localhost:3000/) to see your app.
 
 When you’re ready to deploy to production, create a minified bundle with `npm run build`.
 
@@ -28,7 +30,7 @@ Just create a project, and you’re good to go.
 
 ## Creating an App
 
-**You’ll need to have Node >= 8 on your local development machine** (but it’s not required on the server). You can use [nvm](https://github.com/creationix/nvm#installation) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to easily switch Node versions between different projects.
+**You’ll need to have Node >= 8 on your local development machine**. You can use [nvm](https://github.com/creationix/nvm#installation) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to easily switch Node versions between different projects.
 
 To create a new app, you may choose one of the following methods:
 
@@ -38,7 +40,7 @@ To create a new app, you may choose one of the following methods:
 npx create-react-ssr-app my-app
 ```
 
-\_([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) comes with npm 5.2+ and higher.
+_([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) comes with npm 5.2+ and higher.)_
 
 ### npm
 
@@ -56,9 +58,13 @@ yarn create react-ssr-app my-app
 
 _`yarn create` is available in Yarn 0.25+_
 
+### Creating a TypeScript app
+
+Follow our [Adding TypeScript](adding-typescript.md) documentation to create a TypeScript app.
+
 ## Output
 
-Running amy of these commands will create a directory called `my-app` inside the current folder. Inside that directory, it will generate the initial project structure and install the transitive dependencies:
+Running any of these commands will create a directory called `my-app` inside the current folder. Inside that directory, it will generate the initial project structure and install the transitive dependencies:
 
 ```
 my-app
@@ -98,13 +104,15 @@ Inside the newly created project, you can run some built-in commands:
 
 ### `npm start` or `yarn start`
 
-Runs the app in the development mode. Open [http://localhost:8000](http://localhost:8000) to view it in the browser.
+Runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits. You will also see any lint errors in the console.
+The page will automatically reload if you make changes to the code. You will see the build errors and lint warnings in the console.
 
 ### `npm test` or `yarn test`
 
-Launches the test runner in the interactive watch mode. See the section about [running tests](/docs/running-tests) for more information.
+Runs the test watcher in an interactive mode. By default, runs tests related to files changed since the last commit.
+
+[Read more about testing](running-tests.md).
 
 ### `npm run build` or `yarn build`
 
@@ -112,4 +120,4 @@ Builds the app for production to the `build` folder. It correctly bundles React 
 
 The build is minified and the filenames include the hashes. Your app is ready to be deployed!
 
-See the section about [deployment](/docs/deployment) for more information.
+See the section about [deployment](deployment.md) for more information.

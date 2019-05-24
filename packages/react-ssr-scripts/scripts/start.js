@@ -73,9 +73,9 @@ if (
 const HOST = process.env.HOST || '0.0.0.0';
 const appName = require(paths.appPackageJson).name;
 const useTypeScript = fs.existsSync(paths.appTsConfig);
-let appPort = parseInt(process.env.PORT, 10) || 8000;
+let appPort = parseInt(process.env.PORT, 10) || 3000;
 let appUrls;
-let devPort = parseInt(process.env.DEV_PORT, 10) || 8080;
+let devPort = parseInt(process.env.DEV_PORT, 10) || 3030;
 let devUrls;
 
 if (process.env.HOST) {

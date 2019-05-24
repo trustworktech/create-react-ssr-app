@@ -85,7 +85,7 @@ For the server store we recommend using middlware. First add a new file in `src/
 import { createStore } from 'redux';
 
 ## Shared reducer between client and server
-import reducer from '../reducer';
+import reducer from '../../reducer';
 
 const configureStore = () => {
   const store = createStore(reducer);

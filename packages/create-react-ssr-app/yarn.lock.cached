@@ -6454,10 +6454,10 @@ onetime@^2.0.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-opn@5.4.0:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/opn/-/opn-5.4.0.tgz#cb545e7aab78562beb11aa3bfabc7042e1761035"
-  integrity sha512-YF9MNdVy/0qvJvDtunAOzFw9iasOQHpVthTCvGzxt61Il64AYSGdK+rYwld7NAfk9qJ7dt+hymBNSc9LNYS+Sw==
+open@^6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/open/-/open-6.3.0.tgz#60d0b845ee38fae0631f5d739a21bd40e3d2a527"
+  integrity sha512-6AHdrJxPvAXIowO/aIaeHZ8CeMdDf7qCyRNq8NwJpinmCdXhz+NZR7ie1Too94lpciCDsG+qHGO9Mt0svA4OqA==
   dependencies:
     is-wsl "^1.1.0"
 
@@ -7739,10 +7739,10 @@ react-is@^16.8.1, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
 
-react-ssr-dev-utils@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-ssr-dev-utils/-/react-ssr-dev-utils-2.0.0.tgz#a897c61199187b94ef14a26344eac198c176d0a4"
-  integrity sha512-/7/4qBOYqk6ou6G6QMzNOHq+zqYV8g00L7Bp5t5i1okvQaZ+dc+YZP/WwdF0fyZQdsn9GZjI5U0RIbEyApveMQ==
+react-ssr-dev-utils@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-ssr-dev-utils/-/react-ssr-dev-utils-2.1.0.tgz#bd126e44f80b61daf5095ebc524c0da9ea2991e9"
+  integrity sha512-cSch+5hWBO7EWKHB4zjE7acY8W3T66fvp6MWbi/vloQjt42G+oPjUBpac0KHPxpbIR9sb2uDjaOv7IlxcldTRg==
   dependencies:
     "@babel/code-frame" "7.0.0"
     address "1.0.3"
@@ -7760,7 +7760,7 @@ react-ssr-dev-utils@^2.0.0:
     inquirer "6.2.2"
     is-root "2.0.0"
     loader-utils "1.2.3"
-    opn "5.4.0"
+    open "^6.3.0"
     pkg-up "2.0.0"
     querystring "^0.2.0"
     react-error-overlay "^5.1.6"

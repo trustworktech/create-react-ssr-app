@@ -4,7 +4,7 @@ title: Developing Components in Isolation
 ---
 
 Usually, in an app, you have a lot of UI components, and each of them has many different states.
-For an example, a simple button component could have following states:
+For example, a simple button component could have the following states:
 
 - In a regular state, with a text label.
 - In the disabled mode.
@@ -14,22 +14,18 @@ Usually, it’s hard to see these states without running a sample app or some ex
 
 Create React SSR App doesn’t include any tools for this by default, but you can easily add [Storybook for React](https://storybook.js.org) ([source](https://github.com/storybooks/storybook)) or [React Styleguidist](https://react-styleguidist.js.org/) ([source](https://github.com/styleguidist/react-styleguidist)) to your project. **These are third-party tools that let you develop components and see all their states in isolation from your app**.
 
+![Storybook for React Demo](https://i.imgur.com/7CIAWpB.gif)
+
 You can also deploy your Storybook or style guide as a static app. This way, everyone in your team can view and review different states of UI components without starting a backend server or creating an account in your app.
 
 ## Getting Started with Storybook
 
 Storybook is a development environment for React UI components. It allows you to browse a component library, view the different states of each component, and interactively develop and test components.
 
-First, install the following npm package globally:
+Run the following command inside your app’s directory:
 
 ```sh
-npm install -g @storybook/cli
-```
-
-Then, run the following command inside your app’s directory:
-
-```sh
-getstorybook
+npx -p @storybook/cli sb init
 ```
 
 After that, follow the instructions on the screen.

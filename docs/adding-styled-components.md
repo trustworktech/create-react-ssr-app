@@ -23,7 +23,7 @@ Create React SSR App comes rolled with the Styled Components [babel plugin](http
 
 ## Client Setup
 
-Then in `public/app.html` you need to add a placeholder for the styles:
+In `public/app.html` you need to add a placeholder for the styles:
 
 ```diff
   <html lang="en">

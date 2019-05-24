@@ -281,7 +281,7 @@ in /Users/developer/create-react-ssr-app
 ```js
 var getProcessForPort = require('react-ssr-dev-utils/getProcessForPort');
 
-getProcessForPort(8000);
+getProcessForPort(3000);
 ```
 
 #### `launchEditor(fileName: string, lineNumber: number): void`
@@ -298,7 +298,7 @@ Otherwise, falls back to [opn](https://github.com/sindresorhus/opn) behavior.
 var path = require('path');
 var openBrowser = require('react-ssr-dev-utils/openBrowser');
 
-if (openBrowser('http://localhost:8000')) {
+if (openBrowser('http://localhost:3000')) {
   console.log('The browser tab has been opened!');
 }
 ```

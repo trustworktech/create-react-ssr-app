@@ -3,17 +3,17 @@ id: production-build
 title: Creating a Production Build
 ---
 
-`npm run build` creates a `build` directory with a production build of your app. Inside the `build` dir will be the node server script `index.js` and a `public` folder containing all client code. Inside the `build/public/static` directory will be your JavaScript and CSS files. Each filename inside of `build/public/static` will contain a unique hash of the file contents. This hash in the file name enables [long term caching techniques](#static-file-caching).
+`npm run build` creates a `build` directory with a production build of your app. Inside the `build` directory will be the node server script called `index.js` and a directory called `public` containing all client code. Inside the `build/public/static/` directory will be your JavaScript and CSS files. Each filename inside of `build/public/static` will contain a unique hash of the file contents. This hash in the file name enables [long term caching techniques](#static-file-caching).
 
-When running a production build of freshly created Create React SSR App application, there are 3 `.js` files (called _chunks_) that are generated and placed in the `build/public/static/js` directory:
+When running a production build of freshly created Create React SSR App application, there are a number of `.js` files (called _chunks_) that are generated and placed in the `build/public/static/js` directory:
 
 `main.[hash].chunk.js`
 
 - This is your _application_ code. `App.js`, etc.
 
-`1.[hash].chunk.js`
+`[number].[hash].chunk.js`
 
-- This is your _vendor_ code, which includes modules you've imported from within `node_modules`. One of the potential advantages with splitting your _vendor_ and _application_ code is to enable [long term caching techniques](#static-file-caching) to improve application loading performance. Since _vendor_ code tends to change less often than the actual _application_ code, the browser will be able to cache them separately, and won't re-download them each time the app code changes.
+- These files can either be _vendor_ code, or [code splitting chunks](code-splitting.md). _Vendor_ code includes modules that you've imported from within `node_modules`. One of the potential advantages with splitting your _vendor_ and _application_ code is to enable [long term caching techniques](#static-file-caching) to improve application loading performance. Since _vendor_ code tends to change less often than the actual _application_ code, the browser will be able to cache them separately, and won't re-download them each time the app code changes.
 
 `runtime~main.[hash].js`
 
