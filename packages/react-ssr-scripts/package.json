@@ -1,6 +1,6 @@
 {
   "name": "react-ssr-scripts",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Configuration and scripts for Create React SSR App.",
   "keywords": [
     "node",
