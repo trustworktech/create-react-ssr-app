@@ -39,8 +39,8 @@ const useTypeScript = fs.existsSync(paths.appTsConfig);
 module.exports = function(webpackEnv) {
   const isEnvDevelopment = webpackEnv === 'development';
   const isEnvProduction = webpackEnv === 'production';
-  const { client: clientLoaders } = require('./loaders')(webpackEnv);
-  const sharedPlugins = require('./plugins')(webpackEnv, 'client');
+  const { client: clientLoaders } = require('./loaders')(webpackEnv, 'client');
+  const clientPlugins = require('./plugins')(webpackEnv, 'client');
   const env = getClientEnvironment();
   const publicPath = isEnvProduction
     ? `${env.raw.ASSETS_PATH}/`
@@ -298,7 +298,7 @@ module.exports = function(webpackEnv) {
           };
         },
       }),
-      ...sharedPlugins,
+      ...clientPlugins,
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.

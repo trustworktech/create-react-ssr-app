@@ -26,9 +26,10 @@ const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
-const baseLoaders = webpackEnv => {
+const baseLoaders = (webpackEnv, appEnv) => {
   const isEnvDevelopment = webpackEnv === 'development';
   const isEnvProduction = webpackEnv === 'production';
+  const isEnvServer = appEnv === 'server';
 
   return [
     // Process application JS with Babel.
@@ -62,6 +63,8 @@ const baseLoaders = webpackEnv => {
         plugins: [
           // Add support for styled-components ssr
           require.resolve('babel-plugin-styled-components'),
+          // Transform dynamic import to require for server
+          isEnvServer && require.resolve('babel-plugin-dynamic-import-node'),
           [
             require.resolve('babel-plugin-named-asset-import'),
             {
@@ -72,7 +75,7 @@ const baseLoaders = webpackEnv => {
               },
             },
           ],
-        ],
+        ].filter(Boolean),
         // This is a feature of `babel-loader` for webpack (not Babel itself).
         // It enables caching results in ./node_modules/.cache/babel-loader/
         // directory for faster rebuilds.
@@ -369,9 +372,9 @@ const serverLoaders = () => {
   ];
 };
 
-module.exports = function(webpackEnv) {
+module.exports = function(webpackEnv, appEnv) {
   return {
-    client: [...baseLoaders(webpackEnv), ...clientLoaders(webpackEnv)],
-    server: [...baseLoaders(webpackEnv), ...serverLoaders(webpackEnv)],
+    client: [...baseLoaders(webpackEnv, appEnv), ...clientLoaders(webpackEnv)],
+    server: [...baseLoaders(webpackEnv, appEnv), ...serverLoaders(webpackEnv)],
   };
 };

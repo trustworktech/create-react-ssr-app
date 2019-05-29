@@ -26,8 +26,8 @@ const useTypeScript = fs.existsSync(paths.appTsConfig);
 module.exports = function(webpackEnv) {
   const isEnvDevelopment = webpackEnv === 'development';
   const isEnvProduction = webpackEnv === 'production';
-  const { server: serverLoaders } = require('./loaders')(webpackEnv);
-  const sharedPlugins = require('./plugins')(webpackEnv, 'server');
+  const { server: serverLoaders } = require('./loaders')(webpackEnv, 'server');
+  const serverPlugins = require('./plugins')(webpackEnv, 'server');
   const env = getClientEnvironment();
   const publicPath = isEnvProduction
     ? `${env.raw.ASSETS_PATH}/`
@@ -121,7 +121,7 @@ module.exports = function(webpackEnv) {
       ],
     },
     plugins: [
-      ...sharedPlugins,
+      ...serverPlugins,
       isEnvDevelopment &&
         new StartServerPlugin({
           name: 'index.js',

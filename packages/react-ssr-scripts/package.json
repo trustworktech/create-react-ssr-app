@@ -49,6 +49,7 @@
     "babel-eslint": "10.0.1",
     "babel-jest": "^24.8.0",
     "babel-loader": "8.0.5",
+    "babel-plugin-dynamic-import-node": "^2.2.0",
     "babel-plugin-named-asset-import": "^0.3.2",
     "babel-plugin-styled-components": "^1.10.0",
     "babel-preset-react-app": "^9.0.0",
