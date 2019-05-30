@@ -46,13 +46,13 @@ module.exports = function(webpackEnv) {
     watch: isEnvDevelopment,
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     entry: [
-      isEnvDevelopment && 'webpack/hot/poll?300',
+      isEnvDevelopment && 'webpack/hot/poll?100',
       paths.appServerIndexJs,
     ].filter(Boolean),
     externals: [
       nodeExternals({
         whitelist: [
-          isEnvDevelopment && 'webpack/hot/poll?300',
+          isEnvDevelopment && 'webpack/hot/poll?100',
           /\.(eot|woff|woff2|ttf|otf)$/,
           /\.(svg|png|jpg|jpeg|gif|ico)$/,
           /\.(mp4|mp3|ogg|swf|webp)$/,

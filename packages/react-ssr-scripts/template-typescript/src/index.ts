@@ -14,7 +14,7 @@ if (module.hot) {
   });
 }
 
-export default express()
+express()
   .use((req: Request, res: Response) => app.handle(req, res))
   .listen(process.env.PORT || 3000, () => {
     console.log(

@@ -160,31 +160,22 @@ checkBrowsers(paths.appPath, isInteractive)
       devSocket
     );
 
-    // Start our server webpack instance in watch mode after assets compile
-    let clientStarted;
-    clientCompiler.plugin('done', () => {
-      if (!clientStarted) {
-        clientStarted = true;
-        serverCompiler.watch(
-          {
-            quiet: true,
-            stats: 'none',
-          },
-          /* eslint-disable no-unused-vars */
-          stats => {}
-        );
-      }
-    });
+    // Start server in watch mode
+    serverCompiler.watch(
+      {
+        quiet: true,
+        stats: 'none',
+      },
+      () => {}
+    );
 
-    // Open app in browser when ready
+    // Open app in browser when server ready
     let serverStarted;
     serverCompiler.plugin('done', () => {
       if (!serverStarted) {
         serverStarted = true;
-        setTimeout(() => {
-          printInstructions(appName, appUrls, useYarn);
-          openBrowser(appUrls.localUrlForBrowser);
-        }, 1000);
+        printInstructions(appName, appUrls, useYarn);
+        openBrowser(appUrls.localUrlForBrowser);
       }
     });
 
