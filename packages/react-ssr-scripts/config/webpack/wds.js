@@ -44,6 +44,9 @@ module.exports = function(allowedHost) {
       ignored: ignoredFiles(paths.appSrc),
     },
     host,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
     overlay: false,
     historyApiFallback: {
       // Paths with dots should still use the history fallback.
