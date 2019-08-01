@@ -3303,9 +3303,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.122, electron-to-chromium@^1.3.191:
-  version "1.3.207"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.207.tgz#b19ce94d61187d72411ebb83dfe287366a785102"
-  integrity sha512-RIgAnfqbjZNECBLjslfy4cIYvcPl3GAXmnENrcoo0TZ8fGkyEEAealAbO7MoevW4xYUPe+e68cWAj6eP0DmMHw==
+  version "1.3.208"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.208.tgz#6df90b89e8b9af139db3c8d7a6b935db0801e61c"
+  integrity sha512-ljgZXaKSfRg32jEl1V8zRJaT3u653jxfZRztKQWM/I1kE+ifBCQKRY+jOPzb4JS48a4czvT/LQfjdiDq5qjU4g==
 
 elliptic@^6.0.0:
   version "6.5.0"
@@ -7580,9 +7580,9 @@ prr@~1.0.1:
   integrity sha1-0/wRS6BplaRexok/SEzrHXj19HY=
 
 psl@^1.1.24, psl@^1.1.28:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/psl/-/psl-1.2.0.tgz#df12b5b1b3a30f51c329eacbdef98f3a6e136dc6"
-  integrity sha512-GEn74ZffufCmkDDLNcl3uuyF/aSD6exEyh1v/ZSdAomB82t6G9hzJVRx0jBmLDW+VfZqks3aScmMw9DszwUalA==
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/psl/-/psl-1.3.0.tgz#e1ebf6a3b5564fa8376f3da2275da76d875ca1bd"
+  integrity sha512-avHdspHO+9rQTLbv1RO+MPYeP/SzsCoxofjVnHanETfQhTJrmB0HlDoW+EiN/R+C0BZ+gERab9NY0lPN2TxNag==
 
 public-encrypt@^4.0.0:
   version "4.0.3"
