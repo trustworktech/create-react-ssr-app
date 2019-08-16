@@ -16,8 +16,6 @@ npm start
 
 > If you've previously installed `create-react-ssr-app` globally via `npm install -g create-react-ssr-app`, we recommend you uninstall the package using `npm uninstall -g create-react-ssr-app` to ensure that `npx` always uses the latest version.
 
-_([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) comes with npm 5.2+ and higher)_
-
 Then open [http://localhost:3000/](http://localhost:3000/) to see your app.
 
 When you’re ready to deploy to production, create a minified bundle with `npm run build`.
@@ -30,7 +28,7 @@ Just create a project, and you’re good to go.
 
 ## Creating an App
 
-**You’ll need to have Node >= 8 on your local development machine**. You can use [nvm](https://github.com/creationix/nvm#installation) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to easily switch Node versions between different projects.
+**You’ll need to have Node >= 8.10 on your local development machine** (but it’s not required on the server). You can use [nvm](https://github.com/creationix/nvm#installation) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to easily switch Node versions between different projects.
 
 To create a new app, you may choose one of the following methods:
 
@@ -39,8 +37,6 @@ To create a new app, you may choose one of the following methods:
 ```sh
 npx create-react-ssr-app my-app
 ```
-
-_([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) comes with npm 5.2+ and higher.)_
 
 ### npm
 
@@ -61,6 +57,14 @@ _`yarn create` is available in Yarn 0.25+_
 ### Creating a TypeScript app
 
 Follow our [Adding TypeScript](adding-typescript.md) documentation to create a TypeScript app.
+
+### Selecting a package manager
+
+When you create a new app, the CLI will use [Yarn](https://yarnpkg.com/) to install dependencies (when available). If you have Yarn installed, but would prefer to use npm, you can append --use-npm to the creation command. For example:
+
+```sh
+npx create-react-app my-app --use-npm
+```
 
 ## Output
 
@@ -104,7 +108,7 @@ Inside the newly created project, you can run some built-in commands:
 
 ### `npm start` or `yarn start`
 
-Runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Runs the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will automatically reload if you make changes to the code. You will see the build errors and lint warnings in the console.
 

@@ -60,7 +60,7 @@ switch (script) {
     console.log('Unknown script "' + script + '".');
     console.log('Perhaps you need to update react-ssr-scripts?');
     console.log(
-      'See: https://trustworktech.github.io/create-react-ssr-app/docs/updating-to-new-releases'
+      'See: https://create-react-ssr-app.dev/docs/updating-to-new-releases'
     );
     break;
 }

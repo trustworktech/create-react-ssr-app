@@ -3,7 +3,7 @@
 Create React apps with server side rendering and no build configuration. Inspired by the famous [create-react-app](https://facebook.github.io/create-react-app/), Create React SSR App does the same thing for React apps that require server side rendering.
 
 - [Creating an App](#creating-an-app) – How to create a new app.
-- [User Guide](https://trustworktech.github.io/create-react-ssr-app/) – How to develop apps bootstrapped with Create React SSR App.
+- [User Guide](https://create-react-ssr-app.dev/) – How to develop apps bootstrapped with Create React SSR App.
 
 Create React SSR App works on macOS, Windows, and Linux.<br>
 If something doesn’t work, please [file an issue](https://github.com/trustworktech/create-react-ssr-app/issues/new).<br>
@@ -123,11 +123,11 @@ Your app is ready to be deployed.
 
 ## User Guide
 
-You can find detailed instructions on using Create React SSR App and many tips in [its documentation](https://trustworktech.github.io/create-react-ssr-app/).
+You can find detailed instructions on using Create React SSR App and many tips in [its documentation](https://create-react-ssr-app.dev/).
 
 ## How to Update to New Versions?
 
-Please refer to the [User Guide](https://trustworktech.github.io/create-react-ssr-app/docs/updating-to-new-releases) for this and other information.
+Please refer to the [User Guide](https://create-react-ssr-app.dev/docs/updating-to-new-releases) for this and other information.
 
 ## Contributing
 

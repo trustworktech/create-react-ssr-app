@@ -16,5 +16,6 @@ To add Flow to a Create React SSR App project, follow these steps:
 
 Now you can run `npm run flow` (or `yarn flow`) to check the files for type errors.
 You can optionally use an IDE like [Nuclide](https://nuclide.io/docs/languages/flow/) for a better integrated experience.
+In the future we plan to integrate it into Create React SSR App even more closely.
 
 To learn more about Flow, check out [its documentation](https://flow.org/).

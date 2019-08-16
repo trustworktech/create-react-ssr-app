@@ -24,8 +24,9 @@ const siteConfig = {
   title: 'Create React SSR App', // Title for your website.
   tagline:
     'Set up a modern react app with server side rendering by running one command.',
-  url: 'https://trustworktech.github.io', // Your website URL
-  baseUrl: '/create-react-ssr-app/', // Base URL for your project */
+  url: 'https://create-react-ssr-app.dev', // Your website URL
+  baseUrl: '/', // Base URL for your project */
+  cname: 'create-react-ssr-app.dev',
   editUrl:
     'https://github.com/trustworktech/create-react-ssr-app/edit/master/docs/',
   // For github.io type URLs, you would set the url and baseUrl like:

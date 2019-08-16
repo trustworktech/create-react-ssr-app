@@ -15,7 +15,7 @@ You will also see any lint errors in the console.
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://trustworktech.github.io/create-react-ssr-app/docs/running-tests) for more information.
+See the section about [running tests](https://create-react-ssr-app.dev/docs/running-tests) for more information.
 
 ### `npm run build`
 
@@ -25,7 +25,7 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
 
-See the section about [deployment](https://trustworktech.github.io/create-react-ssr-app/docs/deployment) for more information.
+See the section about [deployment](https://create-react-ssr-app.dev/docs/deployment) for more information.
 
 ### `npm run eject`
 
@@ -39,6 +39,6 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ## Learn More
 
-You can learn more in the [Create React SSR App documentation](https://trustworktech.github.io/create-react-ssr-app/docs/getting-started).
+You can learn more in the [Create React SSR App documentation](https://create-react-ssr-app.dev/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
