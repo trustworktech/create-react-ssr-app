@@ -1,6 +1,6 @@
 {
   "name": "react-ssr-scripts",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Configuration and scripts for Create React SSR App.",
   "keywords": [
     "node",
@@ -84,7 +84,7 @@
     "postcss-preset-env": "6.7.0",
     "postcss-safe-parser": "4.0.1",
     "react-app-polyfill": "^1.0.2",
-    "react-ssr-dev-utils": "^2.2.0",
+    "react-ssr-dev-utils": "^2.2.1",
     "resolve": "1.12.0",
     "resolve-url-loader": "3.1.0",
     "sass-loader": "7.2.0",
