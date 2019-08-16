@@ -9,6 +9,7 @@
 'use strict';
 
 const fs = require('fs');
+const eslint = require('eslint');
 const webpack = require('webpack');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
@@ -102,10 +103,28 @@ module.exports = function(webpackEnv) {
                   'react-ssr-dev-utils/eslintFormatter'
                 ),
                 eslintPath: require.resolve('eslint'),
+                resolvePluginsRelativeTo: __dirname,
                 // @remove-on-eject-begin
-                baseConfig: {
-                  extends: [require.resolve('eslint-config-react-app')],
-                },
+                baseConfig: (() => {
+                  const eslintCli = new eslint.CLIEngine();
+                  let eslintConfig;
+                  try {
+                    eslintConfig = eslintCli.getConfigForFile(
+                      paths.appServerIndexJs
+                    );
+                  } catch (e) {
+                    // A config couldn't be found.
+                  }
+
+                  // We allow overriding the config only if the env variable is set
+                  if (process.env.EXTEND_ESLINT && eslintConfig) {
+                    return eslintConfig;
+                  } else {
+                    return {
+                      extends: [require.resolve('eslint-config-react-app')],
+                    };
+                  }
+                })(),
                 ignore: false,
                 useEslintrc: false,
                 // @remove-on-eject-end

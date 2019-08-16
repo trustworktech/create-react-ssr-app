@@ -20,6 +20,10 @@ const paths = require('../paths');
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 
+const imageInlineSizeLimit = parseInt(
+  process.env.IMAGE_INLINE_SIZE_LIMIT || '10000'
+);
+
 // style files regexes
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
@@ -70,7 +74,7 @@ const baseLoaders = (webpackEnv, appEnv) => {
             {
               loaderMap: {
                 svg: {
-                  ReactComponent: '@svgr/webpack?-svgo,+ref![path]',
+                  ReactComponent: '@svgr/webpack?-svgo,+titleProp,+ref![path]',
                 },
               },
             },
@@ -198,7 +202,7 @@ const clientLoaders = webpackEnv => {
       test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
       loader: require.resolve('url-loader'),
       options: {
-        limit: 10000,
+        limit: imageInlineSizeLimit,
         name: 'static/media/[name].[hash:8].[ext]',
       },
     },
@@ -285,7 +289,9 @@ const clientLoaders = webpackEnv => {
   ];
 };
 
-const serverLoaders = () => {
+const serverLoaders = webpackEnv => {
+  const isEnvProduction = webpackEnv === 'production';
+
   // common function to get style loaders
   const getStyleLoaders = (cssOptions, preProcessor) => {
     const loaders = [
@@ -310,9 +316,20 @@ const serverLoaders = () => {
       },
     ].filter(Boolean);
     if (preProcessor) {
-      loaders.push({
-        loader: require.resolve(preProcessor),
-      });
+      loaders.push(
+        {
+          loader: require.resolve('resolve-url-loader'),
+          options: {
+            sourceMap: isEnvProduction && shouldUseSourceMap,
+          },
+        },
+        {
+          loader: require.resolve(preProcessor),
+          options: {
+            sourceMap: true,
+          },
+        }
+      );
     }
     return loaders;
   };
@@ -322,7 +339,7 @@ const serverLoaders = () => {
       test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
       loader: require.resolve('url-loader'),
       options: {
-        limit: 10000,
+        limit: imageInlineSizeLimit,
         name: 'static/media/[name].[hash:8].[ext]',
       },
     },

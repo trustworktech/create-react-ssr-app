@@ -12,10 +12,11 @@ const chalk = require('react-ssr-dev-utils/chalk');
 const fs = require('fs');
 const resolve = require('resolve');
 const path = require('path');
-const paths = require('../../config/paths');
 const os = require('os');
 const immer = require('react-ssr-dev-utils/immer').produce;
 const globby = require('react-ssr-dev-utils/globby').sync;
+
+const paths = require('../../config/paths');
 
 function writeJson(fileName, object) {
   fs.writeFileSync(
@@ -125,9 +126,8 @@ function verifyTypeScriptSetup() {
     isolatedModules: { value: true, reason: 'implementation limitation' },
     noEmit: { value: true },
     jsx: {
-      parsedValue: ts.JsxEmit.Preserve,
-      value: 'preserve',
-      reason: 'JSX is compiled by Babel',
+      parsedValue: ts.JsxEmit.React,
+      suggested: 'react',
     },
     paths: { value: undefined, reason: 'aliased imports are not supported' },
   };

@@ -326,13 +326,9 @@ Returns a Promise resolving to either `defaultPort` or next available port if th
 
 Returns an object with local and remote URLs for the development server. Pass this object to `createCompiler()` described above.
 
-##### `createClientCompiler(webpack: Function, config: Object): WebpackCompiler`
+##### `createCompiler(webpack: Function, config: Object): WebpackCompiler`
 
 Creates a Webpack compiler instance for WebpackDevServer with built-in helpful messages. Takes the `require('webpack')` entry point as the first argument.
-
-##### `createServerCompiler(webpack: Function, config: Object, appName: string, urls: Object, useYarn: boolean): WebpackCompiler`
-
-Creates a Webpack compiler instance for the app server with built-in helpful messages. Takes the `require('webpack')` entry point as the first argument. To provide the `urls` argument, use `prepareUrls()` described above.
 
 #### `webpackHotDevClient`
 

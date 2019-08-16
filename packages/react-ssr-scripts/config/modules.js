@@ -10,8 +10,10 @@
 
 const fs = require('fs');
 const path = require('path');
-const paths = require('./paths');
 const chalk = require('react-ssr-dev-utils/chalk');
+const resolve = require('resolve');
+
+const paths = require('./paths');
 
 /**
  * Get the baseUrl of a compilerOptions object.
@@ -71,7 +73,10 @@ function getModules() {
   // TypeScript project and set up the config
   // based on tsconfig.json
   if (hasTsConfig) {
-    config = require(paths.appTsConfig);
+    const ts = require(resolve.sync('typescript', {
+      basedir: paths.appNodeModules,
+    }));
+    config = ts.readConfigFile(paths.appTsConfig, ts.sys.readFile).config;
     // Otherwise we'll check if there is jsconfig.json
     // for non TS projects.
   } else if (hasJsConfig) {

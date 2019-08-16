@@ -1,28 +1,25 @@
-<!--
-  PLEASE READ THE FIRST SECTION :-)
--->
-
-### Is this a bug report?
-
-(write your answer here)
+---
+name: Bug report
+about: Create a report to help us improve
+labels: 'issue: bug report, needs triage'
+---
 
 <!--
-  If you answered "Yes":
-
     Please note that your issue will be fixed much faster if you spend about
     half an hour preparing it, including the exact reproduction steps and a demo.
 
     If you're in a hurry or don't feel confident, it's fine to report bugs with
     less details, but this makes it less likely they'll get fixed soon.
 
-    In either case, please fill as many fields below as you can.
+    In either case, please use this template and fill in as many fields below as you can.
 
-  If you answered "No":
-
-    If this is a question or a discussion, you may delete this template and write in a free form.
     Note that we don't provide help for webpack questions after ejecting.
     You can find webpack docs at https://webpack.js.org/.
 -->
+
+### Describe the bug
+
+(Write your answer here.)
 
 ### Did you try recovering your dependencies?
 
@@ -68,12 +65,12 @@
   There are a few common documented problems, such as watcher not detecting changes, or build failing.
   They are described in the Troubleshooting section of the User Guide:
 
-  https://trustworktech.github.io/create-react-ssr-app/docs/troubleshooting
+  https://facebook.github.io/create-react-app/docs/troubleshooting
 
   Please scan these few sections for common problems.
   Additionally, you can search the User Guide itself for something you're having issues with:
 
-  https://trustworktech.github.io/create-react-ssr-app/
+  https://facebook.github.io/create-react-app/
 
   If you didn't find the solution, please share which words you searched for.
   This helps us improve documentation for future readers who might encounter the same problem.
@@ -90,14 +87,14 @@
   Run the following command in your React app's folder in terminal.
   Note: The result is copied to your clipboard directly.
 
-  `npx create-react-ssr-app --info`
+  `npx create-react-app --info`
 
   Paste the output of the command in the section below.
 -->
 
-(paste the output of the command here)
+(paste the output of the command here.)
 
-### Steps to Reproduce
+### Steps to reproduce
 
 <!--
   How would you describe your issue to someone who doesn’t know you or your project?
@@ -106,11 +103,9 @@
 
 (Write your steps here:)
 
-1.
-2.
-3.
+1. 2. 3.
 
-### Expected Behavior
+### Expected behavior
 
 <!--
   How did you expect the tool to behave?
@@ -120,7 +115,7 @@
 
 (Write what you thought would happen.)
 
-### Actual Behavior
+### Actual behavior
 
 <!--
   Did something go wrong?
@@ -130,7 +125,7 @@
 
 (Write what happened. Please add screenshots!)
 
-### Reproducible Demo
+### Reproducible demo
 
 <!--
   If you can, please share a project that reproduces the issue.

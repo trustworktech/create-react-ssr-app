@@ -19,11 +19,11 @@ const path = require('path');
 const fs = require('fs-extra');
 const execSync = require('child_process').execSync;
 const chalk = require('react-ssr-dev-utils/chalk');
-const createJestConfig = require('./utils/createJestConfig');
 const inquirer = require('react-ssr-dev-utils/inquirer');
 const spawnSync = require('react-ssr-dev-utils/crossSpawn').sync;
 
 const paths = require('../config/paths');
+const createJestConfig = require('./utils/createJestConfig');
 
 const green = chalk.green;
 const cyan = chalk.cyan;
@@ -166,6 +166,13 @@ inquirer
 
     console.log(cyan('Updating the dependencies'));
     const ownPackageName = ownPackage.name;
+    if (appPackage.devDependencies) {
+      // We used to put react-scripts in devDependencies
+      if (appPackage.devDependencies[ownPackageName]) {
+        console.log(`  Removing ${cyan(ownPackageName)} from devDependencies`);
+        delete appPackage.devDependencies[ownPackageName];
+      }
+    }
     appPackage.dependencies = appPackage.dependencies || {};
     if (appPackage.dependencies[ownPackageName]) {
       console.log(`  Removing ${cyan(ownPackageName)} from dependencies`);
@@ -173,7 +180,10 @@ inquirer
     }
     Object.keys(ownPackage.dependencies).forEach(key => {
       // For some reason optionalDependencies end up in dependencies after install
-      if (ownPackage.optionalDependencies[key]) {
+      if (
+        ownPackage.optionalDependencies &&
+        ownPackage.optionalDependencies[key]
+      ) {
         return;
       }
       console.log(`  Adding ${cyan(key)} to dependencies`);
@@ -222,10 +232,12 @@ inquirer
     };
 
     // Add ESlint config
-    console.log(`  Adding ${cyan('ESLint')} configuration`);
-    appPackage.eslintConfig = {
-      extends: 'react-app',
-    };
+    if (!appPackage.eslintConfig) {
+      console.log(`  Adding ${cyan('ESLint')} configuration`);
+      appPackage.eslintConfig = {
+        extends: 'react-app',
+      };
+    }
 
     fs.writeFileSync(
       path.join(appPath, 'package.json'),

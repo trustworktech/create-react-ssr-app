@@ -4,4 +4,4 @@ This package includes the global command for [Create React SSR App](https://gith
 Please refer to its documentation:
 
 - [Getting Started](https://trustworktech.github.io/create-react-ssr-app/docs/getting-started) – How to create a new app.
-- [User Guide](https://trustworktech.github.io/create-react-ssr-app/) – How to develop apps bootstrapped with Create React App.
+- [User Guide](https://trustworktech.github.io/create-react-ssr-app/) – How to develop apps bootstrapped with Create React SSR App.
