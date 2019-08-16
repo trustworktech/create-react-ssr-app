@@ -110,7 +110,7 @@ You will see the build errors and lint warnings in the console.
 Runs the test watcher in an interactive mode.<br>
 By default, runs tests related to files changed since the last commit.
 
-[Read more about testing.](https://facebook.github.io/create-react-app/docs/running-tests)
+[Read more about testing.](https://create-react-ssr-app.dev/docs/running-tests)
 
 ### `npm run build` or `yarn build`
 
