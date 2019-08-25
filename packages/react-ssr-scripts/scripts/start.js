@@ -133,8 +133,8 @@ checkBrowsers(paths.appPath, isInteractive)
       `react-ssr-dev-utils/webpackHotDevClient?devPort=${devPort}`,
       ...clientConfig.entry,
     ];
-    clientConfig.output.publicPath = `http://localhost:${devPort}/`;
-    serverConfig.output.publicPath = `http://localhost:${devPort}/`;
+    clientConfig.output.publicPath = `${HOST}:${devPort}/`;
+    serverConfig.output.publicPath = `${HOST}:${devPort}/`;
     const devSocket = {
       warnings: warnings =>
         devServer.sockWrite(devServer.sockets, 'warnings', warnings),
