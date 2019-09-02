@@ -175,7 +175,9 @@ checkBrowsers(paths.appPath, isInteractive)
       if (!serverStarted) {
         serverStarted = true;
         printInstructions(appName, appUrls, useYarn);
-        openBrowser(appUrls.localUrlForBrowser);
+        setTimeout(() => {
+          openBrowser(appUrls.localUrlForBrowser);
+        }, 1000);
       }
     });
 
