@@ -70,7 +70,7 @@ if (
 }
 
 // Tools like Cloud9 rely on this.
-const HOST = process.env.HOST || 'localhost';
+const HOST = process.env.HOST || '0.0.0.0';
 const appName = require(paths.appPackageJson).name;
 const useTypeScript = fs.existsSync(paths.appTsConfig);
 let appPort = parseInt(process.env.PORT, 10) || 3000;
@@ -133,8 +133,8 @@ checkBrowsers(paths.appPath, isInteractive)
       `react-ssr-dev-utils/webpackHotDevClient?devPort=${devPort}`,
       ...clientConfig.entry,
     ];
-    clientConfig.output.publicPath = `${HOST}:${devPort}/`;
-    serverConfig.output.publicPath = `${HOST}:${devPort}/`;
+    clientConfig.output.publicPath = `http://${HOST}:${devPort}/`;
+    serverConfig.output.publicPath = `http://${HOST}:${devPort}/`;
     const devSocket = {
       warnings: warnings =>
         devServer.sockWrite(devServer.sockets, 'warnings', warnings),
