@@ -70,7 +70,7 @@ if (
 }
 
 // Tools like Cloud9 rely on this.
-const HOST = process.env.HOST || '0.0.0.0';
+const HOST = process.env.HOST || 'localhost';
 const appName = require(paths.appPackageJson).name;
 const useTypeScript = fs.existsSync(paths.appTsConfig);
 let appPort = parseInt(process.env.PORT, 10) || 3000;
