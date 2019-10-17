@@ -1,6 +1,6 @@
 ---
 name: Proposal
-about: Suggest an idea for improving Create React SSR App
+about: Suggest an idea for improving React Starter
 labels: 'issue: proposal, needs triage'
 ---
 

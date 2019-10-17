@@ -12,9 +12,6 @@ labels: 'issue: bug report, needs triage'
     less details, but this makes it less likely they'll get fixed soon.
 
     In either case, please use this template and fill in as many fields below as you can.
-
-    Note that we don't provide help for webpack questions after ejecting.
-    You can find webpack docs at https://webpack.js.org/.
 -->
 
 ### Describe the bug
@@ -65,12 +62,12 @@ labels: 'issue: bug report, needs triage'
   There are a few common documented problems, such as watcher not detecting changes, or build failing.
   They are described in the Troubleshooting section of the User Guide:
 
-  https://facebook.github.io/create-react-app/docs/troubleshooting
+  https://react-starter.dev/docs/troubleshooting
 
   Please scan these few sections for common problems.
   Additionally, you can search the User Guide itself for something you're having issues with:
 
-  https://facebook.github.io/create-react-app/
+  https://react-starter.dev/
 
   If you didn't find the solution, please share which words you searched for.
   This helps us improve documentation for future readers who might encounter the same problem.
@@ -87,7 +84,7 @@ labels: 'issue: bug report, needs triage'
   Run the following command in your React app's folder in terminal.
   Note: The result is copied to your clipboard directly.
 
-  `npx create-react-app --info`
+  `react-starter--info`
 
   Paste the output of the command in the section below.
 -->

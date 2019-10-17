@@ -1,18 +1,18 @@
 {
-  "lerna": "3.16.4",
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "version": "independent",
   "changelog": {
-    "repo": "trustworktech/create-react-ssr-app",
+    "repo": "verumtech/react-starter",
     "labels": {
-      "bug": ":bug: Bug Fix",
-      "enhancement": ":rocket: Enhancement",
-      "documentation": ":memo: Documentation",
-      "internal": ":house: Internal"
+      "tag: new feature": ":rocket: New Feature",
+      "tag: breaking change": ":boom: Breaking Change",
+      "tag: bug fix": ":bug: Bug Fix",
+      "tag: enhancement": ":nail_care: Enhancement",
+      "tag: documentation": ":memo: Documentation",
+      "tag: internal": ":house: Internal",
+      "tag: underlying tools": ":hammer: Underlying Tools"
     },
     "cacheDir": ".changelog"
   }
