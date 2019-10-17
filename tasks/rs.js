@@ -72,18 +72,24 @@ Object.keys(packagePathsByName).forEach(name => {
   const packageJson = path.join(packagePathsByName[name], 'package.json');
   const json = JSON.parse(fs.readFileSync(packageJson, 'utf8'));
   Object.keys(packagePathsByName).forEach(otherName => {
-    if (json.dependencies && json.dependencies[otherName]) {
-      json.dependencies[otherName] = 'file:' + packagePathsByName[otherName];
-    }
-    if (json.devDependencies && json.devDependencies[otherName]) {
-      json.devDependencies[otherName] = 'file:' + packagePathsByName[otherName];
-    }
-    if (json.peerDependencies && json.peerDependencies[otherName]) {
-      json.peerDependencies[otherName] =
+    const scopedOtherName = `@verumtech/${otherName}`;
+    if (json.dependencies && json.dependencies[scopedOtherName]) {
+      json.dependencies[scopedOtherName] =
         'file:' + packagePathsByName[otherName];
     }
-    if (json.optionalDependencies && json.optionalDependencies[otherName]) {
-      json.optionalDependencies[otherName] =
+    if (json.devDependencies && json.devDependencies[scopedOtherName]) {
+      json.devDependencies[scopedOtherName] =
+        'file:' + packagePathsByName[otherName];
+    }
+    if (json.peerDependencies && json.peerDependencies[scopedOtherName]) {
+      json.peerDependencies[scopedOtherName] =
+        'file:' + packagePathsByName[otherName];
+    }
+    if (
+      json.optionalDependencies &&
+      json.optionalDependencies[scopedOtherName]
+    ) {
+      json.optionalDependencies[scopedOtherName] =
         'file:' + packagePathsByName[otherName];
     }
   });
