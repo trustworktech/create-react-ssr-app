@@ -105,7 +105,7 @@ module.exports = function(
 
   // Setup the eslint config
   appPackage.eslintConfig = {
-    extends: 'react-app',
+    extends: '@verumtech/react-app',
   };
 
   // Setup the browsers list

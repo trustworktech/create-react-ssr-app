@@ -370,7 +370,9 @@ module.exports = function(webpackEnv) {
                     return eslintConfig;
                   } else {
                     return {
-                      extends: [require.resolve('eslint-config-react-app')],
+                      extends: [
+                        require.resolve('@verumtech/eslint-config-react-app'),
+                      ],
                     };
                   }
                 })(),
