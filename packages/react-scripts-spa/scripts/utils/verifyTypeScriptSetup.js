@@ -256,7 +256,7 @@ function verifyTypeScriptSetup() {
   if (!fs.existsSync(paths.appTypeDeclarations)) {
     fs.writeFileSync(
       paths.appTypeDeclarations,
-      `/// <reference types="react-scripts-spa" />${os.EOL}`
+      `/// <reference types="@verumtech/react-scripts-spa" />${os.EOL}`
     );
   }
 }

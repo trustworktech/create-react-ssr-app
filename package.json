@@ -33,7 +33,7 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
-    "eslint": "^6.5.1",
+    "eslint": "^6.1.0",
     "fs-extra": "^8.1.0",
     "husky": "^3.0.9",
     "jest": "^24.9.0",

@@ -41,6 +41,8 @@ const envinfo = require('envinfo');
 const execSync = require('child_process').execSync;
 const fs = require('fs-extra');
 const hyperquest = require('hyperquest');
+const padEnd = require('lodash/padEnd');
+const trimStart = require('lodash/trimStart');
 const os = require('os');
 const path = require('path');
 const semver = require('semver');
@@ -49,8 +51,10 @@ const tmp = require('tmp');
 const unpack = require('tar-pack').unpack;
 const url = require('url');
 const validateProjectName = require('validate-npm-package-name');
+const wordwrap = require('wordwrap');
 
 const packageJson = require('./package.json');
+const prompt = require('./prompt');
 
 // These files should be allowed to remain on a failed install,
 // but then silently removed during the next create.
@@ -58,6 +62,43 @@ const errorLogFilePatterns = [
   'npm-debug.log',
   'yarn-error.log',
   'yarn-debug.log',
+];
+
+const TEMPLATES = [
+  {
+    shortName: 'Single Page App',
+    name: 'rs-template-spa',
+    description: 'A CRA-like app that can only render in a web browser.',
+  },
+  {
+    shortName: 'Single Page App (TypeScript)',
+    name: 'rs-template-spa-typescript',
+    description: 'Same as Single Page App but with TypeScript configuration.',
+  },
+  {
+    shortName: 'Isomorphic App',
+    name: 'rs-template-iso',
+    description:
+      'A CRA-like app that can render in a web browser and on a server. A.k.a. server side rendering.',
+  },
+  {
+    shortName: 'Isomorphic App (TypeScript)',
+    name: 'rs-template-iso-typescript',
+    description: 'Same as Isomorphic App but with TypeScript configuration.',
+    bare: true,
+  },
+  {
+    shortName: 'Universal App',
+    name: 'rs-template-uni',
+    description:
+      'An Expo app that can render on any platform (iOS, Android, Web).',
+  },
+  {
+    shortName: 'Universal App (TypeScript)',
+    name: 'rs-template-uni-typescript',
+    description: 'Same as Universal App but with TypeScript configuration.',
+    bare: true,
+  },
 ];
 
 let projectName;
@@ -77,7 +118,7 @@ const program = new commander.Command(packageJson.name)
   )
   .option('--use-npm')
   .option('--use-pnp')
-  .option('--typescript')
+  .option('-t, --template [name]', 'Specify which template to use.')
   .allowUnknownOption()
   .on('--help', () => {
     console.log(`    Only ${chalk.green('<project-directory>')} is required.`);
@@ -179,7 +220,7 @@ createApp(
   program.scriptsVersion,
   program.useNpm,
   program.usePnp,
-  program.typescript,
+  program.template,
   hiddenProgram.internalTestingTemplate
 );
 
@@ -189,8 +230,8 @@ function createApp(
   version,
   useNpm,
   usePnp,
-  useTypescript,
-  template
+  template,
+  internalTemplate
 ) {
   const root = path.resolve(name);
   const appName = path.basename(root);
@@ -260,17 +301,59 @@ function createApp(
     }
   }
 
-  run(
-    root,
-    appName,
-    version,
-    verbose,
-    originalDirectory,
-    template,
-    useYarn,
-    usePnp,
-    useTypescript
-  );
+  if (internalTemplate || template) {
+    run(
+      root,
+      appName,
+      version,
+      verbose,
+      originalDirectory,
+      internalTemplate || template,
+      useYarn,
+      usePnp
+    );
+  } else {
+    let descriptionColumn =
+      Math.max(...TEMPLATES.map(t => t.shortName.length)) + 2;
+    prompt(
+      {
+        type: 'list',
+        name: 'template',
+        message: 'Choose a template:',
+        pageSize: 20,
+        choices: TEMPLATES.map(template => ({
+          value: template.name,
+          name:
+            chalk.bold(padEnd(template.shortName, descriptionColumn)) +
+            trimStart(
+              wordwrap(descriptionColumn + 2, process.stdout.columns || 80)(
+                template.description
+              )
+            ),
+          short: template.name,
+        })),
+      },
+      {
+        nonInteractiveHelp:
+          '--template: argument is required in non-interactive mode. Valid choices are: ' +
+          TEMPLATES.map(template => `'${template.shortName}'`)
+            .filter(text => text)
+            .join(', '),
+      }
+    ).then(({ template }) => {
+      console.log('Template is', template);
+      run(
+        root,
+        appName,
+        version,
+        verbose,
+        originalDirectory,
+        template,
+        useYarn,
+        usePnp
+      );
+    });
+  }
 }
 
 function shouldUseYarn() {
@@ -351,9 +434,9 @@ function run(
   originalDirectory,
   template,
   useYarn,
-  usePnp,
-  useTypescript
+  usePnp
 ) {
+  let useTypescript = false;
   getInstallPackage(version, originalDirectory).then(packageToInstall => {
     const allDependencies = ['react', 'react-dom', packageToInstall];
     if (useTypescript) {
