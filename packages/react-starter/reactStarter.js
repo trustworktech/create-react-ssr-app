@@ -342,6 +342,7 @@ function createApp(
       }
     ).then(({ template }) => {
       console.log('Template is', template);
+      process.exit(1);
       run(
         root,
         appName,
