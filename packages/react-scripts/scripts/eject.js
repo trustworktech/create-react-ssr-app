@@ -154,7 +154,6 @@ inquirer
     // Prepare Jest config early in case it throws
     const createJestConfig = require(path.join(
       scriptPath,
-      'scripts',
       'config',
       'createJestConfig'
     ));
@@ -191,9 +190,13 @@ inquirer
             ''
           )
           .trim() + '\n';
-      console.log(`  Adding ${cyan(file.replace(ownPath, ''))} to the project`);
+      console.log(
+        `  Adding ${cyan(
+          file.replace(scriptPath, appPath).replace(ownPath, '')
+        )} to the project`
+      );
       fs.writeFileSync(
-        file.replace(ownPath, appPath).replace(scriptPath, appPath),
+        file.replace(scriptPath, appPath).replace(ownPath, appPath),
         content
       );
     });
@@ -268,7 +271,7 @@ inquirer
     // Add Babel config
     console.log(`  Adding ${cyan('Babel')} preset`);
     appPackage.babel = {
-      presets: [`@verumtech/${program.script}`],
+      presets: [`@verumtech/${program.script.replace('scripts', 'app')}`],
     };
 
     // Add ESlint config
