@@ -18,6 +18,7 @@
     "chalk.js",
     "checkRequiredFiles.js",
     "clearConsole.js",
+    "commander.js",
     "crossSpawn.js",
     "errorOverlayMiddleware.js",
     "evalSourceMapMiddleware.js",
@@ -42,6 +43,7 @@
     "openChrome.applescript",
     "printBuildError.js",
     "printHostingInstructionsSpa.js",
+    "sortPackageJson.js",
     "typescriptFormatter.js",
     "WatchMissingNodeModulesPlugin.js",
     "WebpackDevServerUtilsSpa.js",
@@ -55,6 +57,7 @@
     "address": "1.1.2",
     "browserslist": "4.7.0",
     "chalk": "2.4.2",
+    "commander": "2.20.0",
     "cross-spawn": "6.0.5",
     "detect-port-alt": "1.1.6",
     "escape-string-regexp": "1.0.5",
@@ -74,8 +77,8 @@
     "recursive-readdir": "2.2.2",
     "shell-quote": "1.7.2",
     "sockjs-client": "1.4.0",
-    "strip-ansi": "5.2.0",
-    "text-table": "0.2.0"
+    "sort-package-json": "^1.22.1",
+    "strip-ansi": "5.2.0"
   },
   "devDependencies": {
     "cross-env": "^5.2.0",

@@ -16,7 +16,7 @@ process.on('unhandledRejection', err => {
 
 const fs = require('fs-extra');
 const path = require('path');
-const sortPackageJson = require('sort-package-json');
+const sortPackageJson = require('@verumtech/react-dev-utils/sortPackageJson');
 const chalk = require('@verumtech/react-dev-utils/chalk');
 const execSync = require('child_process').execSync;
 const spawn = require('@verumtech/react-dev-utils/crossSpawn');
@@ -24,7 +24,7 @@ const {
   defaultBrowsers,
 } = require('@verumtech/react-dev-utils/browsersHelper');
 const os = require('os');
-const verifyTypeScriptSetup = require('./utils/verifyTypeScriptSetup');
+const verifyTypeScriptSetup = require('../config/verifyTypeScriptSetup');
 
 function isInGitRepository() {
   try {

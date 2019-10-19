@@ -24,11 +24,11 @@ process.on('unhandledRejection', err => {
 require('../config/env');
 // @remove-on-eject-begin
 // Do the preflight check (only happens before eject).
-const verifyPackageTree = require('./utils/verifyPackageTree');
+const verifyPackageTree = require('../config/verifyPackageTree');
 if (process.env.SKIP_PREFLIGHT_CHECK !== 'true') {
   verifyPackageTree();
 }
-const verifyTypeScriptSetup = require('./utils/verifyTypeScriptSetup');
+const verifyTypeScriptSetup = require('../config/verifyTypeScriptSetup');
 verifyTypeScriptSetup();
 // @remove-on-eject-end
 
@@ -66,7 +66,7 @@ if (
 
 // @remove-on-eject-begin
 // This is not necessary after eject because we embed config into package.json.
-const createJestConfig = require('./utils/createJestConfig');
+const createJestConfig = require('../config/createJestConfig');
 const path = require('path');
 const paths = require('../config/paths');
 argv.push(

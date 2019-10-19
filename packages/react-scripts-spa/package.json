@@ -25,7 +25,7 @@
     "template",
     "template-typescript"
   ],
-  "types": "./lib/react-app-spa.d.ts",
+  "types": "./lib/react-app.d.ts",
   "bin": {
     "react-scripts-spa": "./bin/react-scripts-spa.js"
   },
@@ -77,7 +77,6 @@
     "resolve-url-loader": "3.1.0",
     "sass-loader": "7.2.0",
     "semver": "6.3.0",
-    "sort-package-json": "^1.22.1",
     "style-loader": "1.0.0",
     "terser-webpack-plugin": "1.4.1",
     "ts-pnp": "1.1.4",

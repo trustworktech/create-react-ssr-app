@@ -29,7 +29,7 @@ const scriptIndex = args.findIndex(
 const script = scriptIndex === -1 ? args[0] : args[scriptIndex];
 const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
 
-if (['build', 'eject', 'start', 'test'].includes(script)) {
+if (['build', 'start', 'test'].includes(script)) {
   const result = spawn.sync(
     'node',
     nodeArgs
@@ -54,10 +54,13 @@ if (['build', 'eject', 'start', 'test'].includes(script)) {
     process.exit(1);
   }
   process.exit(result.status);
-} else if (['lint'].includes(script)) {
+} else if (['eject', 'lint'].includes(script)) {
   const result = spawn.sync(
     'react-scripts',
-    nodeArgs.concat(script).concat(args.slice(scriptIndex + 1)),
+    nodeArgs
+      .concat(script)
+      .concat(args.slice(scriptIndex + 1))
+      .concat(['--script', 'react-scripts-spa']),
     { stdio: 'inherit' }
   );
   process.exit(result.status);

@@ -1,3 +1,4 @@
+// @remove-file-on-eject
 /**
  * Copyright (c) 2019-present Verum Technologies
  *
@@ -19,6 +20,8 @@ module.exports = {
   appPath: resolveApp('.'),
   appPackageJson: resolveApp('package.json'),
   appNodeModules: resolveApp('node_modules'),
+  appTypeDeclarations: resolveApp('react-app-env.d.ts'),
+  yarnLockFile: resolveApp('yarn.lock'),
   ownPath: resolveOwn('.'),
   ownNodeModules: resolveOwn('node_modules'),
 };
@@ -38,6 +41,8 @@ if (
     appPath: resolveApp('.'),
     appPackageJson: resolveOwn('package.json'),
     appNodeModules: resolveOwn('node_modules'),
+    appTypeDeclarations: resolveOwn('template/react-app-env.d.ts'),
+    yarnLockFile: resolveOwn('template/yarn.lock'),
     ownPath: resolveOwn('.'),
     ownNodeModules: resolveOwn('node_modules'),
   };

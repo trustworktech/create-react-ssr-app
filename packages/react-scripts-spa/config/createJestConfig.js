@@ -9,8 +9,8 @@
 
 const fs = require('fs');
 const chalk = require('@verumtech/react-dev-utils/chalk');
-const paths = require('../../config/paths');
-const modules = require('../../config/modules');
+const paths = require('./paths');
+const modules = require('./modules');
 
 module.exports = (resolve, rootDir, isEjecting) => {
   // Use this instead of `paths.testsSetup` to avoid putting
@@ -39,11 +39,9 @@ module.exports = (resolve, rootDir, isEjecting) => {
     transform: {
       '^.+\\.(js|jsx|ts|tsx)$': isEjecting
         ? '<rootDir>/node_modules/babel-jest'
-        : resolve('config/jest/babelTransform.js'),
-      '^.+\\.css$': resolve('config/jest/cssTransform.js'),
-      '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': resolve(
-        'config/jest/fileTransform.js'
-      ),
+        : resolve('config/babelTransform.js'),
+      '^.+\\.css$': resolve('config/cssTransform.js'),
+      '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': resolve('config/fileTransform.js'),
     },
     transformIgnorePatterns: [
       '[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$',
