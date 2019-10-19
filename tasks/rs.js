@@ -13,6 +13,12 @@ const path = require('path');
 const cp = require('child_process');
 const commander = require('commander');
 
+const TEMPLATE_LOOKUP = {
+  'react-scripts-spa': 'rs-template-spa',
+  'react-scripts-iso': 'rs-template-iso',
+  'react-scripts-uni': 'rs-template-uni',
+};
+
 const cleanup = () => {
   console.log('Cleaning up.');
   // Reset changes made to package.json files.
@@ -64,8 +70,12 @@ const program = new commander.Command()
   .allowUnknownOption()
   .parse(process.argv);
 
-if (!program.script) {
-  console.log('Must specify a script to use with --script option');
+if (!program.script || !TEMPLATE_LOOKUP[program.script]) {
+  console.error(
+    `Must select a valid script name using --script option. Valid choices are: ${Object.keys(
+      TEMPLATE_LOOKUP
+    ).join(', ')}`
+  );
   process.exit(1);
 }
 
@@ -130,7 +140,11 @@ const args = process.argv.slice(2);
 // Now run the RS command
 const rsScriptPath = path.join(packagesDir, 'react-starter', 'index.js');
 cp.execSync(
-  `node ${rsScriptPath} ${args.join(' ')} --scripts-version="${scriptsPath}" `,
+  `node ${rsScriptPath} ${args.join(
+    ' '
+  )} --scripts-version="${scriptsPath}" --template="${
+    TEMPLATE_LOOKUP[program.script]
+  }"`,
   {
     cwd: rootDir,
     stdio: 'inherit',
