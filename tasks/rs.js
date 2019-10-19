@@ -11,6 +11,7 @@
 const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
+const commander = require('commander');
 
 const cleanup = () => {
   console.log('Cleaning up.');
@@ -58,6 +59,16 @@ if (gitStatus.trim() !== '') {
   process.exit(1);
 }
 
+const program = new commander.Command()
+  .option('-s, --script', 'The react-scripts name to use')
+  .allowUnknownOption()
+  .parse(process.argv);
+
+if (!program.script) {
+  console.log('Must specify a script to use with --script option');
+  process.exit(1);
+}
+
 const rootDir = path.join(__dirname, '..');
 const packagesDir = path.join(rootDir, 'packages');
 const packagePathsByName = {};
@@ -102,18 +113,14 @@ Object.keys(packagePathsByName).forEach(name => {
 console.log('Replaced all local dependencies for testing.');
 console.log('Do not edit any package.json while this task is running.');
 
-// Finally, pack react-scripts-spa.
+// Finally, pack react-scripts.
 // Don't redirect stdio as we want to capture the output that will be returned
 // from execSync(). In this case it will be the .tgz filename.
 const scriptsFileName = cp
-  .execSync(`npm pack`, { cwd: path.join(packagesDir, 'react-scripts-spa') })
+  .execSync(`npm pack`, { cwd: path.join(packagesDir, program.name) })
   .toString()
   .trim();
-const scriptsPath = path.join(
-  packagesDir,
-  'react-scripts-spa',
-  scriptsFileName
-);
+const scriptsPath = path.join(packagesDir, program.name, scriptsFileName);
 
 // Now that we have packed them, call the global CLI.
 cp.execSync('yarn cache clean');
@@ -123,7 +130,7 @@ const args = process.argv.slice(2);
 // Now run the RS command
 const rsScriptPath = path.join(packagesDir, 'react-starter', 'index.js');
 cp.execSync(
-  `node ${rsScriptPath} ${args.join(' ')} --scripts-version="${scriptsPath}"`,
+  `node ${rsScriptPath} ${args.join(' ')} --scripts-version="${scriptsPath}" `,
   {
     cwd: rootDir,
     stdio: 'inherit',
