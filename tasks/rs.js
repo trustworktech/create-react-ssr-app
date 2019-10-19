@@ -60,7 +60,7 @@ if (gitStatus.trim() !== '') {
 }
 
 const program = new commander.Command()
-  .option('-s, --script', 'The react-scripts name to use')
+  .option('-s, --script [name]', 'The react-scripts name to use')
   .allowUnknownOption()
   .parse(process.argv);
 
