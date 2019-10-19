@@ -8,7 +8,7 @@
 
 const path = require('path');
 const fs = require('fs-extra');
-const shelljs = require('@verumtech/react-dev-utils/shelljs');
+const spawn = require('@verumtech/react-dev-utils/crossSpawn');
 
 const paths = require('../config/paths');
 
@@ -23,13 +23,16 @@ const ignorePath = path.format({
 });
 
 // Lint code
-shelljs.exec(
-  `${eslintPath} ${paths.appPath} ${
-    fs.existsSync(ignorePath) ? `--ignore-path ${ignorePath}` : ''
-  } --ext .js,.ts,.jsx,.tsx`,
-  code => {
-    if (code !== 0) {
-      shelljs.exit(1);
-    }
-  }
+const result = spawn.sync(
+  eslintPath,
+  [
+    paths.appPath,
+    fs.existsSync(ignorePath) && '--ignore-path',
+    fs.existsSync(ignorePath) && ignorePath,
+    '--ext',
+    '.js,.ts,.jsx,.tsx',
+  ].filter(Boolean),
+  { stdio: 'inherit' }
 );
+
+process.exit(result.status);
