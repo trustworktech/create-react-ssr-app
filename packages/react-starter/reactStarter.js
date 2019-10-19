@@ -69,39 +69,26 @@ const TEMPLATES = [
     shortName: 'Single Page App',
     name: 'rs-template-spa',
     description: 'A CRA-like app that can only render in a web browser.',
-  },
-  {
-    shortName: 'Single Page App (TypeScript)',
-    name: 'rs-template-spa-typescript',
-    description: 'Same as Single Page App but with TypeScript configuration.',
+    package: '@verumtech/react-scripts-spa',
   },
   {
     shortName: 'Isomorphic App',
     name: 'rs-template-iso',
     description:
       'A CRA-like app that can render in a web browser and on a server. A.k.a. server side rendering.',
-  },
-  {
-    shortName: 'Isomorphic App (TypeScript)',
-    name: 'rs-template-iso-typescript',
-    description: 'Same as Isomorphic App but with TypeScript configuration.',
-    bare: true,
+    package: '@verumtech/react-scripts-iso',
   },
   {
     shortName: 'Universal App',
     name: 'rs-template-uni',
     description:
       'An Expo app that can render on any platform (iOS, Android, Web).',
-  },
-  {
-    shortName: 'Universal App (TypeScript)',
-    name: 'rs-template-uni-typescript',
-    description: 'Same as Universal App but with TypeScript configuration.',
-    bare: true,
+    package: '@verumtech/react-scripts-uni',
   },
 ];
 
 let projectName;
+let scriptName;
 
 const program = new commander.Command(packageJson.name)
   .version(packageJson.version)
@@ -114,11 +101,12 @@ const program = new commander.Command(packageJson.name)
   .option('--info', 'print environment debug info')
   .option(
     '--scripts-version <alternative-package>',
-    'use a non-standard version of react-scripts'
+    'use a non-standard version of react-scripts-<type>'
   )
+  .option('-t, --template [name]', 'Specify which template to use.')
+  .option('--typescript')
   .option('--use-npm')
   .option('--use-pnp')
-  .option('-t, --template [name]', 'Specify which template to use.')
   .allowUnknownOption()
   .on('--help', () => {
     console.log(`    Only ${chalk.green('<project-directory>')} is required.`);
@@ -172,7 +160,6 @@ if (program.info) {
         System: ['OS', 'CPU'],
         Binaries: ['Node', 'npm', 'Yarn'],
         Browsers: ['Chrome', 'Edge', 'Internet Explorer', 'Firefox', 'Safari'],
-        npmPackages: ['react', 'react-dom', '@verumtech/react-scripts-spa'],
         npmGlobalPackages: ['@verumtech/react-starter'],
       },
       {
@@ -206,32 +193,24 @@ function printValidationResults(results) {
   }
 }
 
-const hiddenProgram = new commander.Command()
-  .option(
-    '--internal-testing-template <path-to-template>',
-    '(internal usage only, DO NOT RELY ON THIS) ' +
-      'use a non-standard application template'
-  )
-  .parse(process.argv);
-
 createApp(
   projectName,
   program.verbose,
   program.scriptsVersion,
-  program.useNpm,
-  program.usePnp,
   program.template,
-  hiddenProgram.internalTestingTemplate
+  program.typescript,
+  program.useNpm,
+  program.usePnp
 );
 
-function createApp(
+async function createApp(
   name,
   verbose,
   version,
-  useNpm,
-  usePnp,
   template,
-  internalTemplate
+  useTypescript,
+  useNpm,
+  usePnp
 ) {
   const root = path.resolve(name);
   const appName = path.basename(root);
@@ -301,21 +280,11 @@ function createApp(
     }
   }
 
-  if (internalTemplate || template) {
-    run(
-      root,
-      appName,
-      version,
-      verbose,
-      originalDirectory,
-      internalTemplate || template,
-      useYarn,
-      usePnp
-    );
-  } else {
+  let templateName = template;
+  if (!templateName) {
     let descriptionColumn =
       Math.max(...TEMPLATES.map(t => t.shortName.length)) + 2;
-    prompt(
+    const { template } = await prompt(
       {
         type: 'list',
         name: 'template',
@@ -334,27 +303,28 @@ function createApp(
         })),
       },
       {
+        interactiveRequired: true,
         nonInteractiveHelp:
           '--template: argument is required in non-interactive mode. Valid choices are: ' +
           TEMPLATES.map(template => `'${template.shortName}'`)
             .filter(text => text)
             .join(', '),
       }
-    ).then(({ template }) => {
-      console.log('Template is', template);
-      process.exit(1);
-      run(
-        root,
-        appName,
-        version,
-        verbose,
-        originalDirectory,
-        template,
-        useYarn,
-        usePnp
-      );
-    });
+    );
+    templateName = template;
   }
+
+  run(
+    root,
+    appName,
+    version,
+    verbose,
+    originalDirectory,
+    templateName,
+    useTypescript,
+    useYarn,
+    usePnp
+  );
 }
 
 function shouldUseYarn() {
@@ -433,24 +403,29 @@ function run(
   version,
   verbose,
   originalDirectory,
-  template,
+  templateName,
+  useTypescript,
   useYarn,
   usePnp
 ) {
-  let useTypescript = false;
+  const templateData = TEMPLATES.find(
+    template => template.name === templateName
+  );
+  scriptName = templateData.package;
+  if (!templateData) {
+    console.error(
+      chalk.red(
+        `Must select a valid template for React Starter. Valid choices are: ${TEMPLATES.map(
+          template => `'${template.shortName}'`
+        )
+          .filter(text => text)
+          .join(', ')}`
+      )
+    );
+    process.exit(1);
+  }
   getInstallPackage(version, originalDirectory).then(packageToInstall => {
-    const allDependencies = ['react', 'react-dom', packageToInstall];
-    if (useTypescript) {
-      allDependencies.push(
-        // TODO: get user's node version instead of installing latest
-        '@types/node',
-        '@types/react',
-        '@types/react-dom',
-        // TODO: get version of Jest being used instead of installing latest
-        '@types/jest',
-        'typescript'
-      );
-    }
+    const allDependencies = [packageToInstall];
 
     console.log('Installing packages. This might take a couple of minutes.');
     getPackageName(packageToInstall)
@@ -463,11 +438,7 @@ function run(
       .then(info => {
         const isOnline = info.isOnline;
         const packageName = info.packageName;
-        console.log(
-          `Installing ${chalk.cyan('react')}, ${chalk.cyan(
-            'react-dom'
-          )}, and ${chalk.cyan(packageName)}...`
-        );
+        console.log(`Installing ${chalk.cyan(packageName)}...`);
         console.log();
 
         return install(
@@ -481,7 +452,6 @@ function run(
       })
       .then(async packageName => {
         checkNodeVersion(packageName);
-        setCaretRangeForRuntimeDeps(packageName);
 
         const pnpPath = path.resolve(process.cwd(), '.pnp.js');
 
@@ -492,7 +462,7 @@ function run(
             cwd: process.cwd(),
             args: nodeArgs,
           },
-          [root, appName, verbose, originalDirectory, template],
+          [root, appName, verbose, originalDirectory, useTypescript],
           `
         var init = require('${packageName}/scripts/init.js');
         init.apply(null, JSON.parse(process.argv[1]));
@@ -546,7 +516,7 @@ function run(
 }
 
 function getInstallPackage(version, originalDirectory) {
-  let packageToInstall = '@verumtech/react-scripts-spa';
+  let packageToInstall = scriptName;
   const validSemver = semver.valid(version);
   if (validSemver) {
     packageToInstall += `@${validSemver}`;
@@ -744,9 +714,14 @@ function checkAppName(appName) {
 
   // TODO: there should be a single place that holds the dependencies
   const dependencies = [
+    'expo',
     'react',
     'react-dom',
+    'react-native',
+    'react-native-web',
     '@verumtech/react-scripts-spa',
+    '@verumtech/react-scripts-iso',
+    '@verumtech/react-scripts-uni',
   ].sort();
   if (dependencies.indexOf(appName) >= 0) {
     console.error(
@@ -761,49 +736,6 @@ function checkAppName(appName) {
     );
     process.exit(1);
   }
-}
-
-function makeCaretRange(dependencies, name) {
-  const version = dependencies[name];
-
-  if (typeof version === 'undefined') {
-    console.error(chalk.red(`Missing ${name} dependency in package.json`));
-    process.exit(1);
-  }
-
-  let patchedVersion = `^${version}`;
-
-  if (!semver.validRange(patchedVersion)) {
-    console.error(
-      `Unable to patch ${name} dependency version because version ${chalk.red(
-        version
-      )} will become invalid ${chalk.red(patchedVersion)}`
-    );
-    patchedVersion = version;
-  }
-
-  dependencies[name] = patchedVersion;
-}
-
-function setCaretRangeForRuntimeDeps(packageName) {
-  const packagePath = path.join(process.cwd(), 'package.json');
-  const packageJson = require(packagePath);
-
-  if (typeof packageJson.dependencies === 'undefined') {
-    console.error(chalk.red('Missing dependencies in package.json'));
-    process.exit(1);
-  }
-
-  const packageVersion = packageJson.dependencies[packageName];
-  if (typeof packageVersion === 'undefined') {
-    console.error(chalk.red(`Unable to find ${packageName} in package.json`));
-    process.exit(1);
-  }
-
-  makeCaretRange(packageJson.dependencies, 'react');
-  makeCaretRange(packageJson.dependencies, 'react-dom');
-
-  fs.writeFileSync(packagePath, JSON.stringify(packageJson, null, 2) + os.EOL);
 }
 
 // If project only contains files generated by GH, it’s safe.
@@ -885,6 +817,7 @@ function getProxy() {
     }
   }
 }
+
 function checkThatNpmCanReadCwd() {
   const cwd = process.cwd();
   let childOutput = null;

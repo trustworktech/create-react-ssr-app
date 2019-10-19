@@ -16,6 +16,7 @@ process.on('unhandledRejection', err => {
 
 const fs = require('fs-extra');
 const path = require('path');
+const sortPackageJson = require('sort-package-json');
 const chalk = require('@verumtech/react-dev-utils/chalk');
 const execSync = require('child_process').execSync;
 const spawn = require('@verumtech/react-dev-utils/crossSpawn');
@@ -82,7 +83,7 @@ module.exports = function(
   appName,
   verbose,
   originalDirectory,
-  template
+  useTypeScript
 ) {
   const ownPath = path.dirname(
     require.resolve(path.join(__dirname, '..', 'package.json'))
@@ -92,8 +93,6 @@ module.exports = function(
 
   // Copy over some of the devDependencies
   appPackage.dependencies = appPackage.dependencies || {};
-
-  const useTypeScript = appPackage.dependencies['typescript'] != null;
 
   // Setup the script rules
   appPackage.scripts = {
@@ -113,7 +112,7 @@ module.exports = function(
 
   fs.writeFileSync(
     path.join(appPath, 'package.json'),
-    JSON.stringify(appPackage, null, 2) + os.EOL
+    JSON.stringify(sortPackageJson(appPackage), null, 2) + os.EOL
   );
 
   const readmeExists = fs.existsSync(path.join(appPath, 'README.md'));
@@ -125,9 +124,10 @@ module.exports = function(
   }
 
   // Copy the files for the user
-  const templatePath = template
-    ? path.resolve(originalDirectory, template)
-    : path.join(ownPath, useTypeScript ? 'template-typescript' : 'template');
+  const templatePath = path.join(
+    ownPath,
+    useTypeScript ? 'template-typescript' : 'template'
+  );
   if (fs.existsSync(templatePath)) {
     fs.copySync(templatePath, appPath);
   } else {
@@ -185,6 +185,15 @@ module.exports = function(
     args = ['install', '--save', verbose && '--verbose'].filter(e => e);
   }
   args.push('react', 'react-dom');
+  if (useTypeScript) {
+    args.push(
+      '@types/node',
+      '@types/react',
+      '@types/react-dom',
+      '@types/jest',
+      'typescript'
+    );
+  }
 
   // Install additional template dependencies, if present
   const templateDependenciesPath = path.join(
@@ -192,7 +201,7 @@ module.exports = function(
     '.template.dependencies.json'
   );
   if (fs.existsSync(templateDependenciesPath)) {
-    const templateDependencies = require(templateDependenciesPath).dependencies;
+    const templateDependencies = require(templateDependenciesPath);
     args = args.concat(
       Object.keys(templateDependencies).map(key => {
         return `${key}@${templateDependencies[key]}`;
@@ -201,18 +210,13 @@ module.exports = function(
     fs.unlinkSync(templateDependenciesPath);
   }
 
-  // Install react and react-dom for backward compatibility with old CRA cli
-  // which doesn't install react and react-dom along with react-scripts-spa
-  // or template is presetend (via --internal-testing-template)
-  if (!isReactInstalled(appPackage) || template) {
-    console.log(`Installing react and react-dom using ${command}...`);
-    console.log();
+  console.log(`Installing dependencies using ${command}...`);
+  console.log();
 
-    const proc = spawn.sync(command, args, { stdio: 'inherit' });
-    if (proc.status !== 0) {
-      console.error(`\`${command} ${args.join(' ')}\` failed`);
-      return;
-    }
+  const proc = spawn.sync(command, args, { stdio: 'inherit' });
+  if (proc.status !== 0) {
+    console.error(`\`${command} ${args.join(' ')}\` failed`);
+    return;
   }
 
   if (useTypeScript) {
@@ -277,12 +281,3 @@ module.exports = function(
   console.log();
   console.log('Happy hacking!');
 };
-
-function isReactInstalled(appPackage) {
-  const dependencies = appPackage.dependencies || {};
-
-  return (
-    typeof dependencies.react !== 'undefined' &&
-    typeof dependencies['react-dom'] !== 'undefined'
-  );
-}

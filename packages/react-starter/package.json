@@ -18,7 +18,8 @@
   "license": "MIT",
   "files": [
     "index.js",
-    "createReactApp.js"
+    "prompt.js",
+    "reactStarter.js"
   ],
   "bin": {
     "react-starter": "./index.js"

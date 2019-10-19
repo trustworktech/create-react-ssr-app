@@ -50,7 +50,7 @@ function prompt(questions, { nonInteractiveHelp }) {
         .trim()
         .replace(/^/gm, '> ')}`;
     }
-    console.log(chalk.red(message));
+    console.error(chalk.red(message));
     process.exit(1);
   }
   return inquirer.prompt(questions);
