@@ -306,7 +306,7 @@ async function createApp(
         interactiveRequired: true,
         nonInteractiveHelp:
           '--template: argument is required in non-interactive mode. Valid choices are: ' +
-          TEMPLATES.map(template => `'${template.shortName}'`)
+          TEMPLATES.map(template => `'${template.name}'`)
             .filter(text => text)
             .join(', '),
       }
@@ -415,7 +415,7 @@ function run(
     console.error(
       chalk.red(
         `Must select a valid template for React Starter. Valid choices are: ${TEMPLATES.map(
-          template => `'${template.shortName}'`
+          template => `'${template.name}'`
         )
           .filter(text => text)
           .join(', ')}`
