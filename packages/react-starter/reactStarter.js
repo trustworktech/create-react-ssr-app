@@ -411,7 +411,6 @@ function run(
   const templateData = TEMPLATES.find(
     template => template.name === templateName
   );
-  scriptName = templateData.package;
   if (!templateData) {
     console.error(
       chalk.red(
@@ -424,6 +423,7 @@ function run(
     );
     process.exit(1);
   }
+  scriptName = templateData.package;
   getInstallPackage(version, originalDirectory).then(packageToInstall => {
     const allDependencies = [packageToInstall];
 
