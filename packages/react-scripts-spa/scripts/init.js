@@ -102,6 +102,10 @@ module.exports = function(
     eject: 'react-scripts-spa eject',
   };
 
+  if (useTypeScript) {
+    appPackage.scripts.tsc = 'tsc --noEmit';
+  }
+
   // Setup the eslint config
   appPackage.eslintConfig = {
     extends: '@verumtech/react-app',
