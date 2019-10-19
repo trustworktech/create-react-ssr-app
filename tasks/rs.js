@@ -117,10 +117,10 @@ console.log('Do not edit any package.json while this task is running.');
 // Don't redirect stdio as we want to capture the output that will be returned
 // from execSync(). In this case it will be the .tgz filename.
 const scriptsFileName = cp
-  .execSync(`npm pack`, { cwd: path.join(packagesDir, program.name) })
+  .execSync(`npm pack`, { cwd: path.join(packagesDir, program.script) })
   .toString()
   .trim();
-const scriptsPath = path.join(packagesDir, program.name, scriptsFileName);
+const scriptsPath = path.join(packagesDir, program.script, scriptsFileName);
 
 // Now that we have packed them, call the global CLI.
 cp.execSync('yarn cache clean');
