@@ -18,18 +18,11 @@ process.on('unhandledRejection', err => {
 const spawn = require('@verumtech/react-dev-utils/crossSpawn');
 const args = process.argv.slice(2);
 
-const scriptIndex = args.findIndex(
-  x =>
-    x === 'build' ||
-    x === 'eject' ||
-    x === 'start' ||
-    x === 'test' ||
-    x === 'lint'
-);
+const scriptIndex = args.findIndex(x => x === 'lint');
 const script = scriptIndex === -1 ? args[0] : args[scriptIndex];
 const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
 
-if (['build', 'eject', 'start', 'test'].includes(script)) {
+if (['lint'].includes(script)) {
   const result = spawn.sync(
     'node',
     nodeArgs
@@ -54,15 +47,8 @@ if (['build', 'eject', 'start', 'test'].includes(script)) {
     process.exit(1);
   }
   process.exit(result.status);
-} else if (['lint'].includes(script)) {
-  const result = spawn.sync(
-    'react-scripts',
-    nodeArgs.concat(script).concat(args.slice(scriptIndex + 1)),
-    { stdio: 'inherit' }
-  );
-  process.exit(result.status);
 } else {
   console.log('Unknown script "' + script + '".');
-  console.log('Perhaps you need to update react-scripts-spa?');
+  console.log('Perhaps you need to update react-scripts?');
   console.log('See: https://react-starter.dev/docs/updating-to-new-releases');
 }

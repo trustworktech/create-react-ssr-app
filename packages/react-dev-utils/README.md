@@ -165,36 +165,6 @@ clearConsole();
 console.log('Just cleared the screen!');
 ```
 
-#### `eslintFormatter(results: Object): string`
-
-This is our custom ESLint formatter that integrates well with React Starter console output.<br>
-You can use the default one instead if you prefer so.
-
-```js
-const eslintFormatter = require('@verumtech/react-dev-utils/eslintFormatter');
-
-// In your webpack config:
-// ...
-module: {
-  rules: [
-    {
-      test: /\.(js|jsx)$/,
-      include: paths.appSrc,
-      enforce: 'pre',
-      use: [
-        {
-          loader: 'eslint-loader',
-          options: {
-            // Pass the formatter:
-            formatter: eslintFormatter,
-          },
-        },
-      ],
-    },
-  ];
-}
-```
-
 #### `FileSizeReporter`
 
 ##### `measureFileSizesBeforeBuild(buildFolder: string): Promise<OpaqueFileSizes>`

@@ -20,7 +20,6 @@
     "clearConsole.js",
     "crossSpawn.js",
     "errorOverlayMiddleware.js",
-    "eslintFormatter.js",
     "evalSourceMapMiddleware.js",
     "FileSizeReporter.js",
     "ForkTsCheckerWebpackPlugin.js",

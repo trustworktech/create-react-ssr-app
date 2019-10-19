@@ -1,0 +1,44 @@
+{
+  "name": "@verumtech/react-scripts",
+  "version": "0.0.1",
+  "description": "Configuration and scripts for React Starter.",
+  "keywords": [
+    "react"
+  ],
+  "homepage": "https://react-starter.dev/",
+  "bugs": {
+    "url": "https://github.com/verumtech/react-starter/issues",
+    "email": "dev@verumtechnologies.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verumtech/react-starter.git",
+    "directory": "packages/react-scripts"
+  },
+  "license": "MIT",
+  "files": [
+    "bin",
+    "config",
+    "scripts"
+  ],
+  "bin": {
+    "react-scripts": "./bin/react-scripts.js"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.2.0",
+    "@typescript-eslint/parser": "^2.2.0",
+    "@verumtech/eslint-config-react-app": "^0.0.1",
+    "@verumtech/react-dev-utils": "^0.0.1",
+    "babel-eslint": "10.0.3",
+    "eslint": "^6.1.0",
+    "eslint-loader": "3.0.2",
+    "eslint-plugin-flowtype": "3.13.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.14.3",
+    "eslint-plugin-react-hooks": "^1.6.1"
+  },
+  "engines": {
+    "node": ">=8.10"
+  }
+}

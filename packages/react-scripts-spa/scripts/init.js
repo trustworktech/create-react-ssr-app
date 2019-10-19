@@ -100,6 +100,7 @@ module.exports = function(
     build: 'react-scripts-spa build',
     test: 'react-scripts-spa test',
     eject: 'react-scripts-spa eject',
+    lint: 'react-scripts-spa lint',
   };
 
   if (useTypeScript) {

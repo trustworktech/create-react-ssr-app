@@ -110,7 +110,7 @@ function handleSuccess() {
   }
 }
 
-// Compilation with warnings (e.g. ESLint).
+// Compilation with warnings
 function handleWarnings(warnings) {
   clearOutdatedErrors();
 

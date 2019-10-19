@@ -2,7 +2,7 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "packages": ["packages/*"],
-  "version": "independent",
+  "version": "0.0.1",
   "changelog": {
     "repo": "verumtech/react-starter",
     "labels": {
