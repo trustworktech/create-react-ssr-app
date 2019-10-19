@@ -32,7 +32,7 @@ function verifyPackageTree() {
   // Don't want to make this a dependency after ejecting.
   const getSemverRegex = () =>
     /\bv?(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-[\da-z-]+(?:\.[\da-z-]+)*)?(?:\+[\da-z-]+(?:\.[\da-z-]+)*)?\b/gi;
-  const ownPackageJson = require('../../package.json');
+  const ownPackageJson = require('../package.json');
   const expectedVersionsByDep = {};
   // Gather wanted deps
   depsToCheck.forEach(dep => {
