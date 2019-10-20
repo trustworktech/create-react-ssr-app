@@ -93,7 +93,16 @@ function getClientEnvironment(publicUrl) {
     }, {}),
   };
 
-  return { raw, stringified };
+  const writeToJson = location => {
+    const envJsonPath = path.format({
+      dir: location,
+      base: 'env.json',
+    });
+
+    fs.writeFile(envJsonPath, `${JSON.stringify(raw)}\n`);
+  };
+
+  return { raw, stringified, writeToJson };
 }
 
 module.exports = getClientEnvironment;

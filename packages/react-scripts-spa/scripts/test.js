@@ -21,7 +21,7 @@ process.on('unhandledRejection', err => {
 });
 
 // Ensure environment variables are read.
-require('../config/env');
+const getClientEnvironment = require('../config/env');
 // @remove-on-eject-begin
 // Do the preflight check (only happens before eject).
 const verifyPackageTree = require('../config/verifyPackageTree');
@@ -69,6 +69,7 @@ if (
 const createJestConfig = require('../config/createJestConfig');
 const path = require('path');
 const paths = require('../config/paths');
+getClientEnvironment.writeToJson(paths.appSrc);
 argv.push(
   '--config',
   JSON.stringify(
