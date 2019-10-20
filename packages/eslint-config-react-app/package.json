@@ -1,0 +1,37 @@
+{
+  "name": "@verumtech/eslint-config-react-app",
+  "version": "0.0.1",
+  "description": "ESLint configuration used by React Starter",
+  "keywords": [
+    "eslint",
+    "react"
+  ],
+  "homepage": "https://react-starter.dev/",
+  "bugs": {
+    "url": "https://github.com/verumtech/react-starter/issues",
+    "email": "dev@verumtechnologies.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verumtech/react-starter.git",
+    "directory": "packages/eslint-config-react-app"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "confusing-browser-globals": "^1.0.9"
+  },
+  "peerDependencies": {
+    "@typescript-eslint/eslint-plugin": "2.x",
+    "@typescript-eslint/parser": "2.x",
+    "babel-eslint": "10.x",
+    "eslint": "6.x",
+    "eslint-plugin-flowtype": "3.x",
+    "eslint-plugin-import": "2.x",
+    "eslint-plugin-jsx-a11y": "6.x",
+    "eslint-plugin-react": "7.x",
+    "eslint-plugin-react-hooks": "1.x"
+  }
+}

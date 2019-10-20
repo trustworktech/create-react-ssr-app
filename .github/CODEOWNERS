@@ -1,2 +1,3 @@
 packages/ @maxparelius
-docusaurus/ @maxparelius
+docs/ @maxparelius
+website/ @maxparelius

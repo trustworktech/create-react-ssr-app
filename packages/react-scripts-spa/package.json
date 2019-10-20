@@ -1,0 +1,99 @@
+{
+  "name": "@verumtech/react-scripts-spa",
+  "version": "0.0.1",
+  "description": "Configuration and scripts for React Starter single page apps.",
+  "keywords": [
+    "react",
+    "spa"
+  ],
+  "homepage": "https://react-starter.dev/",
+  "bugs": {
+    "url": "https://github.com/verumtech/react-starter/issues",
+    "email": "dev@verumtechnologies.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verumtech/react-starter.git",
+    "directory": "packages/react-scripts-spa"
+  },
+  "license": "MIT",
+  "files": [
+    "bin",
+    "config",
+    "lib",
+    "scripts",
+    "template",
+    "template-typescript"
+  ],
+  "types": "./lib/react-app.d.ts",
+  "bin": {
+    "react-scripts-spa": "./bin/react-scripts-spa.js"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@babel/core": "7.6.0",
+    "@svgr/webpack": "4.3.2",
+    "@verumtech/babel-preset-react-app-spa": "^0.0.1",
+    "@verumtech/react-dev-utils": "^0.0.1",
+    "@verumtech/react-scripts": "^0.0.1",
+    "babel-jest": "^24.9.0",
+    "babel-loader": "8.0.6",
+    "babel-plugin-named-asset-import": "^0.3.4",
+    "camelcase": "^5.2.0",
+    "case-sensitive-paths-webpack-plugin": "2.2.0",
+    "css-loader": "2.1.1",
+    "dotenv": "6.2.0",
+    "dotenv-expand": "5.1.0",
+    "file-loader": "3.0.1",
+    "fs-extra": "7.0.1",
+    "html-webpack-plugin": "4.0.0-beta.5",
+    "identity-obj-proxy": "3.0.0",
+    "is-wsl": "^1.1.0",
+    "jest": "24.9.0",
+    "jest-environment-jsdom-fourteen": "0.1.0",
+    "jest-resolve": "24.9.0",
+    "jest-watch-typeahead": "0.4.0",
+    "mini-css-extract-plugin": "0.8.0",
+    "optimize-css-assets-webpack-plugin": "5.0.3",
+    "pnp-webpack-plugin": "1.5.0",
+    "postcss-flexbugs-fixes": "4.1.0",
+    "postcss-loader": "3.0.0",
+    "postcss-normalize": "7.0.1",
+    "postcss-preset-env": "6.7.0",
+    "postcss-safe-parser": "4.0.1",
+    "react-app-polyfill": "^1.0.4",
+    "resolve": "1.12.0",
+    "resolve-url-loader": "3.1.0",
+    "sass-loader": "7.2.0",
+    "semver": "6.3.0",
+    "style-loader": "1.0.0",
+    "terser-webpack-plugin": "1.4.1",
+    "ts-pnp": "1.1.4",
+    "url-loader": "2.1.0",
+    "webpack": "4.41.0",
+    "webpack-dev-server": "3.2.1",
+    "webpack-manifest-plugin": "2.1.1",
+    "workbox-webpack-plugin": "4.3.1"
+  },
+  "devDependencies": {
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  },
+  "optionalDependencies": {
+    "fsevents": "2.0.7"
+  },
+  "engines": {
+    "node": ">=8.10"
+  }
+}
