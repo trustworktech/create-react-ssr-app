@@ -69,7 +69,12 @@ if (
 const createJestConfig = require('../config/createJestConfig');
 const path = require('path');
 const paths = require('../config/paths');
-getClientEnvironment().writeToJson(paths.appSrc);
+getClientEnvironment().writeToJson(paths.appSrc, error => {
+  if (error) {
+    process.exit(1);
+  }
+});
+
 argv.push(
   '--config',
   JSON.stringify(
