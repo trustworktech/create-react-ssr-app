@@ -20,7 +20,7 @@ process.on('unhandledRejection', err => {
 });
 
 // Ensure environment variables are read.
-const getClientEnvironment = require('../config/env');
+require('../config/env');
 // @remove-on-eject-begin
 // Do the preflight check (only happens before eject).
 const verifyPackageTree = require('../config/verifyPackageTree');
@@ -50,11 +50,6 @@ const createDevServerConfig = require('../config/webpackDevServer.config');
 
 const useYarn = fs.existsSync(paths.yarnLockFile);
 const isInteractive = process.stdout.isTTY;
-getClientEnvironment().writeToJson(paths.appSrc, error => {
-  if (error) {
-    process.exit(1);
-  }
-});
 
 // Warn and crash if required files are missing
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
