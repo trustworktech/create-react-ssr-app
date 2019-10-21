@@ -30,7 +30,7 @@
 
 **🚀 Fast**: Fast to start and fast to develop. No tedious configuration. Just run one command and start developing features.
 
-**👌 Convenient**: Stay up to date with latest tools and libraries (React, React Native, Webpack, ESLint, etc) without the developer overhead.
+**👌 Convenient**: Stay up to date with latest tools and libraries (React, React Native, Webpack, ESLint, etc).
 
 **🔓 Flexible**: No lock in. Use as much or as little of the React Starter toolset to serve your needs and eject at any time.
 
