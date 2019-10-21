@@ -1,6 +1,6 @@
 {
   "name": "@verumtech/react-dev-utils",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Webpack utilities used by React Starter",
   "homepage": "https://react-starter.dev/",
   "bugs": {
@@ -42,12 +42,12 @@
     "openBrowser.js",
     "openChrome.applescript",
     "printBuildError.js",
-    "printHostingInstructionsSpa.js",
+    "printHostingInstructions.js",
     "sortPackageJson.js",
     "typescriptFormatter.js",
     "WatchMissingNodeModulesPlugin.js",
-    "WebpackDevServerUtilsSpa.js",
-    "webpackHotDevClientSpa.js"
+    "WebpackDevServerUtils.js",
+    "webpackHotDevClient.js"
   ],
   "scripts": {
     "test": "cross-env FORCE_COLOR=true jest"

@@ -39,7 +39,9 @@ const configFactory = require('../config/webpack.config');
 const paths = require('../config/paths');
 const checkRequiredFiles = require('@verumtech/react-dev-utils/checkRequiredFiles');
 const formatWebpackMessages = require('@verumtech/react-dev-utils/formatWebpackMessages');
-const printHostingInstructionsSpa = require('@verumtech/react-dev-utils/printHostingInstructionsSpa');
+const {
+  printHostingInstructionsSpa,
+} = require('@verumtech/react-dev-utils/printHostingInstructions');
 const FileSizeReporter = require('@verumtech/react-dev-utils/FileSizeReporter');
 const printBuildError = require('@verumtech/react-dev-utils/printBuildError');
 

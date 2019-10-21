@@ -168,7 +168,7 @@ module.exports = function(webpackEnv) {
       // require.resolve('webpack-dev-server/client') + '?/',
       // require.resolve('webpack/hot/dev-server'),
       isEnvDevelopment &&
-        require.resolve('@verumtech/react-dev-utils/webpackHotDevClientSpa'),
+        require.resolve('@verumtech/react-dev-utils/webpackHotDevClient'),
       // Finally, this is your app's code:
       paths.appIndexJs,
       // We include the app code last so that if there is a runtime error during
@@ -381,6 +381,7 @@ module.exports = function(webpackEnv) {
                     'babel-plugin-named-asset-import',
                     '@verumtech/babel-preset-react-app-spa',
                     '@verumtech/react-dev-utils',
+                    '@verumtech/react-scripts',
                     '@verumtech/react-scripts-spa',
                   ]
                 ),
@@ -402,7 +403,6 @@ module.exports = function(webpackEnv) {
                 // It enables caching results in ./node_modules/.cache/babel-loader/
                 // directory for faster rebuilds.
                 cacheDirectory: true,
-                // See #6846 for context on why cacheCompression is disabled
                 cacheCompression: false,
                 compact: isEnvProduction,
               },
@@ -426,7 +426,6 @@ module.exports = function(webpackEnv) {
                   ],
                 ],
                 cacheDirectory: true,
-                // See #6846 for context on why cacheCompression is disabled
                 cacheCompression: false,
                 // @remove-on-eject-begin
                 cacheIdentifier: getCacheIdentifier(
@@ -437,6 +436,7 @@ module.exports = function(webpackEnv) {
                     'babel-plugin-named-asset-import',
                     '@verumtech/babel-preset-react-app-spa',
                     '@verumtech/react-dev-utils',
+                    '@verumtech/react-scripts',
                     '@verumtech/react-scripts-spa',
                   ]
                 ),
@@ -671,7 +671,7 @@ module.exports = function(webpackEnv) {
             '!**/src/setupTests.*',
           ],
           silent: true,
-          // The formatter is invoked directly in WebpackDevServerUtilsSpa during development
+          // The formatter is invoked directly in WebpackDevServerUtils during development
           formatter: isEnvProduction ? typescriptFormatter : undefined,
         }),
     ].filter(Boolean),

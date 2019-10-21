@@ -39,10 +39,10 @@ const clearConsole = require('@verumtech/react-dev-utils/clearConsole');
 const checkRequiredFiles = require('@verumtech/react-dev-utils/checkRequiredFiles');
 const {
   choosePort,
-  createCompiler,
+  createCompilerSpa,
   prepareProxy,
   prepareUrls,
-} = require('@verumtech/react-dev-utils/WebpackDevServerUtilsSpa');
+} = require('@verumtech/react-dev-utils/WebpackDevServerUtils');
 const openBrowser = require('@verumtech/react-dev-utils/openBrowser');
 const paths = require('../config/paths');
 const configFactory = require('../config/webpack.config');
@@ -106,7 +106,7 @@ checkBrowsers(paths.appPath, isInteractive)
         devServer.sockWrite(devServer.sockets, 'errors', errors),
     };
     // Create a webpack compiler that is configured with custom messages.
-    const compiler = createCompiler({
+    const compiler = createCompilerSpa({
       appName,
       config,
       devSocket,

@@ -7,6 +7,8 @@
 
 'use strict';
 
+/* global __resourceQuery */
+
 // This alternative WebpackDevServer combines the functionality of:
 // https://github.com/webpack/webpack-dev-server/blob/webpack-1/client/index.js
 // https://github.com/webpack/webpack/blob/webpack-1/hot/dev-server.js
@@ -22,6 +24,13 @@ var url = require('url');
 var launchEditorEndpoint = require('./launchEditorEndpoint');
 var formatWebpackMessages = require('./formatWebpackMessages');
 var ErrorOverlay = require('react-error-overlay');
+
+let devPort = '';
+if (__resourceQuery) {
+  var querystring = require('querystring');
+  var params = querystring.parse(__resourceQuery.slice(1));
+  devPort = params.devPort;
+}
 
 ErrorOverlay.setEditorHandler(function editorHandler(errorLocation) {
   // Keep this sync with errorOverlayMiddleware.js
@@ -61,7 +70,7 @@ var connection = new SockJS(
   url.format({
     protocol: window.location.protocol,
     hostname: window.location.hostname,
-    port: window.location.port,
+    port: devPort || window.location.port,
     // Hardcoded in WebpackDevServer
     pathname: '/sockjs-node',
   })

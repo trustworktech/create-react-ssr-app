@@ -5,10 +5,10 @@
 # LICENSE file in the root directory of this source tree.
 
 # ******************************************************************************
-# This releases an update to the `react-ssr-scripts` package.
+# This releases an update to the `react-starter` package.
 # Don't use `npm publish` for it.
 # Read the release instructions:
-# https://github.com/trustworktech/create-react-ssr-app/blob/master/CONTRIBUTING.md#cutting-a-release
+# https://github.com/verumtech/react-starter/blob/master/CONTRIBUTING.md#cutting-a-release
 # ******************************************************************************
 
 # Start in tasks/ even if run from root directory

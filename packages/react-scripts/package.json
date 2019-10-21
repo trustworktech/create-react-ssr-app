@@ -1,6 +1,6 @@
 {
   "name": "@verumtech/react-scripts",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Configuration and scripts for React Starter.",
   "keywords": [
     "react"
@@ -27,8 +27,8 @@
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^2.2.0",
     "@typescript-eslint/parser": "^2.2.0",
-    "@verumtech/eslint-config-react-app": "^0.0.1",
-    "@verumtech/react-dev-utils": "^0.0.1",
+    "@verumtech/eslint-config-react-app": "^1.0.0",
+    "@verumtech/react-dev-utils": "^1.0.0",
     "babel-eslint": "10.0.3",
     "eslint": "^6.1.0",
     "eslint-loader": "3.0.2",
