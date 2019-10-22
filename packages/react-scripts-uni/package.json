@@ -1,6 +1,6 @@
 {
-  "name": "@verumtech/react-scripts-uni",
   "version": "1.0.1",
+  "name": "@verumtech/react-scripts-uni",
   "description": "Configuration and scripts for React Starter universal apps.",
   "keywords": [
     "react",
