@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
   "name": "@verumtech/react-starter",
+  "version": "1.0.0",
   "description": "Create high quality React apps with minimal effort.",
   "keywords": [
     "react"

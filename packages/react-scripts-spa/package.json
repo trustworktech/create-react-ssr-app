@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
   "name": "@verumtech/react-scripts-spa",
+  "version": "1.0.0",
   "description": "Configuration and scripts for React Starter single page apps.",
   "keywords": [
     "react",
