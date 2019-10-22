@@ -1,6 +1,6 @@
 {
   "name": "@verumtech/react-dev-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Webpack utilities used by React Starter",
   "homepage": "https://react-starter.dev/",
   "bugs": {

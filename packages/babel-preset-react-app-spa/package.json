@@ -1,6 +1,6 @@
 {
   "name": "@verumtech/babel-preset-react-app-spa",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Babel preset used by React Starter single page apps",
   "keywords": [
     "babel",
