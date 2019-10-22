@@ -1,6 +1,6 @@
 {
-  "name": "@verumtech/react-scripts",
   "version": "1.0.4",
+  "name": "@verumtech/react-scripts",
   "description": "Configuration and scripts for React Starter.",
   "keywords": [
     "react"
