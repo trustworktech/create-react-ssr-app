@@ -1,5 +1,5 @@
 {
-  "version": "1.0.1",
+  "version": "1.0.3",
   "name": "@verumtech/eslint-config-react-app",
   "description": "ESLint configuration used by React Starter",
   "keywords": [
