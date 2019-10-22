@@ -14,7 +14,7 @@
   </strong>
   <br />
   <br />
-  <a href="https://github.com/verumtech/react-starter/workflows/build/badge.svg">
+  <a href="https://github.com/verumtech/react-starter/actions?workflow=build">
     <img src="https://github.com/verumtech/react-starter/workflows/build/badge.svg" alt="build">
   </a>
   <a href="https://spectrum.chat/react-starter">
