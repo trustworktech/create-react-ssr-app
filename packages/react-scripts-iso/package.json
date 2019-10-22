@@ -1,6 +1,6 @@
 {
-  "name": "@verumtech/react-scripts-iso",
   "version": "1.0.0",
+  "name": "@verumtech/react-scripts-iso",
   "description": "Configuration and scripts for React Starter isomorphic apps.",
   "keywords": [
     "react",

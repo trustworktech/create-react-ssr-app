@@ -30,7 +30,6 @@ if (process.env.SKIP_PREFLIGHT_CHECK !== 'true') {
 const verifyTypeScriptSetup = require('../config/verifyTypeScriptSetup');
 verifyTypeScriptSetup();
 // @remove-on-eject-end
-
 const path = require('path');
 const fs = require('fs-extra');
 const webpack = require('webpack');

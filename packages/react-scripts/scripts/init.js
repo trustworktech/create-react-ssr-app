@@ -14,17 +14,16 @@ process.on('unhandledRejection', err => {
   throw err;
 });
 
-const fs = require('fs-extra');
+const os = require('os');
 const path = require('path');
-const sortPackageJson = require('@verumtech/react-dev-utils/sortPackageJson');
-const chalk = require('@verumtech/react-dev-utils/chalk');
+const fs = require('fs-extra');
 const execSync = require('child_process').execSync;
+const chalk = require('@verumtech/react-dev-utils/chalk');
 const spawn = require('@verumtech/react-dev-utils/crossSpawn');
+const sortPackageJson = require('@verumtech/react-dev-utils/sortPackageJson');
 const {
   defaultBrowsers,
 } = require('@verumtech/react-dev-utils/browsersHelper');
-const os = require('os');
-const verifyTypeScriptSetup = require('../config/verifyTypeScriptSetup');
 
 function isInGitRepository() {
   try {
@@ -81,13 +80,12 @@ function tryGitInit(appPath) {
 module.exports = function(
   appPath,
   appName,
+  scriptPath,
+  scriptName,
   verbose,
   originalDirectory,
   useTypeScript
 ) {
-  const ownPath = path.dirname(
-    require.resolve(path.join(__dirname, '..', 'package.json'))
-  );
   const appPackage = require(path.join(appPath, 'package.json'));
   const useYarn = fs.existsSync(path.join(appPath, 'yarn.lock'));
 
@@ -96,11 +94,11 @@ module.exports = function(
 
   // Setup the script rules
   appPackage.scripts = {
-    start: 'react-scripts-spa start',
-    build: 'react-scripts-spa build',
-    test: 'react-scripts-spa test',
-    eject: 'react-scripts-spa eject',
-    lint: 'react-scripts-spa lint',
+    start: `${scriptName} start`,
+    build: `${scriptName} build`,
+    test: `${scriptName} test`,
+    eject: `${scriptName} eject`,
+    lint: `${scriptName} lint`,
   };
 
   if (useTypeScript) {
@@ -130,7 +128,7 @@ module.exports = function(
 
   // Copy the files for the user
   const templatePath = path.join(
-    ownPath,
+    scriptPath,
     useTypeScript ? 'template-typescript' : 'template'
   );
   if (fs.existsSync(templatePath)) {
@@ -189,27 +187,15 @@ module.exports = function(
     command = 'npm';
     args = ['install', '--save', verbose && '--verbose'].filter(e => e);
   }
-  args.push('react', 'react-dom');
-  if (useTypeScript) {
-    args.push(
-      '@types/node',
-      '@types/react',
-      '@types/react-dom',
-      '@types/jest',
-      'typescript'
-    );
-  }
 
   // Install additional template dependencies, if present
-  const templateDependenciesPath = path.join(
-    appPath,
-    '.template.dependencies.json'
-  );
+  const templateDependenciesPath = path.join(appPath, 'dependencies.json');
   if (fs.existsSync(templateDependenciesPath)) {
     const templateDependencies = require(templateDependenciesPath);
     args = args.concat(
-      Object.keys(templateDependencies).map(key => {
-        return `${key}@${templateDependencies[key]}`;
+      Object.keys(templateDependencies.default).map(pkg => {
+        const version = templateDependencies.default[pkg];
+        return version ? `${pkg}@${version}` : pkg;
       })
     );
     fs.unlinkSync(templateDependenciesPath);
@@ -225,6 +211,11 @@ module.exports = function(
   }
 
   if (useTypeScript) {
+    const verifyTypeScriptSetup = require(path.join(
+      scriptPath,
+      'config',
+      'verifyTypeScriptSetup'
+    ));
     verifyTypeScriptSetup();
   }
 

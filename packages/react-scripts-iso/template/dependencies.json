@@ -1,0 +1,8 @@
+{
+  "default": {
+    "escape-string-regexp": "",
+    "express": "",
+    "react": "",
+    "react-dom": ""
+  }
+}

@@ -454,7 +454,8 @@ function run(
         checkNodeVersion(packageName);
 
         const pnpPath = path.resolve(process.cwd(), '.pnp.js');
-
+        const scriptPath = path.resolve(root, 'node_modules', packageName);
+        const scriptName = packageName.replace('@verumtech/', '');
         const nodeArgs = fs.existsSync(pnpPath) ? ['--require', pnpPath] : [];
 
         await executeNodeScript(
@@ -462,11 +463,19 @@ function run(
             cwd: process.cwd(),
             args: nodeArgs,
           },
-          [root, appName, verbose, originalDirectory, useTypescript],
+          [
+            root,
+            appName,
+            scriptPath,
+            scriptName,
+            verbose,
+            originalDirectory,
+            useTypescript,
+          ],
           `
-        var init = require('${packageName}/scripts/init.js');
-        init.apply(null, JSON.parse(process.argv[1]));
-      `
+            var init = require('@verumtech/react-scripts/scripts/init.js');
+            init.apply(null, JSON.parse(process.argv[1]));
+          `
         );
       })
       .catch(reason => {

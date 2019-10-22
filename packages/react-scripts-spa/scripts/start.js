@@ -30,7 +30,6 @@ if (process.env.SKIP_PREFLIGHT_CHECK !== 'true') {
 const verifyTypeScriptSetup = require('../config/verifyTypeScriptSetup');
 verifyTypeScriptSetup();
 // @remove-on-eject-end
-
 const fs = require('fs');
 const chalk = require('@verumtech/react-dev-utils/chalk');
 const webpack = require('webpack');

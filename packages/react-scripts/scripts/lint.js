@@ -12,15 +12,15 @@ const path = require('path');
 const fs = require('fs-extra');
 const spawn = require('@verumtech/react-dev-utils/crossSpawn');
 
-const paths = require('../config/paths');
+const ownPaths = require('../config/paths');
 
 const eslintPath = path.format({
-  dir: paths.ownNodeModules,
+  dir: ownPaths.ownNodeModules,
   base: '.bin/eslint',
 });
 
 const ignorePath = path.format({
-  dir: paths.appPath,
+  dir: ownPaths.appPath,
   base: '.gitignore',
 });
 
@@ -28,7 +28,7 @@ const ignorePath = path.format({
 const result = spawn.sync(
   eslintPath,
   [
-    paths.appPath,
+    ownPaths.appPath,
     fs.existsSync(ignorePath) && '--ignore-path',
     fs.existsSync(ignorePath) && ignorePath,
     '--ext',

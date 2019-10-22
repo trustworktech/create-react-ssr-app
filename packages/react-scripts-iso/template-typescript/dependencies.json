@@ -1,0 +1,15 @@
+{
+  "default": {
+    "@types/node": "",
+    "@types/express": "",
+    "@types/react": "",
+    "@types/react-dom": "",
+    "@types/jest": "",
+    "@types/webpack-env": "",
+    "escape-string-regexp": "",
+    "express": "",
+    "react": "",
+    "react-dom": "",
+    "typescript": ""
+  }
+}

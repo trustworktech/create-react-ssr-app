@@ -1,0 +1,70 @@
+{
+  "version": "1.0.0",
+  "name": "@verumtech/react-scripts-uni",
+  "description": "Configuration and scripts for React Starter universal apps.",
+  "keywords": [
+    "react",
+    "universal"
+  ],
+  "homepage": "https://react-starter.dev/",
+  "bugs": {
+    "url": "https://github.com/verumtech/react-starter/issues",
+    "email": "dev@verumtechnologies.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verumtech/react-starter.git",
+    "directory": "packages/react-scripts-uni"
+  },
+  "license": "MIT",
+  "files": [
+    "bin",
+    "config",
+    "lib",
+    "scripts",
+    "template",
+    "template-typescript"
+  ],
+  "types": "./lib/react-app.d.ts",
+  "bin": {
+    "react-scripts-uni": "./bin/react-scripts-uni.js"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@verumtech/babel-preset-react-app-uni": "^1.0.0",
+    "@verumtech/react-dev-utils": "^1.0.0",
+    "@verumtech/react-scripts": "^1.0.0",
+    "babel-jest": "^24.9.0",
+    "dotenv": "6.2.0",
+    "dotenv-expand": "5.1.0",
+    "fs-extra": "7.0.1",
+    "jest-expo": "^35.0.0",
+    "jest-watch-typeahead": "0.4.0",
+    "resolve": "1.12.0"
+  },
+  "devDependencies": {
+    "expo": "^35.0.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
+    "react-native-web": "^0.11.7",
+    "react-test-renderer": "^16.8.4"
+  },
+  "optionalDependencies": {
+    "fsevents": "2.0.7"
+  },
+  "engines": {
+    "node": ">=8.10"
+  }
+}

@@ -14,25 +14,23 @@ process.on('unhandledRejection', err => {
   throw err;
 });
 
-const fs = require('fs-extra');
+const os = require('os');
 const path = require('path');
-const commander = require('@verumtech/react-dev-utils/commander');
+const fs = require('fs-extra');
 const execSync = require('child_process').execSync;
 const chalk = require('@verumtech/react-dev-utils/chalk');
-const paths = require('../config/paths');
 const inquirer = require('@verumtech/react-dev-utils/inquirer');
 const spawnSync = require('@verumtech/react-dev-utils/crossSpawn').sync;
 const sortPackageJson = require('@verumtech/react-dev-utils/sortPackageJson');
-const os = require('os');
+
+const ownPaths = require('../config/paths');
+const scriptPaths = require(path.join(ownPaths.scriptPath, 'config', 'paths'));
 
 const green = chalk.green;
 const cyan = chalk.cyan;
-
-const validScriptOptions = [
-  'react-scripts-spa',
-  'react-scripts-iso',
-  'react-scripts-uni',
-];
+const appPath = ownPaths.appPath;
+const ownPath = ownPaths.ownPath;
+const scriptPath = ownPaths.scriptPath;
 
 function getGitStatus() {
   try {
@@ -59,20 +57,6 @@ function tryGitAdd(appPath) {
   } catch (e) {
     return false;
   }
-}
-
-const program = new commander.Command()
-  .option('-s, --script [name]', 'The react-scripts name to use')
-  .allowUnknownOption()
-  .parse(process.argv);
-
-if (!program.script || !validScriptOptions.includes(program.script)) {
-  console.error(
-    `Must select a valid script name using --script option. Valid choices are: ${validScriptOptions.join(
-      ', '
-    )}`
-  );
-  process.exit(1);
 }
 
 inquirer
@@ -108,10 +92,6 @@ inquirer
     }
 
     console.log('Ejecting...');
-
-    const ownPath = paths.ownPath;
-    const scriptPath = path.join(ownPath, '..', program.script);
-    const appPath = paths.appPath;
 
     function verifyAbsent(file) {
       if (fs.existsSync(path.join(appPath, file))) {
@@ -269,10 +249,14 @@ inquirer
     appPackage.jest = jestConfig;
 
     // Add Babel config
-    console.log(`  Adding ${cyan('Babel')} preset`);
-    appPackage.babel = {
-      presets: [`@verumtech/${program.script.replace('scripts', 'app')}`],
-    };
+    if (!fs.existsSync(path.join(appPath, 'babel.config.js'))) {
+      console.log(`  Adding ${cyan('Babel')} preset`);
+      appPackage.babel = {
+        presets: [
+          `@verumtech/${ownPaths.scriptName.replace('scripts', 'app')}`,
+        ],
+      };
+    }
 
     // Add ESlint config
     if (!appPackage.eslintConfig) {
@@ -293,10 +277,10 @@ inquirer
       'lib',
       'react-app.d.ts'
     );
-    if (fs.existsSync(paths.appTypeDeclarations)) {
+    if (fs.existsSync(scriptPaths.appTypeDeclarations)) {
       try {
         // Read app declarations file
-        let content = fs.readFileSync(paths.appTypeDeclarations, 'utf8');
+        let content = fs.readFileSync(scriptPaths.appTypeDeclarations, 'utf8');
         const scriptContent =
           fs.readFileSync(scriptTypeDeclarations, 'utf8').trim() + os.EOL;
 
@@ -311,7 +295,7 @@ inquirer
             .trim() + os.EOL;
 
         fs.writeFileSync(
-          paths.appTypeDeclarations,
+          scriptPaths.appTypeDeclarations,
           (scriptContent + os.EOL + content).trim() + os.EOL
         );
       } catch (e) {
@@ -343,7 +327,7 @@ inquirer
       }
     }
 
-    if (fs.existsSync(paths.yarnLockFile)) {
+    if (fs.existsSync(scriptPaths.yarnLockFile)) {
       const windowsCmdFilePathOwn = path.join(
         appPath,
         'node_modules',
@@ -354,7 +338,7 @@ inquirer
         appPath,
         'node_modules',
         '.bin',
-        `${program.script}.cmd`
+        `${ownPaths.scriptName}.cmd`
       );
       let windowsCmdFileContentOwn;
       let windowsCmdFileContentScript;

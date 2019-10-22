@@ -23,19 +23,34 @@ process.on('unhandledRejection', err => {
 // Ensure environment variables are read.
 require('../config/env');
 // @remove-on-eject-begin
+const path = require('path');
+const ownPaths = require('../config/paths');
+const appPath = ownPaths.appPath;
+const scriptPath = ownPaths.scriptPath;
+require(path.join(scriptPath, 'config', 'env'));
 // Do the preflight check (only happens before eject).
-const verifyPackageTree = require('../config/verifyPackageTree');
+const verifyPackageTree = require(path.join(
+  scriptPath,
+  'config',
+  'verifyPackageTree'
+));
 if (process.env.SKIP_PREFLIGHT_CHECK !== 'true') {
   verifyPackageTree();
 }
-const verifyTypeScriptSetup = require('../config/verifyTypeScriptSetup');
+const verifyTypeScriptSetup = require(path.join(
+  scriptPath,
+  'config',
+  'verifyTypeScriptSetup'
+));
 verifyTypeScriptSetup();
 // @remove-on-eject-end
-
 const jest = require('jest');
 const execSync = require('child_process').execSync;
 let argv = process.argv.slice(2);
-
+// @remove-on-eject-begin
+// Before ejection we have a --script <script_name> flag to remove from the jest command
+argv = process.argv.slice(4);
+// @remove-on-eject-end
 function isInGitRepository() {
   try {
     execSync('git rev-parse --is-inside-work-tree', { stdio: 'ignore' });
@@ -66,16 +81,18 @@ if (
 
 // @remove-on-eject-begin
 // This is not necessary after eject because we embed config into package.json.
-const createJestConfig = require('../config/createJestConfig');
-const path = require('path');
-const paths = require('../config/paths');
+const createJestConfig = require(path.join(
+  scriptPath,
+  'config',
+  'createJestConfig'
+));
 
 argv.push(
   '--config',
   JSON.stringify(
     createJestConfig(
-      relativePath => path.resolve(__dirname, '..', relativePath),
-      path.resolve(paths.appSrc, '..'),
+      relativePath => path.resolve(scriptPath, relativePath),
+      appPath,
       false
     )
   )

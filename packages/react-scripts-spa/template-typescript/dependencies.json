@@ -1,0 +1,11 @@
+{
+  "default": {
+    "@types/node": "",
+    "@types/react": "",
+    "@types/react-dom": "",
+    "@types/jest": "",
+    "react": "",
+    "react-dom": "",
+    "typescript": ""
+  }
+}

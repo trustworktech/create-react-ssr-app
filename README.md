@@ -1,6 +1,3 @@
-<!-- A spacer -->
-<p>&nbsp;</p>
-
 <p align="center">
   <img alt="react-starter" src="logo.svg" width="250">
 </p>

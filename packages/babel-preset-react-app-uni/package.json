@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "name": "@verumtech/babel-preset-react-app-uni",
+  "description": "Babel preset used by React Starter universal apps",
+  "keywords": [
+    "babel",
+    "react",
+    "universal"
+  ],
+  "homepage": "https://react-starter.dev/",
+  "bugs": {
+    "url": "https://github.com/verumtech/react-starter/issues",
+    "email": "dev@verumtechnologies.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verumtech/react-starter.git",
+    "directory": "packages/babel-preset-react-app-uni"
+  },
+  "license": "MIT",
+  "files": [
+    "create.js",
+    "index.js"
+  ],
+  "dependencies": {
+    "babel-plugin-styled-components": "^1.10.6",
+    "babel-preset-expo": "^7.1.0"
+  }
+}
