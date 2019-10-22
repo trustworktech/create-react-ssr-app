@@ -14,8 +14,8 @@
   </strong>
   <br />
   <br />
-  <a href="http://badge.fury.io/js/jest">
-    <img src="https://badge.fury.io/js/jest.svg" alt="npm version">
+  <a href="https://github.com/verumtech/react-starter/workflows/build/badge.svg">
+    <img src="https://github.com/verumtech/react-starter/workflows/build/badge.svg" alt="build">
   </a>
   <a href="https://spectrum.chat/react-starter">
     <img src="https://withspectrum.github.io/badge/badge.svg" alt="Join the community on Spectrum">
