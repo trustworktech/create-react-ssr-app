@@ -2,7 +2,7 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "packages": ["packages/*"],
-  "version": "1.0.1",
+  "version": "1.0.2",
   "command": {
     "publish": {
       "registry": "https://npm.pkg.github.com/"
