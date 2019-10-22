@@ -1,7 +1,7 @@
 {
   "name": "@verumtech/babel-preset-react-app-iso",
-  "description": "Babel preset used by React Starter isomorphic apps",
   "version": "1.0.3",
+  "description": "Babel preset used by React Starter isomorphic apps",
   "keywords": [
     "babel",
     "isomorphic",

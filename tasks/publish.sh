@@ -32,4 +32,4 @@ if [ -n "$(git status --porcelain)" ]; then
 fi
 
 # Go!
-./node_modules/.bin/lerna publish "$@"
+./node_modules/.bin/lerna publish --npm-client=npm "$@"

@@ -1,6 +1,6 @@
 {
-  "version": "1.0.3",
   "name": "@verumtech/babel-preset-react-app-uni",
+  "version": "1.0.3",
   "description": "Babel preset used by React Starter universal apps",
   "keywords": [
     "babel",
