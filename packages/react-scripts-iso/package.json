@@ -1,6 +1,6 @@
 {
   "name": "@verumtech/react-scripts-iso",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Configuration and scripts for React Starter isomorphic apps.",
   "keywords": [
     "isomorphic",
@@ -46,9 +46,9 @@
   "dependencies": {
     "@babel/core": "7.6.0",
     "@svgr/webpack": "4.3.2",
-    "@verumtech/babel-preset-react-app-iso": "^1.0.3",
-    "@verumtech/react-dev-utils": "^1.0.3",
-    "@verumtech/react-scripts": "^1.0.3",
+    "@verumtech/babel-preset-react-app-iso": "^1.0.4",
+    "@verumtech/react-dev-utils": "^1.0.4",
+    "@verumtech/react-scripts": "^1.0.4",
     "babel-jest": "^24.9.0",
     "babel-loader": "8.0.6",
     "babel-plugin-dynamic-import-node": "2.3.0",

@@ -1,6 +1,6 @@
 {
   "name": "@verumtech/react-scripts-spa",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Configuration and scripts for React Starter single page apps.",
   "keywords": [
     "react",
@@ -44,9 +44,9 @@
   "dependencies": {
     "@babel/core": "7.6.0",
     "@svgr/webpack": "4.3.2",
-    "@verumtech/babel-preset-react-app-spa": "^1.0.3",
-    "@verumtech/react-dev-utils": "^1.0.3",
-    "@verumtech/react-scripts": "^1.0.3",
+    "@verumtech/babel-preset-react-app-spa": "^1.0.4",
+    "@verumtech/react-dev-utils": "^1.0.4",
+    "@verumtech/react-scripts": "^1.0.4",
     "babel-jest": "^24.9.0",
     "babel-loader": "8.0.6",
     "babel-plugin-named-asset-import": "^0.3.4",

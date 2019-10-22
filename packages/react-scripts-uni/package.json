@@ -1,6 +1,6 @@
 {
   "name": "@verumtech/react-scripts-uni",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Configuration and scripts for React Starter universal apps.",
   "keywords": [
     "react",
@@ -42,9 +42,9 @@
     ]
   },
   "dependencies": {
-    "@verumtech/babel-preset-react-app-uni": "^1.0.3",
-    "@verumtech/react-dev-utils": "^1.0.3",
-    "@verumtech/react-scripts": "^1.0.3",
+    "@verumtech/babel-preset-react-app-uni": "^1.0.4",
+    "@verumtech/react-dev-utils": "^1.0.4",
+    "@verumtech/react-scripts": "^1.0.4",
     "babel-jest": "^24.9.0",
     "dotenv": "6.2.0",
     "dotenv-expand": "5.1.0",
