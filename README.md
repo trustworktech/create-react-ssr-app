@@ -1,5 +1,7 @@
 # Create React SSR App
 
+ATTENTION: This repository is no longer under active development and has been archived. You can still use current releases of this library but not further releases will be made as of now. Please contact the previous maintainer [max](https://twitter.com/max_parelius) if you have questions or are interested in taking over. Thanks.
+
 Create React apps with server side rendering and no build configuration. Inspired by the famous [create-react-app](https://facebook.github.io/create-react-app/), Create React SSR App does the same thing for React apps that require server side rendering.
 
 - [Creating an App](#creating-an-app) – How to create a new app.
