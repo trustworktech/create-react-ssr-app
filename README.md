@@ -1,6 +1,4 @@
-```
-ATTENTION: This repository is no longer under active development and has been archived. You can still use current releases of this library but not further releases will be made as of now. Please contact the previous maintainer [max](https://twitter.com/max_parelius) if you have questions or are interested in taking over. Thanks.
-```
+**ATTENTION: This repository is no longer under active development and has been archived. You can still use current releases of this library but not further releases will be made as of now. Please contact the previous maintainer [max](https://twitter.com/max_parelius) if you have questions or are interested in taking over. Thanks.**
 
 # Create React SSR App
 
